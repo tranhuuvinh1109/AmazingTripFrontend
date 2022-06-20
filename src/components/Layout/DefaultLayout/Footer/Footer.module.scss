@@ -1,0 +1,39 @@
+footer, footer a {
+    color: var(--white);
+    position: relative;
+}
+
+ul {
+    padding: 0;
+}
+
+.nav-logo {
+    width: 142px;
+    height: 40px;
+}
+
+.copyright-area {
+    border-top: 1px solid var(--white);
+    padding: 20px 10px 0 10px;
+
+    ul li i {
+        font-size: 18px;
+        margin-left: 10px;
+    }
+}
+
+.footer-background {
+    background-image: url("../../../../assets/images/footer-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(0.35);
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+    z-index: -1;
+}

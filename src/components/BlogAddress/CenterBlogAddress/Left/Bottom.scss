@@ -1,0 +1,57 @@
+.center-left-bottom {
+    margin-top: 4px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #333;
+
+    h4 {
+        font-size: 24px;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.center-left-bottom h4 {
+    padding: 0 8px;
+}
+
+.block-discount {
+    padding: 0 10px;
+
+    .discount {
+        color: #FF751A;
+    }
+}
+
+.dess2 {
+    padding: 0 10px;
+
+    .quantity {
+        font-size: 40px;
+        color: coral;
+    }
+}
+
+.sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 8px 10px;
+
+    .submit {
+        .sb {
+            font-size: 20px;
+            color: coral;
+        }
+    }
+
+    .btn-register {
+        padding: 4px 24px;
+        border-radius: 24px;
+        color: #fff;
+        background-color: coral;
+        font-size: 16px;
+    }
+}

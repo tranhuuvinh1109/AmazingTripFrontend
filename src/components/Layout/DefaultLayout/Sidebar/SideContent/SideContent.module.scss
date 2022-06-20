@@ -1,0 +1,15 @@
+.sticky-side-bar { 
+    position: sticky;
+    top: 60px;
+    
+    .btn-title {
+        font-weight: bold;
+        font-size: 18px;
+        color: var(--background-dark-blue);
+        text-align: center;
+        background-color: var(--background-light-blue);
+        padding: 10px 0;
+        border-radius: 10px;
+        width: 100%;
+    }
+}

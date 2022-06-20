@@ -1,0 +1,26 @@
+.menu-list {
+    position: absolute;
+    background-color: #f9f2f2;
+    left: 87%;
+    top: 90%;
+    border-radius: 10px;
+    padding: 0 10px;
+    text-align: center;
+
+    img {
+        height: var(--avatar-size);
+        width: var(--avatar-size);
+    }
+
+    li {
+        padding: 5px 0;
+    }
+    
+    .user-page-link, .signout-link {
+        border-top: 1px solid rgba(95, 108, 123, 0.2);
+        
+        a h5 {
+            font-size: 14px;
+        }
+    }
+}

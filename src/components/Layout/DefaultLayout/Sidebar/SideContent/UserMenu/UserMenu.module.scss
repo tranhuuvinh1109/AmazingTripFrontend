@@ -1,0 +1,32 @@
+.user-menu {
+    min-width: 205px;
+    min-height: 100px;
+    position: absolute;
+    top: -30%;
+    padding-left: 5px;
+    cursor: context-menu;
+}
+
+.user-profile {
+    background-color: var(--background-light-blue);
+    border-radius: 10px;
+    min-width: 100%;
+    min-height: 100px;
+}
+
+.user-page-link {
+    border-top: 1px solid var(--background-dark-blue);
+    padding: 5px 0;
+    font-size: 18px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.follow-inf {
+    text-align: left;
+    margin-left: 10px;
+    
+    h6 {
+        font-size: 18px;
+    }
+}
