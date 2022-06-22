@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
@@ -20,9 +21,9 @@ function Header() {
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
-                <a href="#">
+                <Link to='/'>
                     <img src={images.logo} alt="Logo" className={cx('nav-logo')}/>
-                </a>
+                </Link>
                 <div className={cx('search-bar')}>
                     <form action="#" className={cx('input-group')}>
                         <div className={cx('d-sm-flex align-items-center')}>

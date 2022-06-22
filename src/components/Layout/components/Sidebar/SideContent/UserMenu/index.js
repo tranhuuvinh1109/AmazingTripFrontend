@@ -13,10 +13,10 @@ function UserMenu({ openStatus, userInf })  {
     useEffect(() => {
         setInterval(() => {
             setShow(!show);
-        }, 500)
+        }, 200)
     }, [])
 
-    const isLeft = openStatus ? { left: '100%' } : { right: '105%'};
+    const isLeft = openStatus ? { left: '100%', paddingLeft: '10px' } : { right: '100%', paddingRight: '10px'};
 
     return (
         <div>
@@ -39,7 +39,7 @@ function UserMenu({ openStatus, userInf })  {
                                     <h6 className={cx('m-0')}>{userInf.nickname}</h6>
                                 </a>
                                 <i className={cx('fa-solid fa-users')}></i>
-                                <span>{userInf.follower}</span>
+                                <span className={cx('ms-2')}>{userInf.follower}</span>
                             </div>
                         </div>
                         <div className={cx('user-page-link')}>

@@ -1,6 +1,7 @@
 .sticky-side-bar { 
     position: sticky;
     top: 60px;
+    z-index: 100;
     
     .btn-title {
         font-weight: bold;

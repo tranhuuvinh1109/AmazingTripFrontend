@@ -16,17 +16,16 @@ const listUsers = [
     },
     {
         id: 2,
-        nickname: 'User_name_2',
+        nickname: 'User_name_1',
         image: '',
         follower: '5.6k'
     },
     {
         id: 3,
-        nickname: 'User_name_3',
+        nickname: 'User_name_1',
         image: '',
         follower: '5.6k'
     }
-    
 ]
 
 function ListItem ({ location, openStatus, activedList }) {
@@ -38,11 +37,14 @@ function ListItem ({ location, openStatus, activedList }) {
                 <ul className={cx('list-users')}>
                     <span className={cx('line-span')}></span>
                     {listUsers.map( user => (
-                        <li key={user.id} className={cx('each-user')}>
+                        <li 
+                            key={user.id} 
+                            className={cx('each-user')}
+                        >
                             <button 
                                 className={cx('btn-user')}
-                                onMouseEnter={() => setTest([user.id])}
-                                onMouseLeave={() => setTest([])}
+                                onMouseOver={() => setTest([user.id])}
+                                onMouseOut={() => setTest([])}
                             >
                                 <div className={cx('d-flex align-items-center ps-4')}>
                                     { !location && 
@@ -54,9 +56,12 @@ function ListItem ({ location, openStatus, activedList }) {
                                     }
                                     <span className={cx('ms-2')}>{user.nickname}</span>
                                 </div>
-                            { !location && test.includes(user.id) && (
-                                <UserMenu openStatus={openStatus} userInf={user} />
-                            )}
+                                { !location && test.includes(user.id) && (
+                                    <UserMenu 
+                                        openStatus={openStatus} 
+                                        userInf={user} 
+                                    />
+                                )}
                             </button>
                         </li>
                     ))}

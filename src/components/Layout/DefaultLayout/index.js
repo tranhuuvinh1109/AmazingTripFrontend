@@ -1,19 +1,15 @@
-import Header  from "./Header";
-import Left from "./Sidebar/Left";
-import Right from "./Sidebar/Right";
-import Footer from "./Footer";
+import { Fragment } from "react";
+import { Header, Footer } from '../components';
 
 function DefaultLayout({ children }) {
-    return (  
-        <div>
+    return ( 
+        <Fragment>
             <Header />
-            <div className='row m-0 ps-1 pe-2'>
-                <Left />
+            <div className='m-0 ps-1 pe-1'>
                 { children }
-                <Right />
             </div>
             <Footer />
-        </div>
+        </Fragment>
     );
 }
 
