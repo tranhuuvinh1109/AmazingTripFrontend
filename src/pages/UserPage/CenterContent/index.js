@@ -1,6 +1,13 @@
+import { Fragment } from 'react';
+import { BlogAddressPost } from '../../../components/Layout/components';
+
 function CenterContent() {
     return ( 
-        <h1>CenterContent</h1>
+        <Fragment>
+            <BlogAddressPost />
+            <BlogAddressPost />
+            <BlogAddressPost />
+        </Fragment>
     );
 }
 

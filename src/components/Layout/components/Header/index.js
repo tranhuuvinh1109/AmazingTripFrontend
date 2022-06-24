@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
@@ -9,6 +9,8 @@ import Menu from './MenuDropDown';
 const cx = classNames.bind(styles);
 
 function Header() {
+
+    const history = useNavigate()
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -21,9 +23,15 @@ function Header() {
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
-                <Link to='/'>
-                    <img src={images.logo} alt="Logo" className={cx('nav-logo')}/>
-                </Link>
+                <div className={cx('d-flex align-items-center')}>
+                    <Link to='/'>
+                        <img src={images.logo} alt="Logo" className={cx('nav-logo')}/>
+                    </Link>
+                    <button onClick={() => history(-1)} className={cx('btn-go-back')}>
+                        <i className="fa-solid fa-angle-left me-1"></i>
+                        <span>Quay lại</span>
+                    </button>
+                </div>
                 <div className={cx('search-bar')}>
                     <form action="#" className={cx('input-group')}>
                         <div className={cx('d-sm-flex align-items-center')}>

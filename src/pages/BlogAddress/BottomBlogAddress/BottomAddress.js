@@ -1,11 +1,11 @@
 import React from 'react';
-import FeedbackBlog from './FeedbackBlog/FeedbackBlog';
+import { BlogAddressPost } from '../../../components/Layout/components';
 import './BottomAddress.scss';
 function BottomAddress() {
     return (
         <div className="bottom">
-            <FeedbackBlog />
-            <FeedbackBlog />
+            <BlogAddressPost />
+            <BlogAddressPost />
 
         </div>
     )

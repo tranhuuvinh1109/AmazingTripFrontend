@@ -1,0 +1,117 @@
+.feedback-blog {
+    margin-bottom: 30px;
+    background-color: var(--background-light-blue);
+    border-radius: 10px;
+    padding: 15px 30px;
+
+    h4, p, i {
+        color: var(--background-dark-blue);
+    }
+}
+
+.user-avt {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+}
+
+.user-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light-gray);
+
+    .user-infor {
+        display: flex;
+        align-items: center;
+
+        h4 {
+            font-weight: 600;
+            text-align: left;
+            line-height: 0.9;
+            padding-left: 15px;
+            span {
+                font-weight: 400 !important;
+                font-size: 16px;
+                color: var(--text-light-gray);
+                line-height: 0;
+            }
+        }
+    }
+
+    i {
+        font-size: 32px;
+    }
+
+}
+
+.post-container {
+
+    .post-star {
+        margin-top: 5px;
+        i {
+            color: rgb(231, 231, 9) !important;
+            margin-left: 3px;
+        }
+    }
+
+    .post-content {
+
+        p {
+            font-size: 18px;
+        }
+
+        .post-img {
+            padding: 15px 0;
+            text-align: center;
+
+            img {
+                max-width: 568px;
+                border-radius: 10px;
+            }
+        }
+
+        .post-reaction {
+            display: flex;
+            padding: 10px 5px;
+            justify-content: space-between;
+            border-top: 1px solid rgba($color: #094067, $alpha: 0.2);
+
+            .btn-reaction {
+                background-color: transparent;
+
+                i {
+                    font-size: 24px;
+                }
+            }
+
+            .sum-comment {
+                font-size: 18px;
+            }
+        }
+
+        .user-comment {
+            display: flex;
+
+            input {
+                font-size: 18px;
+                color: var(--background-dark-blue);
+                outline: none;
+                width: 100%;
+                border-radius: 50px;
+                margin-left: 10px;
+                padding: 0 15px;
+
+                &::placeholder {
+                    color: rgba(0, 0, 0, 0.2);
+                }
+
+                &:focus-within {
+                    border: 2px solid var(--background-dark-blue);
+                }
+            }
+
+        }
+    }
+
+}

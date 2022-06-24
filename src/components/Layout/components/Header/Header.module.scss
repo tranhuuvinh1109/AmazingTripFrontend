@@ -79,3 +79,21 @@ header {
 .message i:hover, .notification i:hover {
     color: var(--background-dark-blue);
 }
+
+.btn-go-back {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 20px;
+    background-color: transparent;
+    padding-top: 5px;
+    color: var(--text-light-gray);
+    width: 80px;
+
+    &:hover {
+        color: var(--text-orange);
+        i {
+            margin-right: 10px !important;
+        }
+    }
+}

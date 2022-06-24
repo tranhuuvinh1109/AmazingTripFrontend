@@ -1,9 +1,12 @@
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment  } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
+
+    const history = useNavigate();
+
     return (
-        <div style={{ height: '1000px' }}>
+        <div style={{ minHeight: '1000px' }}>
             <h1>
                 HomePage
                 <br/>

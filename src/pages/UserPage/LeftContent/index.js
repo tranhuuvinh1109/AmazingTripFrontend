@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from './LeftContent.module.scss';
 
@@ -10,7 +11,30 @@ function LeftContent() {
                 Về tôi
             </h2>
             <ul className={cx('user-inf')}>
-                
+                <li className={cx('d-flex align-items-start justify-content-start')}>
+                    <i class="fa-solid fa-cake-candles me-2"></i>
+                    <p className>01/01/2022</p>
+                </li>
+                <li className={cx('d-flex align-items-start justify-content-start')}>
+                    <i class="fa-solid fa-location-arrow me-2"></i>
+                    <p>xxx, xxx, xxx, xxx, Ha Noi</p>
+                </li>
+                <li className={cx('d-flex align-items-start justify-content-start')}>
+                    <i class="fa-solid fa-user-check"></i>
+                    <p>Thanh vien gia dinh
+                        
+                        <span className={cx('web-logo')}> AmazingTrip </span> 
+                        tu 
+                        
+                        <span> 01/01/2022</span>
+                    </p>
+                </li>
+                <li>
+                    <Link to='/user_edit' className={cx('d-flex align-items-start justify-content-start')}>
+                        <i class="fa-solid fa-user-pen"></i>
+                        <p>Chinh sua thong tin</p>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
