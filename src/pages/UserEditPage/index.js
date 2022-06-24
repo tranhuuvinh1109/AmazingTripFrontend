@@ -9,14 +9,18 @@ const cx = classNames.bind(styles);
 function UserEditPage() {
 
     const [activeInput, setActiveInput] = useState(false);
+    const [previewAvatar, setPreviewAvatar] = useState(images.userAvatar);
 
+    // effect bắt sự kiện nhấp chuột vào ảnh hiện lên cửa sổ input
     const inputRef = useRef();
-
     useEffect(() => {
         let handler = (e) => {
             if(inputRef.current.contains(e.target))
-                setActiveInput(!activeInput)
+                setActiveInput(true)
+            if(!inputRef.current.contains(e.target))
+                setActiveInput(false)
         }
+
 
         document.addEventListener('click', handler);
 
@@ -24,6 +28,24 @@ function UserEditPage() {
             document.removeEventListener('click', handler);
         }
     })
+
+
+    // Xóa ảnh xem tạm thời
+    useEffect(() => {
+        
+        return () => {
+            URL.revokeObjectURL(previewAvatar.preview)
+        }
+    }, [previewAvatar])
+
+    // Xem tạm thời ảnh sau khi ảnh được
+    const handlePreviewAvatar = (e) => {
+        const file = e.target.files[0]
+
+        file.preview = URL.createObjectURL(file)
+
+        setPreviewAvatar(file)
+    }
 
     return ( 
         <Fragment>
@@ -33,16 +55,30 @@ function UserEditPage() {
             <div className={cx('form-container')}>
                 <form>
                     <div className={cx('user-img')}>
-                        <div
-                            ref={inputRef} 
-                            className={cx('p-2')}
-                        >
-                            <img src={images.userAvatar} alt="A image" id="avatar"/>
-                            { activeInput && (
-                                <label htmlFor="avatar">
-                                    {console.log('ngon chay ngon vl!!')}
-                                </label>
-                            )}
+                        <div ref={inputRef}>
+                            <div>
+                                <img  
+                                    src={ previewAvatar.preview || images.userAvatar} 
+                                    alt="A image" 
+                                    id="avatar"
+                                />
+                            </div>
+                                { activeInput && (
+                                    <label htmlFor="avatar" className={cx('avatar')}>
+                                    <Fragment>
+                                        <div className={cx('camera-icon')}>
+                                            <i className="fa-solid fa-camera"></i>
+                                        </div>
+                                        <div className={cx('input-ava')}>
+                                            <input 
+                                                type="file" 
+                                                id="avatar"
+                                                onChange={handlePreviewAvatar}
+                                            />
+                                        </div>
+                                    </Fragment>
+                                    </label>
+                                )}
                         </div>
                     </div>  
 
