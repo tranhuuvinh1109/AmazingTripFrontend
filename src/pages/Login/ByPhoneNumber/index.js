@@ -31,16 +31,16 @@ function ByPhoneNumber() {
 
         return (
                 <div className={cx('container')}>
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
+                        <span className={cx('goBack')} onClick={() => navigate(-1)}><i className="fa-solid fa-angle-left"></i></span>
                         <h3 className={cx('title')}>Đăng nhập</h3>
-                        <div>
-                                <label for='sdt'>Số điện thoại</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='sdt'>Số điện thoại</label>
                                 <input id='sdt' placeholder='Nhập số điện thoại' name= "phone"
                                         value={inputs.phone || ''}
                                         onChange={handleChange}></input>
                         </div>
-                        <div>
-                                <label for='pw'>Mật khẩu</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Mật khẩu</label>
                                 <input id='pw' placeholder='Nhập mật khẩu' type='password' name="password"
                                         value={inputs.password || ''}
                                         onChange={handleChange}></input>

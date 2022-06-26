@@ -9,28 +9,30 @@ const cx = classNames.bind(styles);
 function Option() {
         return (
                 <div className={cx('container')}>
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
                         <span className={cx('title')}>Tham gia vào cộng đồng  <span className={cx('subtitle')}> AmazingTrip</span></span>
-                        <Link to='/register/by-phone-number/step1'>
-                                <button className={cx('sdt')}>
-                                        <i class="fa-solid fa-user"></i>
+                        <Link to='/register/by-phone-number/step1' className={cx('sdt')}>
+                                <button>
+                                        <i className="fa-regular fa-user"></i>
                                         <span className={cx('optionContent')}>Sử dụng SĐT</span>
                                 </button>
                         </Link>
-                        <button className={cx('')}>
-                                <img src={require('../../../assets/images/google.png')} alt='Google' />
-                                <span className={cx('optionContent')}>Tiếp tục với Google</span>
-                        </button>
 
-                        <button className={cx('')}>
-                                <img src={require('../../../assets/images/facebook.png')} alt='facebook' />
-                                <span className={cx('optionContent')}>
-                                        Tiếp tục với Facebook
-                                </span></button>
+                        <a>
+                                <button className={cx('')}>
+                                        <img src={require('../../../assets/images/google.png')} alt='Google' />
+                                        <span className={cx('optionContent')}>Tiếp tục với Google</span>
+                                </button>
+                        </a>
+                        <a>
+                                <button className={cx('')}>
+                                        <img src={require('../../../assets/images/facebook.png')} alt='facebook' />
+                                        <span className={cx('optionContent')}>
+                                                Tiếp tục với Facebook
+                                        </span>
+                                </button>
+                        </a>
 
                         <span className={cx('moreOption')}>Bạn đã có tài khoản ? <Link to='/login'><span className={cx('register')}>Đăng nhập</span></Link></span>
-
-
                 </div>
         )
 }

@@ -30,17 +30,15 @@ function ByPhoneNumber() {
         const navigate = useNavigate();
         return (
                 <div className={cx('container')}>
-                        <span className={cx('goBack')} onClick={() => navigate(-1)}>{'<'}</span>
-
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
+                        <span className={cx('goBack')} onClick={() => navigate(-1)}><i className="fa-solid fa-angle-left"></i></span>
                         <h3 className={cx('title')}>Đăng ký</h3>
-                        <div>
-                                <label for='sdt'>Ngày sinh</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='sdt'>Ngày sinh</label>
                                 <input id='sdt' type='date' name='date' value={inputs.date || ''}
                                         onChange={handleChange}></input>
                         </div>
-                        <div>
-                                <label for='pw'>Địa chỉ</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Địa chỉ</label>
                                 <input id='pw' placeholder='Nhập địa chỉ' type='text' name= "map"
                                         value={inputs.map || ''}
                                         onChange={handleChange}></input>

@@ -49,22 +49,24 @@ function ByPhoneNumber() {
        
         return (
                 <div className={cx('container')}>
+                        <span className={cx('goBack')} onClick={() => navigate(-1)}><i className="fa-solid fa-angle-left"></i></span>
 
-
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
                         <h3 className={cx('title')}>Đăng ký</h3>
-                        <img src={require('../../../../assets/images/nonavater.png')}></img>
-                        <div>
-                                <label for='pw'>Biệt danh</label>
+                        <img className={cx('input-ava')} src={require('../../../../assets/images/nonavater.png')}></img>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Biệt danh</label>
                                 <input id='pw' placeholder='Nhập biệt danh của bạn' type='text' name='nickname' value={inputs.nickname || ''}
                                         onChange={handleChange}></input>
 
                         </div>
-                        
-                        <span onClick={() => navigate(-1)} className={cx('continue')}> {'<<'} Quay lại </span>
 
-                        <button type='submit' onClick={submitForm}
-                        className={cx('login')}>Đăng ký</button>
+                        <button 
+                                type='submit' 
+                                onClick={submitForm}
+                                className={cx('login')}
+                        >
+                                Đăng ký
+                        </button>
 
 
                         <span className={cx('moreOption')}>Bạn đã có tài khoản ? <Link to='/login'><span className={cx('register')}>Đăng nhập</span></Link></span>

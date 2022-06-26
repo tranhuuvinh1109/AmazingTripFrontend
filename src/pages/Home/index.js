@@ -18,6 +18,8 @@ function Home() {
                     <Link to="/user">Trang của người dùng</Link>
                     <br/>
                     <Link to="/blog/create">Trang tạo bài viết</Link>
+                    <br/>
+                    <Link to="/register">Đăng ký</Link>
                 </h1>
             </div>
         </Fragment>

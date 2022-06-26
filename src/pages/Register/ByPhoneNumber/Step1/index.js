@@ -1,10 +1,8 @@
-import React from 'react';
+import { useState } from "react";
 import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import images from '../../../../assets/images';
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import http from "../../../../http";
 
 
@@ -12,6 +10,7 @@ const cx = classNames.bind(styles);
 
 //className={cx('')}
 function ByPhoneNumber() {
+        const navigate = useNavigate();
         const [inputs, setInputs] = useState({});
 
         const handleChange = (event) => {
@@ -22,24 +21,25 @@ function ByPhoneNumber() {
 
         return (
                 <div className={cx('container')}>
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
+                        <span className={cx('goBack')} onClick={() => navigate(-1)}><i className="fa-solid fa-angle-left"></i></span>
+
                         <h3 className={cx('title')}>Đăng ký</h3>
-                        <div>
-                                <label for='sdt'>Số điện thoại</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='sdt'>Số điện thoại:</label>
                                 <input
                                         type='text' name='phone' id='sdt' placeholder='Nhập số điện thoại'
                                         value={inputs.phone || ''}
                                         onChange={handleChange}
                                         required ></input>
                         </div>
-                        <div>
-                                <label for='pw'>Mật khẩu</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Mật khẩu:</label>
                                 <input type='password' name='password' id='pw' placeholder='Nhập mật khẩu'
                                         value={inputs.password || ''}
                                         onChange={handleChange} required ></input>
                         </div>
-                        <div>
-                                <label for='pw'>Xác nhận mật khẩu</label>
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Xác nhận mật khẩu:</label>
                                 <input type='password' name='passwordAgain' id='pw' placeholder='Xác nhận mật khẩu'
                                         value={inputs.passwordAgain || ''}
                                         onChange={handleChange} required ></input>

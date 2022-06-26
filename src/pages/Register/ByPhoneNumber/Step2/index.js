@@ -27,37 +27,36 @@ function ByPhoneNumber() {
                         <p>{inputs.email}</p>
                         <p>{inputs.name}</p> */}
                         {/* <span onClick={() => navigate(-1)}>{'<'}</span> */}
-                        <span className={cx('goBack')} onClick={() => navigate(-1)}>{'<'}</span>
+                        <span className={cx('goBack')} onClick={() => navigate(-1)}><i className="fa-solid fa-angle-left"></i></span>
 
-
-                        <img src={images.logo} className={cx('nav-logo')} alt='logo' />
                         <h3 className={cx('title')}>Đăng ký</h3>
-                        <div>
-                                <label for='sdt'>Họ và tên</label>
-                                <input name='name' id='sdt' placeholder='Nhập họ và tên'
+                        <div className={cx('form-control')}>
+                                <label htmlFor='sdt'>Họ và tên</label>
+                                <input className={cx('text-input')} name='name' id='sdt' placeholder='Nhập họ và tên'
                                         value={inputs.name || ''}
                                         onChange={handleChange}
                                         required></input>
                         </div>
-                        <div>
-                                <label for='pw'>Email</label>
-                                <input name='email' id='pw' placeholder='Nhập mật khẩu' type='email'
+                        <div className={cx('form-control')}>
+                                <label htmlFor='pw'>Email</label>
+                                <input className={cx('text-input')} name='email' id='pw' placeholder='Nhập mật khẩu' type='email'
                                         value={inputs.email || ''}
                                         onChange={handleChange}
                                         required></input>
 
                         </div>
-                        <div className={cx('who')}>
-                                <p className={cx('title')}>Bạn là ?</p>
-                                <input type="radio" name="age" className={cx('roleChoice')} value='Người dùng' onClick={() => setInputs(values => ({ ...values, role: '2' }))}/>Người dùng
-                                <input type="radio" name="age" className={cx('roleChoice')} value='Chủ địa điểm' onClick={() => setInputs(values => ({ ...values, role: '1' }))}  />Chủ địa điểm
+                        <div className={cx('form-control')}>
+                                <label>Bạn là ?</label>
+                                <div className={cx('option')}>
+                                        <input type="radio" name="age" id='role-1' value='Người dùng' onClick={() => setInputs(values => ({ ...values, role: '2' }))}/>
+                                        <label htmlFor='role-1' className={cx('me-5')}>Người dùng</label>
+                                        <input type="radio" name="age" id='role-2' value='Chủ địa điểm' onClick={() => setInputs(values => ({ ...values, role: '1' }))}  />
+                                        <label htmlFor='role-2'>Chủ địa điểm</label>
+                                </div>
                         </div>
                         <Link to='/register/by-phone-number/step3' state={{ phone, password, email: inputs.email, name: inputs.name, role: inputs.role }} >
-
-                                <span className={cx('continue')}>Tiếp tục {'>>'} </span>
+                                <button className={cx('continue')}>Tiếp tục {'>>'} </button>
                         </Link>
-
-
                         <span className={cx('moreOption')}>Bạn đã có tài khoản ? <Link to='/login'><span className={cx('register')}>Đăng nhập</span></Link></span>
 
 
