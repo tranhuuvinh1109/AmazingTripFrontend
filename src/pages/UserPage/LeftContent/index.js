@@ -12,15 +12,15 @@ function LeftContent() {
             </h2>
             <ul className={cx('user-inf')}>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
-                    <i class="fa-solid fa-cake-candles me-2"></i>
-                    <p className>01/01/2022</p>
+                    <i className={cx('fa-solid fa-cake-candles me-2')}></i>
+                    <p>01/01/2022</p>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
-                    <i class="fa-solid fa-location-arrow me-2"></i>
+                    <i className={cx('fa-solid fa-location-arrow me-2')}></i>
                     <p>xxx, xxx, xxx, xxx, Ha Noi</p>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
-                    <i class="fa-solid fa-user-check"></i>
+                    <i className={cx('fa-solid fa-user-check')}></i>
                     <p>Thanh vien gia dinh
                         
                         <span className={cx('web-logo')}> AmazingTrip </span> 
@@ -31,7 +31,7 @@ function LeftContent() {
                 </li>
                 <li>
                     <Link to='/user_edit' className={cx('d-flex align-items-start justify-content-start')}>
-                        <i class="fa-solid fa-user-pen"></i>
+                        <i className={cx('fa-solid fa-user-pen')}></i>
                         <p>Chinh sua thong tin</p>
                     </Link>
                 </li>
