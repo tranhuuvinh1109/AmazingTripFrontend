@@ -1,16 +1,37 @@
-import { Fragment } from 'react';
-import React from 'react';
+import { Fragment, useContext, useState } from 'react';
 import BottomAddress from './BottomBlogAddress/BottomAddress';
-import HeaderAddress from './HeaderBlogAddress/HeaderAddress';
-import CenterAddress from './CenterBlogAddress/CenterAddress';
+import HeaderAddress from './HeaderBlogAddress';
+import CenterAddress from './CenterBlogAddress';
+import DiscountForm from './DiscountForm';
+import { FormDiscountContext } from './FormDiscountContext';
+import { Left, Right } from '../../components/Layout/components';
 
 function BlogAddress() {
+    const formContext = useContext(FormDiscountContext)
+
     return (
-        <Fragment>
-            <HeaderAddress />
-            <CenterAddress />
-            <BottomAddress />
-        </Fragment>
+        // <FormDiscountProvider>
+            <Fragment>
+                <div className='row m-0 ps-1 pe-1' style={{ maxHeight: '550px' }}>
+                    <HeaderAddress />
+                    <CenterAddress />
+                </div>
+                <div className='row m-0 ps-1 pe-1 mt-3'>
+                    <div className="col-sm-2 ps-0 pe-0 mb-2">
+                        <Left />
+                    </div>
+                    
+                    <div className="col-sm-8">
+                        <BottomAddress />
+                    </div>
+                    
+                    <div className="col-sm-2 ps-0 pe-0 mb-2">
+                        <Right />
+                    </div>
+                </div>
+                { formContext.showForm && <DiscountForm/> }
+            </Fragment>
+        // </FormDiscountProvider>
     );
 }
 export default BlogAddress;

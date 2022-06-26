@@ -1,11 +1,10 @@
 import React from 'react';
 import Left from './Left';
 import Right from './Right';
-import './HeaderAddress.scss'
 
 function HeaderAddress() {
     return (
-        <div className="Top">
+        <div className="d-flex justify-content-between p-1 mb-2">
             <Left />
             <Right />
         </div>

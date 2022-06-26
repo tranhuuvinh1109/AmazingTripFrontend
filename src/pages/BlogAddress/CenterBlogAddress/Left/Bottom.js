@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import './Bottom.scss';
+import React, { useState, useContext } from 'react';
+import classNames from 'classnames/bind';
+import styles from './Bottom.module.scss';
+import { FormDiscountContext } from '../../FormDiscountContext';
+
+const cx = classNames.bind(styles);
+
 // const [start, setStart] = useState();
 // const [finish, setFinish] = useState();
 // const [discount, setDiscount] = useState();
@@ -8,26 +13,35 @@ import './Bottom.scss';
 
 
 function Bottom() {
+
+    const formContext = useContext(FormDiscountContext)
+
     return (
-        <div className="center-left-bottom">
+        <div className={cx('center-left-bottom')}>
             <h4>
-                Từ ngày <span className="day1">09/11/2020</span> tới ngày<span className="day2"></span> 22/11/2022
+                Từ ngày <span className={cx('day-start')}>09/11/2020</span> tới ngày<span className={cx('day-end')}> 22/11/2022</span>
             </h4>
-            <p className="block-discount">
-                Giảm giá <span className="discount"> 30% </span>
+            <p className={cx('block-discount')}>
+                Giảm giá tới <span className={cx('discount')}> 30% </span>
             </p>
-            <p className="dess2">
-                <span className="quantity">
+            <p className={cx('dess2')}>
+                <span className={cx('quantity')}>
                     50
                 </span> quý khách đầu tiên
             </p>
-            <div className="sub">
-                <h5 className="submit">
-                    Số lượng đã đăng ký: <span className="sb">
+            <div className={cx('sub')}>
+                <h5 className={cx('submit')}>
+                    Số lượng đã đăng ký: 
+                    <span className={cx('sb')}>
                         37/50
                     </span>
                 </h5>
-                <button className="btn-register">Đăng ký</button>
+                <button 
+                    onClick={ formContext.toggleForm }
+                    className={cx('btn-register')}
+                >
+                    Đăng ký
+                </button>
             </div>
         </div>
     )

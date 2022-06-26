@@ -14,7 +14,7 @@ function UserEditPage() {
     // effect bắt sự kiện nhấp chuột vào ảnh hiện lên cửa sổ input
     const inputRef = useRef();
     useEffect(() => {
-        let handler = (e) => {
+        const handler = (e) => {
             if(inputRef.current.contains(e.target))
                 setActiveInput(true)
             if(!inputRef.current.contains(e.target))
@@ -22,10 +22,10 @@ function UserEditPage() {
         }
 
 
-        document.addEventListener('click', handler);
+        document.addEventListener('mousedown', handler);
 
         return () => {
-            document.removeEventListener('click', handler);
+            document.removeEventListener('mousedown', handler);
         }
     })
 

@@ -50,13 +50,13 @@ function BlogAddressPost() {
                         <div className={cx('d-flex')}>
                             <div className={cx('d-flex align-items-center')}>
                                 <button className={cx('btn-reaction')}>
-                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <i className={cx('fa-regular fa-thumbs-up')}></i>
                                 </button>
                                 <span className={cx('sum-like ms-1')}>100</span>
                             </div>
                             <div className={cx('d-flex align-items-center ms-3')}>  
                                 <button className={cx('btn-reaction')}>
-                                    <i class="fa-regular fa-thumbs-down"></i>
+                                    <i className={cx('fa-regular fa-thumbs-down')}></i>
                                 </button>
                                 <span className={cx('sum-dislike ms-1')}>15</span>
                             </div> 

@@ -17,11 +17,11 @@ function CoverImage() {
                     <h2>
                         User_name
                         <Link to='/user_edit'>
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <i className="fa-solid fa-pen-to-square"></i>
                         </Link>
 
                     </h2>
-                    <i class="fa-solid fa-users"></i>
+                    <i className="fa-solid fa-users"></i>
                     <span className={cx('ms-2')}>5.6k</span>
                 </div>
             </div>

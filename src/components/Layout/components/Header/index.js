@@ -43,7 +43,7 @@ function Header() {
                 </div>
                 <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
                     <li className={cx('message')}><i className={cx('fa-brands fa-facebook-messenger')}></i></li>
-                    <li className={cx('notification')}><i className={cx('fa-solid fa-bell ms-sm-2')}></i></li>
+                    <li className={cx('notification')}><i className={cx('fa-regular fa-bell ms-sm-2')}></i></li>
                     <li className={cx('user-avatar')}>
                         <button 
                             className={cx('btn-avatar')}

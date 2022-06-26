@@ -1,0 +1,33 @@
+.left {
+    width: 45%;
+    .name {
+        font-weight: bold;
+    }
+
+    h2, span, i {
+        color: var(--background-dark-blue);
+    }
+    .address {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .avt {
+        width: 40px;
+        border-radius: 50%;
+        margin-left: 12px;
+    }
+
+    .star {
+
+        i {
+            color: yellow;
+            font-size: 16px;
+        }
+
+        span {
+            margin-left: 5px;
+        }
+
+    }
+}
