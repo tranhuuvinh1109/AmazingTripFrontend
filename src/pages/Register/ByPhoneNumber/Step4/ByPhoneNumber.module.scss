@@ -1,0 +1,114 @@
+.container {
+  height: 520px;
+  width: 560px;
+  background-color: var(--background-dark-blue);
+  flex: column;
+  margin: auto;
+  border-radius: 20px;
+  color: #fff;
+  .nav-logo {
+    width: 200px;
+    height: 60px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5%;
+    display: block;
+  }
+  .title {
+    font-weight: 500;
+    display: block;
+    margin-left: 38%;
+  }
+  .subtitle {
+    color: var(--text-orange);
+    font-weight: 600;
+    font-size: 24px;
+  }
+  button {
+    background-color: var(--background-dark-blue);
+    border-radius: 50px;
+    border: 1px solid #fff;
+    padding: 15px 10px;
+    width: 65%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+  }
+  .moreOption {
+    display: block;
+    margin-left: 30%;
+    margin-top: 20px;
+  }
+  .register {
+    color: var(--text-orange);
+  }
+  label {
+    display: block;
+    margin-left: 19%;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  input {
+    background-color: var(--background-dark-blue);
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 10px 10px;
+    width: 65%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+  }
+  
+  i,
+img {
+  color: #fff;
+  height: 20px;
+  width: 20px;
+}
+.optionContent {
+  display: inline-block;
+  color: #fff;
+  margin-left: 8px;
+}
+.login{
+        width:30%;
+        padding: 8px;
+        background-color:var(--btn-orange);
+        color: #fff;
+        border: none;
+
+  }
+  input:focus {
+       outline: none;
+       border-color:#fff ;
+  }
+  .continue{
+        display:block;
+        padding-top: 10px;
+        text-align: center;
+        cursor: pointer;
+  }
+  .who{
+        display: flex;
+  }
+  .whoSelect {
+        margin-left: 20px;
+        padding-top: -2px;
+        border: 4px;
+  }
+  .beEnd{
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+  }
+img{
+        height:100px;
+        width: 100px;
+        border-radius: 50%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+  }
+  
+
+}
