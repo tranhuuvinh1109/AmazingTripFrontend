@@ -1,5 +1,5 @@
 import Left from './Left';
-import { SlideShow } from '../../../components/Layout/components';
+import { SlideShow } from '../../../components/Layouts/components';
 import styles from './CenterAddress.module.scss';
 import classNames from 'classnames/bind';
 

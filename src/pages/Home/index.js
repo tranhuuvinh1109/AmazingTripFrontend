@@ -1,6 +1,6 @@
 import { Fragment  } from 'react';
 import { Link } from 'react-router-dom';
-import SlideShow from '../../components/Layout/components/SlideShow';
+import SlideShow from '../../components/Layouts/components/SlideShow';
 
 
 function Home() {

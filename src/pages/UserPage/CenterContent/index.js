@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { BlogAddressPost } from '../../../components/Layout/components';
+import { BlogAddressPost } from '../../../components/Layouts/components';
 
 function CenterContent() {
     return ( 

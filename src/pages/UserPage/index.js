@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Right } from '../../components/Layout/components'
+import { Right } from '../../components/Layouts/components'
 import CenterContent from './CenterContent';
 import LeftContent from './LeftContent';
 import CoverImage from './CoverImage';

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './CreatePost.module.scss';
-import { SlideShow, BlogAddressPost } from '../../components/Layout/components';
+import { SlideShow, BlogAddressPost } from '../../components/Layouts/components';
 import LeftContent from './LeftContent';
 
 const cx = classNames.bind(styles);

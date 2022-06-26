@@ -1,5 +1,5 @@
 //Layout
-import { DefaultLayout, OneSide, TwoSide } from '../components/Layout';
+import { DefaultLayout, OneSide, TwoSide } from '../components/Layouts';
 
 // Pages
 import Home from '../pages/Home';

@@ -4,7 +4,7 @@ import HeaderAddress from './HeaderBlogAddress';
 import CenterAddress from './CenterBlogAddress';
 import DiscountForm from './DiscountForm';
 import { FormDiscountContext } from './FormDiscountContext';
-import { Left, Right, Paginate } from '../../components/Layout/components';
+import { Left, Right, Paginate } from '../../components/Layouts/components';
 
 function BlogAddress() {
     const formContext = useContext(FormDiscountContext)
