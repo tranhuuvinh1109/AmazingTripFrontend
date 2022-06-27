@@ -35,13 +35,14 @@ function ByPhoneNumber() {
 
         const submitForm = () => {
                 http.post('/register', inputs).then((res) => {
-                        navigate('/', {
-                                state: {
-                                        hi:'123'
-                                }
-                        })
+                        console.log(res.data.user.id)
+                       navigate('/createAddress', {state:{
+                               id_host: res.data.user.id
+
+                       }})
+                        
                 })
-                console.log(inputs);
+               
 
         }
    

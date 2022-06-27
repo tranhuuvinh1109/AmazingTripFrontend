@@ -19,14 +19,14 @@ function ByPhoneNumber() {
                 setInputs(values => ({ ...values, [name]: value }))
         }
 
-
         const submitForm = () => {
                 http.post('/login', inputs).then((res) => {
-                                navigate('/');
-                       
-                        })
-                        console.log(inputs);
-
+                        if (res.data.user.role === 1) {
+                                navigate('/host', {
+                                        state: { user_id: res.data.user.id }
+                                })
+                        }
+                })
         }
 
         return (
