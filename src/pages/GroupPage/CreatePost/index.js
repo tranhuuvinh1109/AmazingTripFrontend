@@ -31,37 +31,26 @@ function CreatePost() {
                 ref={closeRef} 
                 className={cx('form-container')}
             >
-                <div className={cx('head-img-background')}>
-                </div>
                 <form className={cx('discount-form')} id="discount-form">
                     <label className={cx('form-label')} htmlFor="discount-form">
-                        Form đăng ký du lịch tại
-                        <br/>
-                        <span>Hội An</span>
+                        Tạo bài viết
                     </label>
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Tên bạn là: </label>
-                        <input type="text" id="name" />
+                        <input type="text" id="name" placeholder='Bạn muốn đăng gì... ?'/>
                     </div>
                     
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Số điện thoại: </label>
-                        <input type="text" id="name" />
+                        <input type="text" id="name" placeholder='Nội dung bài đăng... '/>
                     </div>
 
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Email: </label>
-                        <input type="text" id="name" />
-                    </div>
-
-                    <div className={cx('form-control')}>
-                        <label htmlFor="name">Số lượng: </label>
-                        <input type="text" id="name" />
+                        <label htmlFor="name">Hình ảnh: </label>
+                        <input type="file" id="name" />
                     </div>
                     <button
                         onClick={ formContext.toggleForm }    
                     >
-                        Đăng ký
+                        Đăng bài
                     </button>
                 </form>
             </div>
