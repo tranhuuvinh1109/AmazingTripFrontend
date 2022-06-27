@@ -9,6 +9,10 @@ import UserPage from '../pages/UserPage';
 import UserEditPage from '../pages/UserEditPage';
 import CreatePost from '../pages/CreatePost';
 import GroupPage from '../pages/GroupPage';
+import Form from '../pages/Form';
+import UpdateAdress from '../pages/UpdateAddress';
+import Sale from "../pages/Sale";
+
 
 import {OptionLogin, LoginByPhoneNumber} from '../pages/Login';
 import { 
@@ -31,6 +35,11 @@ const privateRoutes = [
     { path: '/user', component: UserPage, layout: DefaultLayout },
     { path: '/user_edit', component: UserEditPage, layout: DefaultLayout },
     { path: '/group', component: GroupPage, layout: DefaultLayout },
+
+    // SomeThing
+    { path: '/createAddress', component: Form, layout: DefaultLayout },
+    { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
+    { path: '/addSale', component: Sale, layout: DefaultLayout },
     //Login
     { path: '/login', component: OptionLogin, layout: LoginLayout },
     { path: '/login/by-phone-number', component: LoginByPhoneNumber, layout: LoginLayout },

@@ -21,6 +21,7 @@ function ByPhoneNumber() {
 
         const submitForm = () => {
                 http.post('/login', inputs).then((res) => {
+                        // console.log(res.data);
                         if (res.data.user.role === 1) {
                                 navigate('/host', {
                                         state: { user_id: res.data.user.id }
