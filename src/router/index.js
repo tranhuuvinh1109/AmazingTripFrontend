@@ -8,9 +8,16 @@ import HostPage from '../pages/HostPage';
 import UserPage from '../pages/UserPage';
 import UserEditPage from '../pages/UserEditPage';
 import CreatePost from '../pages/CreatePost';
+import GroupPage from '../pages/GroupPage';
 
 import {OptionLogin, LoginByPhoneNumber} from '../pages/Login';
-import { OptionRegister, RegisterByPhoneNumberStep1, RegisterByPhoneNumberStep2, RegisterByPhoneNumberStep3, RegisterByPhoneNumberStep4 } from '../pages/Register'
+import { 
+        OptionRegister, 
+        RegisterByPhoneNumberStep1, 
+        RegisterByPhoneNumberStep2, 
+        RegisterByPhoneNumberStep3, 
+        RegisterByPhoneNumberStep4 
+    } from '../pages/Register'
 
 // Public Page
 const publicRoutes = [
@@ -23,6 +30,7 @@ const privateRoutes = [
     { path: '/host', component: HostPage, layout: OneSide },
     { path: '/user', component: UserPage, layout: DefaultLayout },
     { path: '/user_edit', component: UserEditPage, layout: DefaultLayout },
+    { path: '/group', component: GroupPage, layout: DefaultLayout },
     //Login
     { path: '/login', component: OptionLogin, layout: LoginLayout },
     { path: '/login/by-phone-number', component: LoginByPhoneNumber, layout: LoginLayout },

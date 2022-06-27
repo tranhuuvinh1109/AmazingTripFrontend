@@ -15,7 +15,7 @@ function Footer() {
                         <a href="#"><img className={cx('nav-logo')} src={images.logo} alt="Logo"/></a>
                     </div>
                     <div className={cx('me-5 pe-5')}>
-                        <h6>Contact us</h6>
+                        <h6 style={{ color: 'white' }}>Contact us</h6>
                         <ul className={cx('contact-list')}>
                             <li><a href="#">成長 Team</a></li>
                             <li><a href="#">Email: abc@gmail.com</a></li>

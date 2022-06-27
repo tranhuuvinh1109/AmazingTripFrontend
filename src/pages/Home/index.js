@@ -17,6 +17,8 @@ function Home() {
                     <br/>
                     <Link to="/user">Trang của người dùng</Link>
                     <br/>
+                    <Link to="/group">Trang nhóm</Link>
+                    <br/>
                     <Link to="/blog/create">Trang tạo bài viết</Link>
                     <br/>
                     <Link to="/register">Đăng ký</Link>
