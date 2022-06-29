@@ -1,11 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './Form.module.scss';
-import { Navigate } from 'react-router-dom';
-import http from '../../http';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
 
 

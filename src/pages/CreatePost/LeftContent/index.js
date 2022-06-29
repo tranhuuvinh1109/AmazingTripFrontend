@@ -1,37 +1,11 @@
 import classNames from 'classnames/bind';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import styles from './LeftContent.module.scss';
-import http from '../../../http'
-import { useNavigate } from 'react-router-dom';
-
-
 
 const cx = classNames.bind(styles);
 
 
 function LeftContent() {
-        const navigate = useNavigate();
-
-
-        const [inputs, setInputs] = useState({ id_user: 1, address_id: 1  })
-        const handleChange = (event) => {
-                const name = event.target.name;
-                const value = event.target.value;
-                setInputs(values => ({ ...values, [name]: value }))
-        }
-
-        const submitForm = () => {
-
-                console.log('Chay on vl!!');
-                http.post('/blog', inputs).then((res) => {
-
-
-                        navigate('/');
-
-                })
-
-        }
-       
     return ( 
         <Fragment>
             <div className={cx('top-left')}>
@@ -58,28 +32,21 @@ function LeftContent() {
             <div className={cx('top-form')}>
                 <div className={cx('review')}>
                     <h5 className={cx('review-question')}>
-                        Chuyến đi của bạn thế nào(.../5)? *   
-
-                </h5>
+                        Chuyến đi của bạn thế nào ...? *
+                    </h5>
                     <div className={cx('review-star')}>
-                        {/* <i className={cx('fa-solid fa-star')}></i>
                         <i className={cx('fa-solid fa-star')}></i>
                         <i className={cx('fa-solid fa-star')}></i>
                         <i className={cx('fa-solid fa-star')}></i>
-                        <i className={cx('fa-solid fa-star')}></i> */}
-                                            <input type='text' name="blog_address_title"
-                                                    value={inputs.blog_address_title || ''}
-                                                    onChange={handleChange}></input>
+                        <i className={cx('fa-solid fa-star')}></i>
+                        <i className={cx('fa-solid fa-star')}></i>
                     </div>
                 </div>
                 <div className={cx('share')}>
                     <h5 className={cx('share-title')}>
                         Chia sẻ *
                     </h5>
-                                    <textarea name="blog_address_content" id="" cols="30" rows="8"
-                                            value={inputs.blog_address_content || ''}
-                                            onChange={handleChange}
-
+                    <textarea name="share" id="" cols="30" rows="8"
                         placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"></textarea>
                 </div>
                 <div className={cx('moment')}>
@@ -88,10 +55,7 @@ function LeftContent() {
                     </h5>
                     <div className={cx('wrapper')}>
                         <div className={cx('file-upload')}>
-                                                    <input type="file" className={cx('choose-image')} name= "blog_address_image	"
-                                                            value={inputs.blog_address_image || ''}
-                                                            onChange={handleChange}
-                            />
+                            <input type="file" className={cx('choose-image')} />
                             <i className={cx('fa fa-arrow-up')}></i>
                         </div>
                     </div>
@@ -105,7 +69,7 @@ function LeftContent() {
                         </p>
                     </div>
                     <div className={cx('submit')}>
-                                            <button className={cx('btn-submit')} onClick={submitForm}>
+                        <button className={cx('btn-submit')}>
                             Gửi đánh giá của bạn
                         </button>
                     </div>

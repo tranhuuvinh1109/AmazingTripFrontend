@@ -7,7 +7,6 @@ const cx = classNames.bind(styles);
 export default function LoginLayout({ children }) {
         return (
                 <div className = {cx('wrapper')}> 
-                        
                         <div className = {cx('container')}>
                                 <Link to='/'>
                                         <img src={images.logo} className={cx('nav-logo')} alt='logo' />

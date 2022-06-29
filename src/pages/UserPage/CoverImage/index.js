@@ -8,10 +8,10 @@ const cx = classNames.bind(styles);
 function CoverImage() {
     return ( 
         <div className={cx('cover-image')}>
-            <img src={images.coverImage} alt="A image"/>
+            <img src={images.coverImage} alt=""/>
             <div className={cx('user-profile')}>
                 <div className={cx('p-2')}>
-                    <img src={images.userAvatar} alt="A image"/>
+                    <img src={images.userAvatar} alt=""/>
                 </div>
                 <div className={cx('user-inf')}>
                     <h2>

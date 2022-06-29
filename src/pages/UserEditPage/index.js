@@ -2,7 +2,6 @@ import { Fragment, useState, useRef, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from './UserEditPage.module.scss';
 import images from '../../assets/images';
-import { Link } from "react-router-dom"; 
 
 const cx = classNames.bind(styles);
 

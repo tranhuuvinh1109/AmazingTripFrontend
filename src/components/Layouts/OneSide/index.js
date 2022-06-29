@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Header, Right, Footer } from '../components';
 
-function OneSie({ children }) {
+function OneSide({ children }) {
     return (  
         <Fragment>
             <Header />
@@ -19,4 +19,4 @@ function OneSie({ children }) {
     );
 }
 
-export default OneSie;
+export default OneSide;
