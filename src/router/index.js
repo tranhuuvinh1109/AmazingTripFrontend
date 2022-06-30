@@ -6,6 +6,7 @@ import {
 } from '../components/Layouts';
 
 // Pages
+import LandingPage from '../pages/LandingPage';
 import Home from '../pages/Home';
 import BlogAddress from '../pages/BlogAddress';
 import HostPage from '../pages/HostPage';
@@ -19,28 +20,21 @@ import Sale from "../pages/Sale";
 import Register from '../pages/AuthPage/Register';
 
 // Provider
-import { RegisterPageProvider } from '../pages/AuthPage/Register/RegisterPageContext';
 import { FormDiscountProvider } from '../pages/BlogAddress/FormDiscountContext';
 import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
 
-import {OptionLogin, LoginByPhoneNumber} from '../pages/Login';
-import { 
-        OptionRegister, 
-        RegisterByPhoneNumberStep1, 
-        RegisterByPhoneNumberStep2, 
-        RegisterByPhoneNumberStep3, 
-        RegisterByPhoneNumberStep4 
-    } from '../pages/Register'
+import Login from '../pages/AuthPage/Login';
 
 // Public Page
 const publicRoutes = [
+
+    //Auth
+    { path: '/login', component: Login, layout: LoginLayout },
+    { path: '/register', component: Register, layout: LoginLayout },
+    { path: '/landing', component: LandingPage, layout: DefaultLayout },
 ];
 
 const privateRoutes = [
-
-    { path: '/test', component: Register, layout: LoginLayout, provider: RegisterPageProvider},
-
-
     { path: '/', component: Home, layout: OneSide },
     { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider },
     { path: '/blog/create', component: CreatePost, layout:DefaultLayout },
@@ -53,15 +47,7 @@ const privateRoutes = [
     { path: '/createAddress', component: Form, layout: DefaultLayout },
     { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
     { path: '/addSale', component: Sale, layout: DefaultLayout },
-    //Login
-    { path: '/login', component: OptionLogin, layout: LoginLayout },
-    { path: '/login/by-phone-number', component: LoginByPhoneNumber, layout: LoginLayout },
-    //Register
-    { path: '/register', component: Register, layout: LoginLayout },
-    // { path: '/register/by-phone-number/step1', component: RegisterByPhoneNumberStep1, layout: LoginLayout },
-    // { path: '/register/by-phone-number/step2', component: RegisterByPhoneNumberStep2, layout: LoginLayout },
-    // { path: '/register/by-phone-number/step3', component: RegisterByPhoneNumberStep3, layout: LoginLayout },
-    // { path: '/register/by-phone-number/step4', component: RegisterByPhoneNumberStep4 , layout:LoginLayout }
+
 ];
 
 export { publicRoutes, privateRoutes };

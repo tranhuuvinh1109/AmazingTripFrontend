@@ -1,8 +1,8 @@
-import { useState, useEffect, Fragment } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { privateRoutes } from './router';
+import { publicRoutes, privateRoutes } from './router';
 import { DefaultLayout } from './components/Layouts';
-import userApi from './api/userApi';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   // const [userList, setUserList] = useState([]);
@@ -25,24 +25,44 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          { privateRoutes.map((route, index) => {
-            const Layout = route.layout || DefaultLayout;
-            const Page = route.component;
-            const Provider = route.provider || Fragment;
-            return (
-              <Route 
-                key={index} 
-                path={route.path} 
-                element={
-                  <Provider>
-                    <Layout>
-                      <Page />
-                    </Layout>
-                  </Provider>
-                } 
-              />
-            );
-          })}
+        { publicRoutes.map((route, index) => {
+              const Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              const Provider = route.provider || Fragment;
+              return (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Provider>
+                      <Layout>
+                        <Page />
+                      </Layout>
+                    </Provider>
+                  } 
+                />
+              );
+            })}
+          <Route element={<RequireAuth />}>
+            { privateRoutes.map((route, index) => {
+              const Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              const Provider = route.provider || Fragment;
+              return (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Provider>
+                      <Layout>
+                        <Page />
+                      </Layout>
+                    </Provider>
+                  } 
+                />
+              );
+            })}
+          </Route>
         </Routes>
       </div>
     </Router>

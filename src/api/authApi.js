@@ -1,9 +1,13 @@
 import axiosClient from "./axiosClient";
 
 const authApi = {
-    post: (data) => {
+    postRegister: (data) => {
         const url = `/register`;
         return axiosClient.post(url, data);
+    },
+    postLogin: (data) => {
+        const url = `/login`;
+        return axiosClient.post(url, data)
     }
 
 }

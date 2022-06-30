@@ -1,15 +1,21 @@
 import { Fragment  } from 'react';
-import { Link } from 'react-router-dom';
-import SlideShow from '../../components/Layouts/components/SlideShow';
+import { Link, useNavigate } from 'react-router-dom';
+import removeCookie from '../../hooks/removeCookie';
 
 
 function Home() {
+    const navigate = useNavigate();
+
+    const handlerLogout = () => {
+        removeCookie('userin');
+        navigate('/landing');
+    }
 
     return (
         <Fragment>
             <div style={{ height: '1000px' }}>
                 <h1>
-                    HomePage
+                    Home Page
                     <br/>
                     <Link to="/blog">Chi tiết địa điểm</Link>
                     <br/>
@@ -21,7 +27,11 @@ function Home() {
                     <br/>
                     <Link to="/blog/create">Trang tạo bài viết</Link>
                     <br/>
-                    <Link to="/register">Đăng ký</Link>
+                    <button
+                        onClick={() => handlerLogout()}
+                    >
+                        Đăng xuất
+                    </button>
                 </h1>
             </div>
         </Fragment>

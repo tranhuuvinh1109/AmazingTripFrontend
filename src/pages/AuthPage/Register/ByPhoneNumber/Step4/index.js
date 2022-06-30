@@ -59,7 +59,7 @@ function Step4({ formData, setFormData }) {
 		console.log(postData);
 		try {
 			//console.log(formData);
-			authApi.post(postData);
+			authApi.postRegister(postData);
 		} catch (error) {
 			console.log('Toang meo chay roi loi cc: ', error);
 		}
