@@ -2,6 +2,7 @@ import { useEffect, useContext, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateFormNewGroup.module.scss';
 import { FormCreateNewGroupContext } from '../CreateNewGroupContext';
+import getCookie from '../../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
@@ -10,11 +11,14 @@ const cx = classNames.bind(styles);
 function CreateFormNewGroup() {
     const formContext = useContext(FormCreateNewGroupContext)
 
+    const userData = JSON.parse(getCookie('userin'));
+    console.log(userData);
+
     // Nhấn ra ngoài để đóng form`
-    const closeRef = useRef();
+    const closeFormRef = useRef();
     useEffect(() => {
         const handler = (e) => {
-            if (!closeRef.current.contains(e.target))
+            if (!closeFormRef.current.contains(e.target))
                 formContext.toggleForm();
         }
 
@@ -28,7 +32,7 @@ function CreateFormNewGroup() {
     return (
         <div className={cx('form-background')}>
             <div
-                ref={closeRef}
+                ref={closeFormRef}
                 className={cx('form-container')}
             >
                 <div className={cx('head-img-background')}>
