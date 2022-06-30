@@ -16,10 +16,12 @@ function CreateFormNewGroup() {
 
     // Nhấn ra ngoài để đóng form`
     const closeFormRef = useRef();
+    console.log(closeFormRef);
     useEffect(() => {
         const handler = (e) => {
+            console.log(e);
             if (!closeFormRef.current.contains(e.target))
-                formContext.toggleForm();
+                formContext.toggleCreate();
         }
 
         document.addEventListener('mousedown', handler);

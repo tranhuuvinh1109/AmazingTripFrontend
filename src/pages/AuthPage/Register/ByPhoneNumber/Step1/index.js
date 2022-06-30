@@ -5,6 +5,17 @@ import styles from './Step1.module.scss';
 const cx = classNames.bind(styles);
 
 function Step1({ formData, setFormData }) {
+
+	const [validPhone, setValiPhone] = useState(false);
+	const [phoneFocus, setPhoneFocus] = useState(false);
+
+	const [validPwd, setValiPwd] = useState(false);
+	const [pwdFocus, setPwdFocus] = useState(false);
+
+	const [validMatch, setValiMatch] = useState(false);
+	const [matchFocus, setMatchFocus] = useState(false);
+
+
 	return (
 		<Fragment>
 			<h3 className={cx('title')}>Đăng ký</h3>
