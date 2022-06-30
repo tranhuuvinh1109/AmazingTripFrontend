@@ -4,6 +4,7 @@ import {
 	useEffect,
 	useRef 
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
 import images from '../../../../../assets/images';
@@ -12,6 +13,7 @@ import authApi from '../../../../../api/authApi';
 const cx = classNames.bind(styles);
 
 function Step4({ formData, setFormData }) {
+	const navigate = useNavigate();
 
 	const [activeInput, setActiveInput] = useState(false);
     const [previewAvatar, setPreviewAvatar] = useState(images.userAvatar);
@@ -60,6 +62,7 @@ function Step4({ formData, setFormData }) {
 		try {
 			//console.log(formData);
 			authApi.postRegister(postData);
+			navigate('/login');
 		} catch (error) {
 			console.log('Toang meo chay roi loi cc: ', error);
 		}
