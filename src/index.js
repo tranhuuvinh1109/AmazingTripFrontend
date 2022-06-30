@@ -4,6 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import { AuthProvider } from './context/AuthProvider';
+import { FormDiscountProvider } from './pages/BlogAddress/FormDiscountContext';
+import { CreatePostProvider } from './pages/GroupPage/CreatePostContext';
+import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +16,15 @@ root.render(
           <App />
       </GlobalStyles>
     </AuthProvider>
+    <CreateNewGroupProvider>
+      <FormDiscountProvider>
+        <CreatePostProvider>
+          <GlobalStyles>
+            <App />
+          </GlobalStyles>
+        </CreatePostProvider>
+      </FormDiscountProvider>
+    </CreateNewGroupProvider>
   </React.StrictMode>
 );
 

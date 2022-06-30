@@ -1,14 +1,14 @@
 import { useEffect, useContext, useRef } from 'react';
 import classNames from 'classnames/bind';
-import styles from './DiscountForm.module.scss';
-import { FormDiscountContext } from '../FormDiscountContext';
+import styles from './CreateFormNewGroup.module.scss';
+import { FormCreateNewGroupContext } from '../CreateNewGroupContext';
 
 const cx = classNames.bind(styles);
 
 
 
-function DiscountForm() {
-    const formContext = useContext(FormDiscountContext)
+function CreateFormNewGroup() {
+    const formContext = useContext(FormCreateNewGroupContext)
 
     // Nhấn ra ngoài để đóng form`
     const closeRef = useRef();
@@ -23,7 +23,7 @@ function DiscountForm() {
         return () => {
             document.removeEventListener('mousedown', handler);
         }
-    }, [])
+    })
 
     return (
         <div className={cx('form-background')}>
@@ -35,33 +35,23 @@ function DiscountForm() {
                 </div>
                 <form className={cx('discount-form')} id="discount-form">
                     <label className={cx('form-label')} htmlFor="discount-form">
-                        Form đăng ký du lịch tại
+                        Form tạo nhóm mới
                         <br />
                         <span>Hội An</span>
                     </label>
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Tên bạn là: </label>
-                        <input type="text" id="name" />
+                        <label htmlFor="name">Tên nhóm: </label>
+                        <input type="text" id="name" placeholder='Nhập tên nhóm' />
                     </div>
 
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Số điện thoại: </label>
-                        <input type="text" id="name" />
-                    </div>
-
-                    <div className={cx('form-control')}>
-                        <label htmlFor="name">Email: </label>
-                        <input type="text" id="name" />
-                    </div>
-
-                    <div className={cx('form-control')}>
-                        <label htmlFor="name">Số lượng: </label>
-                        <input type="text" id="name" />
+                        <label htmlFor="name">Ảnh bìa: </label>
+                        <input type="file" id="name" />
                     </div>
                     <button
                         onClick={formContext.toggleForm}
                     >
-                        Đăng ký
+                        Tạo nhóm
                     </button>
                 </form>
             </div>
@@ -69,4 +59,4 @@ function DiscountForm() {
     );
 }
 
-export default DiscountForm;
+export default CreateFormNewGroup;
