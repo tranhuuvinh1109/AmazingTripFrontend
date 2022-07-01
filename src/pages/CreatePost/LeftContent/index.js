@@ -1,12 +1,65 @@
 import classNames from 'classnames/bind';
 import { Fragment } from 'react';
 import styles from './LeftContent.module.scss';
+import { useState } from "react";
+import http from '../../../http';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FaStar } from "react-icons/fa";
+import getCookie from '../../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
+const colors = {
+    orange: "#FFBA5A",
+    grey: "#a9a9a9"
+
+};
 
 function LeftContent() {
-    return ( 
+    const navigate = useNavigate();
+
+    const {id} = useParams();
+
+    const current_user = JSON.parse(getCookie('userin'))
+
+
+
+
+    const [currentValue, setCurrentValue] = useState(0);
+    const [hoverValue, setHoverValue] = useState(undefined);
+    const stars = Array(5).fill(0)
+
+    const [inputs, setInputs] = useState({id_user:current_user.id, address_id:parseInt(id)});
+
+    const handleClick = value => {
+        setCurrentValue(value);
+        setInputs(values => ({ ...values, blog_address_vote: value }))
+    }
+
+    const handleMouseOver = newHoverValue => {
+        setHoverValue(newHoverValue)
+    };
+
+    const handleMouseLeave = () => {
+        setHoverValue(undefined)
+    }
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    const submitForm = () => {
+        console.log(inputs);
+        http.post('/blogAddress', inputs).then((res) => {
+            // navigate('/');
+            console.log("ok");
+        })
+        console.log(inputs)
+
+    }
+    return (
         <Fragment>
             <div className={cx('top-left')}>
                 <div className={cx('address')}>
@@ -15,61 +68,71 @@ function LeftContent() {
                         <i className={cx('fa-solid fa-location-dot')}></i>
                         <span className={cx('avatar')}>
                             <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/281896920_534554055067659_2103376413571668716_n.jpg?stp=dst-jpg_s206x206&_nc_cat=101&ccb=1-7&_nc_sid=aee45a&_nc_ohc=j7BNtyGXhXAAX_hRifl&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVLnllXQKcQizy9OEzLQUonG7eViUgPq4ynxejsTjcQClQ&oe=62D02342"
-                                alt="" className={cx('avt-host')}/>
+                                alt="" className={cx('avt-host')} />
                         </span>
                     </h2>
                 </div>
+                <div className={cx('top-form')}>
 
-                <div className={cx('star')}>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <span>26.692</span>
-                </div>
-            </div>
-            <div className={cx('top-form')}>
-                <div className={cx('review')}>
-                    <h5 className={cx('review-question')}>
-                        Chuyến đi của bạn thế nào ...? *
-                    </h5>
-                    <div className={cx('review-star')}>
-                        <i className={cx('fa-solid fa-star')}></i>
-                        <i className={cx('fa-solid fa-star')}></i>
-                        <i className={cx('fa-solid fa-star')}></i>
-                        <i className={cx('fa-solid fa-star')}></i>
-                        <i className={cx('fa-solid fa-star')}></i>
+
+                    <div style={styless.container}>
+                        <h2>Chuyến đi của bạn thế nào ...? </h2>
+                        <div style={styless.stars}>
+                            {stars.map((_, index) => {
+                                return (
+                                    <FaStar
+                                        key={index}
+                                        size={24}
+                                        onClick={() => handleClick(index + 1)}
+                                        onMouseOver={() => handleMouseOver(index + 1)}
+                                        onMouseLeave={handleMouseLeave}
+                                        color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
+                                        style={{
+                                            marginRight: 10,
+                                            cursor: "pointer"
+                                        }}
+                                    />
+                                )
+                            })}
+                        </div>
+                        {/* <h1>{currentValue}</h1> */}
                     </div>
-                </div>
-                <div className={cx('share')}>
-                    <h5 className={cx('share-title')}>
-                        Chia sẻ *
-                    </h5>
-                    <textarea name="share" id="" cols="30" rows="8"
-                        placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"></textarea>
-                </div>
-                <div className={cx('moment')}>
-                    <h5 className={cx('moment-title')}>
-                        Khoẳng khắc của bạn
-                    </h5>
-                    <div className={cx('wrapper')}>
-                        <div className={cx('file-upload')}>
-                            <input type="file" className={cx('choose-image')} />
-                            <i className={cx('fa fa-arrow-up')}></i>
+
+
+                    <div className={cx('share')}>
+                        <h5 className={cx('share-title')}>
+                            Chia sẻ *
+                        </h5>
+                        <textarea name="blog_address_content" id="" cols="30" rows="8"
+                            value={inputs.blog_address_content || ''}
+                            onChange={handleChange}
+                            placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"></textarea>
+                    </div>
+                    <div className={cx('moment')}>
+                        <h5 className={cx('moment-title')}>
+                            Khoẳng khắc của bạn
+                        </h5>
+                        <div className={cx('wrapper')}>
+                            <div className={cx('file-upload')}>
+                                <input name="blog_address_image" type="file" className={cx('choose-image')}
+                                    value={inputs.blog_address_image || ''}
+                                    onChange={handleChange} />
+                                <i className={cx('fa fa-arrow-up')}></i>
+                            </div>
+                        </div>
+                        {/* <p>{inputs}</p> */}
+                        <div className={cx('check')}>
+                            <input type="checkbox" className={cx('accept')} />
+                            <p className={cx('check-content')}>
+                                Tôi chứng nhận rằng đánh giá này được dựa trên trải nghiệm riêng của tôi và là ý kiến
+                                chân thực của tôi về cơ sở này và rằng tôi không có mối liên hệ cá nhân hay công việc
+                                nào với cơ sở này và không được cơ sở này tặng hay thanh toán để nào để viết đánh giá
+                                này.
+                            </p>
                         </div>
                     </div>
-                    <div className={cx('check')}>
-                        <input type="checkbox" className={cx('accept')} />
-                        <p className={cx('check-content')}>
-                            Tôi chứng nhận rằng đánh giá này được dựa trên trải nghiệm riêng cảu tôi và là ý kiến
-                            chân thực của tôi về cơ sở này và rằng tôi không có mối liên hệ cá nhân hay công việc
-                            nào với cơ sở này và không được cơ sở này tặng hay thanh toán để nào để viết đánh giá
-                            này.
-                        </p>
-                    </div>
                     <div className={cx('submit')}>
-                        <button className={cx('btn-submit')}>
+                        <button className={cx('btn-submit')} onClick={submitForm}>
                             Gửi đánh giá của bạn
                         </button>
                     </div>
@@ -78,5 +141,17 @@ function LeftContent() {
         </Fragment>
     );
 }
+const styless = {
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    stars: {
+        display: "flex",
+        flexDirection: "row",
+    },
+
+};
 
 export default LeftContent;
