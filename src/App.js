@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './router';
 import { DefaultLayout } from './components/Layouts';
 import RequireAuth from './components/RequireAuth';
+import getCookie from './hooks/getCookie';
 
 function App() {
   // const [userList, setUserList] = useState([]);
@@ -22,8 +23,10 @@ function App() {
   // }, []);
 
   return (
+
     <Router>
       <div className="App">
+          
         <Routes>
         { publicRoutes.map((route, index) => {
               const Layout = route.layout || DefaultLayout;

@@ -26,14 +26,19 @@ function ByPhoneNumber({ formData, setFormData }) {
 		try {
 			const res = await authApi.postLogin(formData)
 			const user = res.user
-			console.log(user);
+			console.log(res);
 			setAuth({user});
 			removeCookie('userin')
 			setCookie('userin', JSON.stringify(user))
 			setFormData({...formData, phone: ''});
 			setFormData({...formData, password: ''});
-			navigate(from, { replace: true });
+			//navigate(from, { replace: true });
 		} catch (error) {
+			if (!error?.res) {
+				console.log('tat mat DB r bro !!!');
+			}
+			if (error.res?.status === 400)
+				console.log('sai cmn tk mk r !!!');
 			console.log('Toang meo chay roi loi cc: ', error);
 		}
 

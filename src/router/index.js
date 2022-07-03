@@ -22,6 +22,7 @@ import Register from '../pages/AuthPage/Register';
 // Provider
 import { FormDiscountProvider } from '../pages/BlogAddress/FormDiscountContext';
 import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
+import { RegisterProvider } from '../pages/AuthPage/Register/RegisterContext';
 
 import Login from '../pages/AuthPage/Login';
 
@@ -30,7 +31,7 @@ const publicRoutes = [
 
     //Auth
     { path: '/login', component: Login, layout: LoginLayout },
-    { path: '/register', component: Register, layout: LoginLayout },
+    { path: '/register', component: Register, layout: LoginLayout, provider: RegisterProvider },
     { path: '/landing', component: LandingPage, layout: DefaultLayout },
 ];
 

@@ -1,7 +1,6 @@
-import { Fragment  } from 'react';
+import { Fragment, useEffect  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import removeCookie from '../../hooks/removeCookie';
-
 
 function Home() {
     const navigate = useNavigate();
@@ -11,6 +10,7 @@ function Home() {
         navigate('/landing');
     }
 
+    
     return (
         <Fragment>
             <div style={{ height: '1000px' }}>
