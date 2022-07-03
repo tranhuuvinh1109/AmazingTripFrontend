@@ -14,7 +14,7 @@ const ListAddresses = () => {
             setAddresses(res.data.data);
         })
 
-    }, ["adderesses"])
+    }, [])
     return (
         <div className={cx('wrapper')} >
             {

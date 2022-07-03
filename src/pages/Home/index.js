@@ -1,4 +1,4 @@
-import { Fragment, useEffect  } from 'react';
+import { Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import removeCookie from '../../hooks/removeCookie';
 
@@ -17,15 +17,13 @@ function Home() {
                 <h1>
                     Home Page
                     <br/>
-                    <Link to="/blog">Chi tiết địa điểm</Link>
+                    <Link to="/listAddresses">Danh sách địa điểm</Link>
                     <br/>
                     <Link to="/host">Trang của host</Link>
                     <br/>
                     <Link to="/user">Trang của người dùng</Link>
                     <br/>
                     <Link to="/group">Trang nhóm</Link>
-                    <br/>
-                    <Link to="/blog/create">Trang tạo bài viết</Link>
                     <br/>
                     <button
                         onClick={() => handlerLogout()}
