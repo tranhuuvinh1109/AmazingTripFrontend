@@ -1,5 +1,6 @@
 import { Fragment, useState, useRef, useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
 import authApi from '../../../../api/authApi';
@@ -20,6 +21,7 @@ function ByPhoneNumber({ formData, setFormData }) {
 	const errRef = useRef();
 
 	const [errMsg, setErrMsg] = useState('');
+	const [showPwd, setShowPwd] = useState(false);
 
 	useEffect(() => {
 		setErrMsg('');
@@ -38,6 +40,9 @@ function ByPhoneNumber({ formData, setFormData }) {
 				setCookie('userin', JSON.stringify(user))
 				setFormData({...formData, phone: ''});
 				setFormData({...formData, password: ''});
+				toast.success("Đăng nhập thành công !!!", {
+					toastId: 1,
+				});
 				navigate(from, { replace: true });
 			}
 		} catch (error) {
@@ -75,20 +80,30 @@ function ByPhoneNumber({ formData, setFormData }) {
 					required 
 				/>
 			</div>
-			<div className={cx('form-control')}>
-				<label htmlFor='pw'>Mật khẩu</label>
+			<div className={cx('form-control')} style={{ position: 'relative' }}>
+				<label htmlFor='password'>Mật khẩu</label>
 				<input 
 					name="password"
-					id='pw' 
+					id='password' 
 					placeholder='Nhập mật khẩu' 
-					type='password' 
+					type={ showPwd ? 'text' : 'password'} 
 					value={formData.password}
 					onChange={(e) => 
 						setFormData({...formData, password: e.target.value})
 					}
 					required 
+					className={cx('pwd')}
 				/>
-
+				<span 
+					className={cx('show-pwd')}
+					onClick={() => setShowPwd(!showPwd)}
+				>
+					
+					{ !showPwd ? 
+						(<i className="fa-solid fa-eye"></i>) :
+						(<i className="fa-solid fa-eye-slash"></i>)
+					}
+				</span>
 			</div>
 			<button 
 				type="submit" 

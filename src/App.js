@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { publicRoutes, privateRoutes } from './router';
 import { DefaultLayout } from './components/Layouts';
 import RequireAuth from './components/RequireAuth';
@@ -26,7 +27,7 @@ function App() {
 
     <Router>
       <div className="App">
-          
+        <ToastContainer autoClose={2000} style={{ fontSize: '16px' }}/>
         <Routes>
         { publicRoutes.map((route, index) => {
               const Layout = route.layout || DefaultLayout;

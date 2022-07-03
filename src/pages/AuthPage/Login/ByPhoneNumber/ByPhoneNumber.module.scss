@@ -46,3 +46,15 @@
   position: absolute;
   left: -9999px;
 }
+
+.show-pwd {
+  cursor: pointer;
+
+  i {
+    position: absolute;
+    font-size: 18px;
+    top: 60%;
+    left: 85%;
+    opacity: 0.6;
+  }
+}

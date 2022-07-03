@@ -36,12 +36,12 @@ function LeftContent() {
 
     const [inputs, setInputs] = useState({ id_user: current_user.id, address_id: parseInt(id) });
 
-    const handleClick = value => {
+    const handleClick = (value) => {
         setCurrentValue(value);
-        setInputs(values => ({ ...values, blog_address_vote: value }))
+       // setInputs(values => ({ ...values, blog_address_vote: value }))
     }
 
-    const handleMouseOver = newHoverValue => {
+    const handleMouseOver = (newHoverValue) => {
         setHoverValue(newHoverValue)
     };
 
@@ -51,9 +51,10 @@ function LeftContent() {
 
 
     const submitForm = () => {
+        setInputs(values => ({ ...values, blog_address_title: 'mia nhu cc db du cc' }))
         console.log(inputs);
         http.post('/blogAddress', inputs).then((res) => {
-            navigate('/');
+            navigate(-1);
         })
         console.log(inputs)
 
@@ -72,8 +73,6 @@ function LeftContent() {
                     </h2>
                 </div>
                 <div className={cx('top-form')}>
-
-
                     <div style={styless.container}>
                         <h2>Chuyến đi của bạn thế nào ...? </h2>
                         <div style={styless.stars}>
@@ -131,14 +130,17 @@ function LeftContent() {
                         </div>
                     </div>
                     <div className={cx('submit')}>
-                        <button className={cx('btn-submit')} onClick={handleSubmit(data => {
-                            data.blog_address_vote = currentValue;
+                        <button className={cx('btn-submit')} onClick={handleSubmit((data) => {
+                            //data.blog_address_vote = currentValue;
+                            data.blog_address_title = 'title tam nhu cc';
                             data.id_user = current_user.id;
                             data.address_id = parseInt(id);
-                            data.blog_address_image = "chua luu duoc";
+                           // data.blog_address_image = "chua luu duoc";
+                            data.blog_address_content = "day con cmn tent day";
                             console.log(data)
                             http.post('/blogAddress', data).then((res) => {
-                                navigate('/');
+                                console.log(res);
+                                //navigate('/');
                             })
 
                         })}>

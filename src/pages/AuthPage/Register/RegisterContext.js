@@ -1,5 +1,6 @@
 import { useState, createContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import authApi from '../../../api/authApi';
 
 const RegisterContext = createContext()
@@ -42,6 +43,9 @@ function RegisterProvider({ children }) {
 		const { confirmPassword, ...postData } = formData;
 		try {
 			authApi.postRegister(postData);
+            toast.info("Đăng ký thành công !!!", {
+                toastId: 1,
+            });
 			navigate('/login');
 		} catch (error) {
 			console.log('Toang meo chay roi loi cc: ', error);

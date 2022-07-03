@@ -1,15 +1,19 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import removeCookie from '../../hooks/removeCookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
     const navigate = useNavigate();
 
     const handlerLogout = () => {
         removeCookie('userin');
+        toast.info("Đăng xuất thành công !!!", {
+            toastId: 1,
+        });
         navigate('/landing');
     }
-
     
     return (
         <Fragment>
