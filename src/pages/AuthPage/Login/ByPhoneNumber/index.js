@@ -26,13 +26,13 @@ function ByPhoneNumber({ formData, setFormData }) {
 		try {
 			const res = await authApi.postLogin(formData)
 			const user = res.user
-			console.log(res);
+			//console.log(res);
 			setAuth({user});
 			removeCookie('userin')
 			setCookie('userin', JSON.stringify(user))
 			setFormData({...formData, phone: ''});
 			setFormData({...formData, password: ''});
-			//navigate(from, { replace: true });
+			navigate(from, { replace: true });
 		} catch (error) {
 			if (!error?.res) {
 				console.log('tat mat DB r bro !!!');
