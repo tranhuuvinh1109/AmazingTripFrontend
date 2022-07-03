@@ -1,5 +1,5 @@
 import SideContent from '../SideContent';
-
+import BtnCreateGroup from '../../../../../pages/BtnCreateGroup'
 
 const listContents = [
     {
@@ -16,11 +16,14 @@ const listContents = [
 
 function Left() {
 
-    return (   
-        <SideContent 
-            openStatus={true}
-            listContents={listContents}
-        />
+    return (
+        <>
+            <BtnCreateGroup />
+            <SideContent
+                openStatus={true}
+                listContents={listContents}
+            />
+        </>
     );
 }
 

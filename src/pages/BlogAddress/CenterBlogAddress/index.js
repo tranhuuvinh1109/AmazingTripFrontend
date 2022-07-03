@@ -2,6 +2,7 @@ import Left from './Left';
 import { SlideShow } from '../../../components/Layouts/components';
 import styles from './CenterAddress.module.scss';
 import classNames from 'classnames/bind';
+import { useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 

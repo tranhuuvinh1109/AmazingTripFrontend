@@ -4,15 +4,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import { AuthProvider } from './context/AuthProvider';
+import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <GlobalStyles>
+    <CreateNewGroupProvider>
+      <AuthProvider>
+        <GlobalStyles>
           <App />
-      </GlobalStyles>
-    </AuthProvider>
+        </GlobalStyles>
+      </AuthProvider>
+    </CreateNewGroupProvider>
   </React.StrictMode>
 );
 

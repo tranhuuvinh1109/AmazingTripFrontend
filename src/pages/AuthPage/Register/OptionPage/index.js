@@ -1,12 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './OptionPage.module.scss';
 import images from '../../../../assets/images';
+import { RegisterContext } from '../RegisterContext';
 
 
 const cx = classNames.bind(styles);
 
 function OptionPage({ handleSetPage }) {
+
+	const getErr = useContext(RegisterContext);
 
     return ( 
         <Fragment>
@@ -15,7 +18,7 @@ function OptionPage({ handleSetPage }) {
 				<span className={cx('subtitle')}> AmazingTrip</span>
 			</span>
 			<button 
-				onClick={() => handleSetPage(true)}
+				onClick={() => getErr.handleSetPage(true)}
 				className={cx('btn-control')}
 			>
 				<i className="fa-regular fa-user"></i>

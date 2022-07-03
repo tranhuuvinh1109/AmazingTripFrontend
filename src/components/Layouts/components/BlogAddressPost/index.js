@@ -17,22 +17,30 @@ const cx = classNames.bind(styles);
 function BlogAddressPost() {
     const [state, setState] = useState(-1) // dang la gia dinh vi chua co api;
     function setUpReaction() {
+        let a = state;
         if(state == 1) {
             setState(-1);
+            a = -1
         }
         else {
             setState(1);
+            a = 1
         }
+        return a;
         //console.log(state);
     }
     function setDownReaction() {
+        let a = state;
         if(state == 0) {
             setState(-1);
+            a = -1
         }
         else{
             setState(0);
+            a = 0;
         }
         //console.log(state);
+        return a;
     }
     return (
         <div className={cx('feedback-blog')}>
@@ -71,7 +79,7 @@ function BlogAddressPost() {
                             <div className={cx('d-flex align-items-center')}>
                                 <button className={cx('btn-reaction')}>
                                     <i className={state != 1 ? 'fa-regular fa-thumbs-up' : 'text-primary fa-regular fa-thumbs-up'} 
-                                    onClick={(e)=>{setUpReaction(); 
+                                    onClick={(e)=>{let x = setUpReaction(); 
                                         fetch('http://127.0.0.1:8000/api/reactBlog', {
                                             method: 'POST',
                                             headers: {
@@ -80,7 +88,7 @@ function BlogAddressPost() {
                                             body: JSON.stringify({
                                                 "blog_id": 1,
                                                 "id_user": 2,
-                                                "reaction": state
+                                                "reaction": x
                                             }),
                                             redirect: 'follow'
                                         }).then(response => {return response.json()}).then(responseJSON=>{console.log(responseJSON)})}}></i>
@@ -89,7 +97,19 @@ function BlogAddressPost() {
                             </div>
                             <div className={cx('d-flex align-items-center ms-3')}>  
                                 <button className={cx('btn-reaction')}>
-                                    <i className={state != 0 ? 'fa-regular fa-thumbs-down' : 'text-primary fa-regular fa-thumbs-down'} onClick={(e)=>{setDownReaction()}}></i>
+                                    <i className={state != 0 ? 'fa-regular fa-thumbs-down' : 'text-primary fa-regular fa-thumbs-down'} onClick={(e)=>{let x = setDownReaction(); 
+                                    fetch('http://127.0.0.1:8000/api/reactBlog', {
+                                        method: 'POST',
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            "blog_id": 1,
+                                            "id_user": 2,
+                                            "reaction": x
+                                        }),
+                                        redirect: 'follow'
+                                    }).then(response => {return response.json()}).then(responseJSON=>{console.log(responseJSON)})}}></i>
                                 </button>
                                 <span className={cx('sum-dislike ms-1')}>15</span>
                             </div> 

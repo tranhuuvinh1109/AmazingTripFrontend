@@ -18,10 +18,12 @@ import Form from '../pages/Form';
 import UpdateAdress from '../pages/UpdateAddress';
 import Sale from "../pages/Sale";
 import Register from '../pages/AuthPage/Register';
+import ListAddresses from '../pages/ListAddresses';
 
 // Provider
 import { FormDiscountProvider } from '../pages/BlogAddress/FormDiscountContext';
 import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
+import { RegisterProvider } from '../pages/AuthPage/Register/RegisterContext';
 
 import Login from '../pages/AuthPage/Login';
 
@@ -30,14 +32,14 @@ const publicRoutes = [
 
     //Auth
     { path: '/login', component: Login, layout: LoginLayout },
-    { path: '/register', component: Register, layout: LoginLayout },
+    { path: '/register', component: Register, layout: LoginLayout, provider: RegisterProvider },
     { path: '/landing', component: LandingPage, layout: DefaultLayout },
 ];
 
 const privateRoutes = [
     { path: '/', component: Home, layout: OneSide },
-    { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider },
-    { path: '/blog/create', component: CreatePost, layout:DefaultLayout },
+    // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider },
+    { path: '/address/:id/createBlog', component: CreatePost, layout:DefaultLayout },
     { path: '/host', component: HostPage, layout: OneSide },
     { path: '/user', component: UserPage, layout: DefaultLayout },
     { path: '/user_edit', component: UserEditPage, layout: DefaultLayout },
@@ -47,6 +49,9 @@ const privateRoutes = [
     { path: '/createAddress', component: Form, layout: DefaultLayout },
     { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
     { path: '/addSale', component: Sale, layout: DefaultLayout },
+
+    { path: '/listAddresses', component: ListAddresses, layout: DefaultLayout },
+    { path: '/address/:id', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider},
 
 ];
 

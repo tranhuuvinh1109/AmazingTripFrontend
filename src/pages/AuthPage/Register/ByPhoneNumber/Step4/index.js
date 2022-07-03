@@ -2,21 +2,24 @@ import {
 	Fragment,
 	useState,
 	useEffect,
-	useRef 
+	useRef,
+	useContext 
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
 import images from '../../../../../assets/images';
-import authApi from '../../../../../api/authApi';
+import { RegisterContext } from '../../RegisterContext';
 
 const cx = classNames.bind(styles);
 
-function Step4({ formData, setFormData }) {
-	const navigate = useNavigate();
+function Step4() {
 
 	const [activeInput, setActiveInput] = useState(false);
     const [previewAvatar, setPreviewAvatar] = useState(images.userAvatar);
+
+	const context = useContext(RegisterContext);
+
+	const [checkEmpty, setCheckEmpty] = useState(false);
 
     // effect bắt sự kiện nhấp chuột vào ảnh hiện lên cửa sổ input
     const inputRef = useRef();
@@ -54,17 +57,12 @@ function Step4({ formData, setFormData }) {
         setPreviewAvatar(file)
     }
 
-
-	// Form Submit
-	const handlerSubmit = () => {
-		const { confirmPassword, ...postData } = formData;
-		console.log(postData);
-		try {
-			//console.log(formData);
-			authApi.postRegister(postData);
-			navigate('/login');
-		} catch (error) {
-			console.log('Toang meo chay roi loi cc: ', error);
+	const handleSubmit = () => {
+		setCheckEmpty(true)
+		console.log(context.formData)
+		if(context.formData.nickname)
+		{
+			context.handleSubmit()
 		}
 	}
 
@@ -96,22 +94,32 @@ function Step4({ formData, setFormData }) {
 				)}
 			</div>
 			<div className={cx('form-control')}>
-				<label htmlFor='nickname'>Biệt danh</label>
+				<label htmlFor='nickname'>
+					Biệt danh
+					<span className={context.formData.nickname ? cx('valid') : cx('hide')}>
+						<i className="fa-solid fa-check"></i>
+					</span>
+					<span className={ context.formData.nickname || !checkEmpty ? cx('hide') : cx('invalid')}>
+						<i className="fa-solid fa-xmark"></i>
+					</span>
+				</label>
 				<input 
 					type='text' 
 					name='nickname' 
 					id='nickname' 
+					autoComplete='off'
 					placeholder='Nhập biệt danh của bạn' 
-					value={formData.nickname}
+					value={context.formData.nickname}
 					onChange={(e) => 
-						setFormData({...formData, nickname: e.target.value})
+						context.setFormData({...context.formData, nickname: e.target.value})
 					}
+					className={!context.formData.nickname && !checkEmpty ? cx('') : context.formData.nickname ? cx('border-success') : cx('border-err')}
 				/>
 			</div>
 			<button
 				type='submit'
 				className={cx('login')}
-				onClick={() => handlerSubmit()}
+				onClick={() => handleSubmit()}
 			>
 				Đăng ký
 			</button>

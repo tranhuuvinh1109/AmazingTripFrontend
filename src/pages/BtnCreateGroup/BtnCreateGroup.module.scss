@@ -1,0 +1,18 @@
+.create-group {
+    background-color: aqua;
+
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 10px;
+
+    .btn-create-group {
+        width: 100%;
+        padding: 14px;
+        background-color: transparent;
+
+        span {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}

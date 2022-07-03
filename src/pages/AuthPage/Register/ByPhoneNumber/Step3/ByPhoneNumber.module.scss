@@ -29,3 +29,60 @@
   font-weight: 600;
   font-size: 18px;
 }
+
+
+.err {
+  margin: 0 !important;
+  font-size: 16px;
+  font-weight: 400;
+  color: red;
+  text-align: left !important;
+}
+
+.instructions {
+  margin-top: 10px;
+  margin-right: 20px;
+  color: red;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.valid {
+  color: limegreen;
+  margin-left: 10px;
+}
+
+.invalid {
+  font-size: 16px;
+  color: red;
+  margin-left: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.border-err {
+  border-color: red !important;
+  &:focus {
+    outline: none;
+    border-color: red;
+  }
+}
+
+.border-success {
+  border-color: limegreen !important;
+  &:focus {
+    outline: none;
+    border-color: limegreen;
+  }
+}
+
+.continue {
+  background: none;
+  color: var(--white);
+  font-size: 16px;
+}
