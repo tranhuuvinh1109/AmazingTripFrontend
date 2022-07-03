@@ -6,6 +6,8 @@ import http from '../../../http';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import getCookie from '../../../hooks/getCookie';
+import { useForm } from 'react-hook-form';
+
 
 const cx = classNames.bind(styles);
 
@@ -16,20 +18,23 @@ const colors = {
 };
 
 function LeftContent() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+
     const navigate = useNavigate();
 
-    const {id} = useParams();
-
+    const { id } = useParams();
     const current_user = JSON.parse(getCookie('userin'))
-
-
-
 
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
     const stars = Array(5).fill(0)
 
-    const [inputs, setInputs] = useState({id_user:current_user.id, address_id:parseInt(id)});
+    const [inputs, setInputs] = useState({ id_user: current_user.id, address_id: parseInt(id) });
 
     const handleClick = value => {
         setCurrentValue(value);
@@ -44,17 +49,11 @@ function LeftContent() {
         setHoverValue(undefined)
     }
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
-    }
 
     const submitForm = () => {
         console.log(inputs);
         http.post('/blogAddress', inputs).then((res) => {
-            // navigate('/');
-            console.log("ok");
+            navigate('/');
         })
         console.log(inputs)
 
@@ -101,12 +100,13 @@ function LeftContent() {
 
                     <div className={cx('share')}>
                         <h5 className={cx('share-title')}>
-                            Chia sẻ *
+                            Chia sẻ
                         </h5>
-                        <textarea name="blog_address_content" id="" cols="30" rows="8"
-                            value={inputs.blog_address_content || ''}
-                            onChange={handleChange}
+                        <textarea {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })} id="" cols="30" rows="8"
+
                             placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"></textarea>
+                        <p className={cx('validate')}>{errors.blog_address_content?.message}</p>
+
                     </div>
                     <div className={cx('moment')}>
                         <h5 className={cx('moment-title')}>
@@ -114,9 +114,8 @@ function LeftContent() {
                         </h5>
                         <div className={cx('wrapper')}>
                             <div className={cx('file-upload')}>
-                                <input name="blog_address_image" type="file" className={cx('choose-image')}
-                                    value={inputs.blog_address_image || ''}
-                                    onChange={handleChange} />
+                                <input {...register("blog_address_image")} type="file" className={cx('choose-image')}
+                                />
                                 <i className={cx('fa fa-arrow-up')}></i>
                             </div>
                         </div>
@@ -132,7 +131,17 @@ function LeftContent() {
                         </div>
                     </div>
                     <div className={cx('submit')}>
-                        <button className={cx('btn-submit')} onClick={submitForm}>
+                        <button className={cx('btn-submit')} onClick={handleSubmit(data => {
+                            data.blog_address_vote = currentValue;
+                            data.id_user = current_user.id;
+                            data.address_id = parseInt(id);
+                            data.blog_address_image = "chua luu duoc";
+                            console.log(data)
+                            http.post('/blogAddress', data).then((res) => {
+                                navigate('/');
+                            })
+
+                        })}>
                             Gửi đánh giá của bạn
                         </button>
                     </div>

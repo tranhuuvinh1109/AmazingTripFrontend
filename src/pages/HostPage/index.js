@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import http from '../../http'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import getCookie from '../../hooks/getCookie';
 
 
 
@@ -12,8 +13,10 @@ const cx = classNames.bind(styles);
 function HostPage() {
         const navigate = useNavigate();
 
-        const location = useLocation()
-        const { user_id } = location.state;
+        const current_user = JSON.parse(getCookie('userin'))
+        const user_id = current_user.id
+
+      
 
         const [addresses, setAddresses] = useState([])
         useEffect(() => {
@@ -25,7 +28,7 @@ function HostPage() {
                         })
                 };
                 fetch();
-        }, ["address"]);
+        }, []);
       
 
         return (
