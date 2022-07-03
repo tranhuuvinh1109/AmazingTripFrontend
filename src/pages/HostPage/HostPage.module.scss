@@ -1,0 +1,147 @@
+.left-content {
+
+    h2, h3 {
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    p {
+        line-height: 1;
+    }
+
+    .title {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    height: 60px;
+    }
+    .title .address {
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 700;
+        font-size: 50px;
+        color: var(--text-headline-dark-blue);
+    }
+    .title .update {
+        position: absolute;
+        right: 50px;
+        font-size: 20px;
+        padding: 8px 20px;
+        margin-top: 12px;
+        background-color: var(--btn-orange);
+        color: #fff;
+        border-radius: 10px;
+        border: none;
+        font-size: 24px;
+        margin-right: 6%;
+    }
+    .banner {
+        margin-top: 16px;
+    }
+    .banner img {
+        width: 80%;
+        height: 400px;
+        margin-left: 10%;
+        border-radius: 10px;
+    }
+    .description {
+        width: 80%;
+        margin-left: 10%;
+        border: 2px var(--border-color) solid;
+        border-radius: 10px;
+        padding: 12px 30px;
+        margin-top: 30px;
+    }
+    .description-more {
+        display: flex;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 30px;
+    }
+    .description-more .sale {
+        width: 48%;
+        padding: 12px 30px;
+        border: 2px var(--border-color) solid;
+        border-radius: 10px;
+        height: 216px;
+    }
+    .description-more .sale .contentSale {
+        display: flex;
+    }
+    .description-more i {
+        font-size: 50px;
+        color: var(--btn-blue);
+        margin: auto;
+    }
+    
+    .description-more .sale .dateSale {
+        font-weight: bold;
+    }
+    .description-more .sale .registered {
+        margin-top: 20px;
+    }
+    .description-more .sale .registered .text {
+        font-weight: bold;
+        font-style: italic;
+    }
+    
+    .description-more .quanlity {
+        width: 48%;
+        padding: 12px 30px;
+        border: 2px var(--border-color) solid;
+        border-radius: 10px;
+        height: 216px;
+        margin-left: 4%;
+    }
+    .description-more .quanlity .content > div {
+        margin-bottom: 8px;
+        margin-top: 10px;
+    }
+    .description-more .quanlity .content > div span:first-child{
+        font-weight: bold;
+    }
+    .subtitle {
+        color: var(--text-headline-dark-blue);
+        padding-bottom: 8px;
+    }
+    
+    .amount {
+        color: var(--text-orange);
+        font-size: 30px;
+        padding: 0px 3px;
+        font-weight: bold;
+    }
+    
+    .amountContent {
+        color: var(--text-orange);
+        font-size: 30px;
+        padding: 0px 3px;
+        margin-left: 20px;
+    }
+    
+    .list {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+    
+    .list button {
+        width: 40%;
+        background-color: var(--background-light-blue);
+        padding: 12px 20px;
+        color: var(--text-headline-dark-blue);
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+    }
+    .list .registers{
+        margin-left: 5%;
+    }
+    
+    .list .posts{
+        margin-left: 10%;
+    }
+}

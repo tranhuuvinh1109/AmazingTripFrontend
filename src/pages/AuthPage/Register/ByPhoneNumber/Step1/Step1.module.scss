@@ -1,0 +1,26 @@
+.title {
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    font-size: 18px;
+    font-family: 600;
+    margin-bottom: 5px;
+  }
+
+  input {
+    min-width: 100%;
+    font-size: 16px;
+    background-color: transparent;
+    border: 1px solid var(--white);
+    border-radius: 50px;
+    padding: 10px 20px;
+  }
+}

@@ -1,0 +1,51 @@
+.title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    color: var(--text-orange);
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.btn-control {
+    background-color: var(--background-dark-blue);
+    border-radius: 50px;
+    border: 1px solid #fff;
+    width: 100%;
+    padding: 10px 30px;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+
+    span {
+        flex-grow: 1;
+    }
+    i,
+    img {
+        color: #fff;
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.moreOption {
+    display: block;
+    font-size: 16px;
+}
+
+.register {
+    color: var(--text-orange);
+}
+
+
+.optionContent {
+    display: inline-block;
+    color: #fff;
+
+}

@@ -1,0 +1,17 @@
+.center-left-top {
+    border: 1px solid var(--background-dark-blue);
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h3, p {
+        color: var(--background-dark-blue);
+    }
+
+    h3 {
+        font-weight: bold;
+    }
+}

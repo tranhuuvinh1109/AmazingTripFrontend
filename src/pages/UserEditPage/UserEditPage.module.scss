@@ -1,0 +1,114 @@
+.cover-image {
+    width: 100%;
+    height: 500px;
+    padding: 0 120px;
+    position: relative;
+
+    img {
+        max-height: 350px;
+        width: 100%;
+        border-end-start-radius: 20px;
+        border-end-end-radius: 20px;
+        object-fit: cover;
+    }
+}
+
+.user-img {
+    position: absolute;
+    top: 250px;
+    right: 0;
+    bottom: 0;
+    left: calc(50vw - 144px);
+
+    div {
+        position: relative;
+        height: 280px;
+        width: 280px;
+    }
+
+    div img {
+        height: 280px;
+        width: 280px;
+        border-radius: 50%;
+        padding: 8px;
+        background-color: var(--white);
+        object-fit: cover;
+    }
+}
+
+.form-container {
+    border: 0;
+    padding: 30px 200px;
+}
+
+.user-inf {
+    background-color: var(--background-light-blue);
+    border-radius: 10px;
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+
+    .container {
+        width: 550px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control {
+        border: 0;
+        margin-bottom: 20px;
+
+        label {
+            font-weight: 600;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        input {
+            font-size: 20px;
+            padding: 5px 20px;
+            outline: none;
+            border-radius: 50px;
+            justify-content: center;
+        }
+
+    }
+    
+    button {
+        font-size: 20px;
+        background-color: var(--btn-orange);
+        color: var(--white);
+        width: 400px;
+        padding: 5px 0;
+        border-radius: 50px;
+    }
+}
+
+.avatar {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 264px;
+    height: 264px;
+    border-radius: 50%;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+
+    .camera-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+            font-size: 128px;
+            color: rgba($color: #ffffff, $alpha: 0.4);
+        }
+    }
+    .input-ava {
+        position: absolute;
+        top: 130px;
+        left: 100px;
+        opacity: 0;
+        height: 0;
+    }
+}

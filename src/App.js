@@ -1,0 +1,72 @@
+import { Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { publicRoutes, privateRoutes } from './router';
+import { DefaultLayout } from './components/Layouts';
+import RequireAuth from './components/RequireAuth';
+
+function App() {
+  // const [userList, setUserList] = useState([]);
+
+  // useEffect(() => {
+  //   const fectchUserList = async () => {
+  //     try {
+  //       const response = await userApi.getAll();
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.log('Toang meo chay roi loi cc: ', error);
+  //     }
+
+  //   }
+
+  //   fectchUserList();
+  // }, []);
+
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+        { publicRoutes.map((route, index) => {
+              const Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              const Provider = route.provider || Fragment;
+              return (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Provider>
+                      <Layout>
+                        <Page />
+                      </Layout>
+                    </Provider>
+                  } 
+                />
+              );
+            })}
+          <Route element={<RequireAuth />}>
+            { privateRoutes.map((route, index) => {
+              const Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              const Provider = route.provider || Fragment;
+              return (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Provider>
+                      <Layout>
+                        <Page />
+                      </Layout>
+                    </Provider>
+                  } 
+                />
+              );
+            })}
+          </Route>
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
