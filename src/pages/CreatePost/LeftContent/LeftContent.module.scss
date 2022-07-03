@@ -22,6 +22,9 @@
     margin-top: 8px;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 10px;
+    .validate {
+        color: red;
+    }
 }
 
 .review {
@@ -254,3 +257,4 @@
     width: calc(100% - 48px);
     border-radius: 20px;
 }
+
