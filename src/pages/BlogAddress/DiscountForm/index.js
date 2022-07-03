@@ -43,7 +43,6 @@ function DiscountForm() {
                         <label htmlFor="name">Tên bạn là: </label>
                         <input type="text" id="name" />
                     </div>
-
                     <div className={cx('form-control')}>
                         <label htmlFor="name">Số điện thoại: </label>
                         <input type="text" id="name" />

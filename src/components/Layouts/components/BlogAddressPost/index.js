@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
+import Comments from '../CommentBlog/Comments';
 // const [avatarUser, setAvatarUser] = useState();
 // const [username, setUsername] = useState();
 // const [datePost, setDatePost] = useState();
@@ -14,6 +15,33 @@ import styles from './BlogAddressPost.module.scss';
 const cx = classNames.bind(styles);
 
 function BlogAddressPost() {
+    const [state, setState] = useState(-1) // dang la gia dinh vi chua co api;
+    function setUpReaction() {
+        let a = state;
+        if(state == 1) {
+            setState(-1);
+            a = -1
+        }
+        else {
+            setState(1);
+            a = 1
+        }
+        return a;
+        //console.log(state);
+    }
+    function setDownReaction() {
+        let a = state;
+        if(state == 0) {
+            setState(-1);
+            a = -1
+        }
+        else{
+            setState(0);
+            a = 0;
+        }
+        //console.log(state);
+        return a;
+    }
     return (
         <div className={cx('feedback-blog')}>
             <div className={cx('user-post')}>
@@ -50,13 +78,38 @@ function BlogAddressPost() {
                         <div className={cx('d-flex')}>
                             <div className={cx('d-flex align-items-center')}>
                                 <button className={cx('btn-reaction')}>
-                                    <i className={cx('fa-regular fa-thumbs-up')}></i>
+                                    <i className={state != 1 ? 'fa-regular fa-thumbs-up' : 'text-primary fa-regular fa-thumbs-up'} 
+                                    onClick={(e)=>{let x = setUpReaction(); 
+                                        fetch('http://127.0.0.1:8000/api/reactBlog', {
+                                            method: 'POST',
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                                "blog_id": 1,
+                                                "id_user": 2,
+                                                "reaction": x
+                                            }),
+                                            redirect: 'follow'
+                                        }).then(response => {return response.json()}).then(responseJSON=>{console.log(responseJSON)})}}></i>
                                 </button>
                                 <span className={cx('sum-like ms-1')}>100</span>
                             </div>
                             <div className={cx('d-flex align-items-center ms-3')}>  
                                 <button className={cx('btn-reaction')}>
-                                    <i className={cx('fa-regular fa-thumbs-down')}></i>
+                                    <i className={state != 0 ? 'fa-regular fa-thumbs-down' : 'text-primary fa-regular fa-thumbs-down'} onClick={(e)=>{let x = setDownReaction(); 
+                                    fetch('http://127.0.0.1:8000/api/reactBlog', {
+                                        method: 'POST',
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            "blog_id": 1,
+                                            "id_user": 2,
+                                            "reaction": x
+                                        }),
+                                        redirect: 'follow'
+                                    }).then(response => {return response.json()}).then(responseJSON=>{console.log(responseJSON)})}}></i>
                                 </button>
                                 <span className={cx('sum-dislike ms-1')}>15</span>
                             </div> 
@@ -66,11 +119,7 @@ function BlogAddressPost() {
                             20 Bình luận
                         </span>
                     </div>
-                    <div className={cx('user-comment')}>
-                        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/281896920_534554055067659_2103376413571668716_n.jpg?stp=dst-jpg_s206x206&_nc_cat=101&ccb=1-7&_nc_sid=aee45a&_nc_ohc=j7BNtyGXhXAAX_hRifl&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVLnllXQKcQizy9OEzLQUonG7eViUgPq4ynxejsTjcQClQ&oe=62D02342"
-                            alt="" className={cx('user-avt')} />
-                        <input type="text" className="write-comment" placeholder="Viết bình luận ..." />
-                    </div>
+                    <Comments />
                 </div>
             </div>
         </div>
