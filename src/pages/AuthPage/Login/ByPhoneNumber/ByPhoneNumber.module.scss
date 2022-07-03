@@ -2,6 +2,7 @@
   font-weight: 600;
   color: #fff;
   margin: 0;
+  text-align: center;
 }
 
 .form-control {
@@ -32,4 +33,16 @@
   font-weight: 600;
   font-size: 18px;
   padding: 10px 40px;
+}
+
+.errmsg {
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
 }

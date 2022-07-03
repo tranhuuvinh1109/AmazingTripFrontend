@@ -1,5 +1,5 @@
-import { Fragment, useState, useRef} from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Fragment, useState, useRef, useEffect} from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
 import authApi from '../../../../api/authApi';
@@ -21,25 +21,28 @@ function ByPhoneNumber({ formData, setFormData }) {
 
 	const [errMsg, setErrMsg] = useState('');
 
+	useEffect(() => {
+		setErrMsg('');
+	}, [formData.phone, formData.password])
+
 	// Form Submit
 	const handlerSubmit = async () => {
 		try {
 			const res = await authApi.postLogin(formData)
-			const user = res.user
-			//console.log(res);
-			setAuth({user});
-			removeCookie('userin')
-			setCookie('userin', JSON.stringify(user))
-			setFormData({...formData, phone: ''});
-			setFormData({...formData, password: ''});
-			navigate(from, { replace: true });
-		} catch (error) {
-			if (!error?.res) {
-				console.log('tat mat DB r bro !!!');
+			if(res.status === 404)
+				setErrMsg('SĐT/ mật khẩu không chính xác !!!');
+			else {
+				const user = res.user
+				setAuth({user});
+				removeCookie('userin')
+				setCookie('userin', JSON.stringify(user))
+				setFormData({...formData, phone: ''});
+				setFormData({...formData, password: ''});
+				navigate(from, { replace: true });
 			}
-			if (error.res?.status === 400)
-				console.log('sai cmn tk mk r !!!');
-			console.log('Toang meo chay roi loi cc: ', error);
+		} catch (error) {
+			if(error)
+				setErrMsg('Không thể đăng nhập !!!');
 		}
 
 		console.log()
@@ -47,7 +50,16 @@ function ByPhoneNumber({ formData, setFormData }) {
 
 	return (
 		<Fragment>
-			<h3 className={cx('title')}>Đăng nhập</h3>
+			<div>
+				<h3 className={cx('title')}>Đăng nhập</h3>
+				<p 
+					ref={errRef} 
+					className={errMsg ? cx('errmsg') : cx('offscreen')} 
+					aria-live="assertive"
+				>
+					{errMsg}
+				</p>
+			</div>
 			<div className={cx('form-control')}>
 				<label htmlFor='sdt'>Số điện thoại</label>
 				<input 
