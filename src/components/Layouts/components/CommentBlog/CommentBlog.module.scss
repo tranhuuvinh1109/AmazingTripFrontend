@@ -90,3 +90,38 @@
         font-size: 18px;
     }
 }
+
+
+.user-comment {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+    .input-comment {
+        flex-grow: 1;
+        width: 100%;
+        min-height: 100%;
+        position: relative;
+        margin-left: 20px;
+
+        input {
+            min-height: 100%;
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: transparent;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 93%;
+            i {
+                align-items: center;
+                margin: 0;
+            }
+        }
+    }
+}

@@ -34,7 +34,10 @@ function LeftContent() {
     const [hoverValue, setHoverValue] = useState(undefined);
     const stars = Array(5).fill(0)
 
-    const [inputs, setInputs] = useState({ id_user: current_user.id, address_id: parseInt(id) });
+    const [inputs, setInputs] = useState({ 
+        id_user: current_user.id, 
+        address_id: parseInt(id) 
+    });
 
     const handleClick = (value) => {
         setCurrentValue(value);
@@ -51,7 +54,7 @@ function LeftContent() {
 
 
     const submitForm = () => {
-        setInputs(values => ({ ...values, blog_address_title: 'mia nhu cc db du cc' }))
+        setInputs(values => ({ ...values, blog_address_title: 'sdaf asdf asdf' }))
         console.log(inputs);
         http.post('/blogAddress', inputs).then((res) => {
             navigate(-1);
@@ -101,9 +104,13 @@ function LeftContent() {
                         <h5 className={cx('share-title')}>
                             Chia sẻ
                         </h5>
-                        <textarea {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })} id="" cols="30" rows="8"
+                        <textarea 
+                            {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })} 
+                            id="" cols="30" rows="8"
 
-                            placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"></textarea>
+                            placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?">
+
+                        </textarea>
                         <p className={cx('validate')}>{errors.blog_address_content?.message}</p>
 
                     </div>
@@ -132,7 +139,7 @@ function LeftContent() {
                     <div className={cx('submit')}>
                         <button className={cx('btn-submit')} onClick={handleSubmit((data) => {
                             //data.blog_address_vote = currentValue;
-                            data.blog_address_title = 'title tam nhu cc';
+                            data.blog_address_title = 'title tam';
                             data.id_user = current_user.id;
                             data.address_id = parseInt(id);
                            // data.blog_address_image = "chua luu duoc";
