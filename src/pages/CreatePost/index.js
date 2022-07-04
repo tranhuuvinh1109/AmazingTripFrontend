@@ -25,7 +25,7 @@ function CreatePost() {
                 </div>
                 <div className={cx('comment')}>
                     <h2> Bình luận gần đây </h2>
-                    <BlogAddressPost />
+                    {/* <BlogAddressPost /> */}
                 </div>
             </div>
         </div>

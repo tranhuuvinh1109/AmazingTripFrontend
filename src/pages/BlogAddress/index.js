@@ -10,11 +10,9 @@ import CreateFormNewGroup from './CreateFormNewGroup';
 import { useParams } from 'react-router-dom';
 import http from '../../http';
 
-
 function BlogAddress() {
     const formContext = useContext(FormDiscountContext)
     const createNewGroup = useContext(FormCreateNewGroupContext)
-
     
     return (
         // <FormDiscountProvider>
@@ -29,7 +27,7 @@ function BlogAddress() {
                 </div>
 
                 <div className="col-sm-8">
-                    <BottomAddress />
+                    <BottomAddress/>
                     <Paginate />
                 </div>
 

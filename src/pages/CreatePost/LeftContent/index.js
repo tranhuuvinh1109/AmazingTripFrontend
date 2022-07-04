@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import getCookie from '../../../hooks/getCookie';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 
 const cx = classNames.bind(styles);
@@ -36,7 +37,10 @@ function LeftContent() {
 
     const [inputs, setInputs] = useState({ 
         id_user: current_user.id, 
-        address_id: parseInt(id) 
+        address_id: parseInt(id),
+        blog_address_title: 'title tam',
+        blog_address_content: '',
+        blog_address_image: ''
     });
 
     const handleClick = (value) => {
@@ -54,12 +58,11 @@ function LeftContent() {
 
 
     const submitForm = () => {
-        setInputs(values => ({ ...values, blog_address_title: 'sdaf asdf asdf' }))
         console.log(inputs);
         http.post('/blogAddress', inputs).then((res) => {
+            toast.success('Đánh giá thành công !!!');
             navigate(-1);
         })
-        console.log(inputs)
 
     }
     return (
@@ -108,8 +111,12 @@ function LeftContent() {
                             {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })} 
                             id="" cols="30" rows="8"
 
-                            placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?">
-
+                            placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"
+                            
+                            onChange={(e) => 
+                                setInputs({...inputs, blog_address_content: e.target.value})
+                            }
+                        >
                         </textarea>
                         <p className={cx('validate')}>{errors.blog_address_content?.message}</p>
 
@@ -137,20 +144,10 @@ function LeftContent() {
                         </div>
                     </div>
                     <div className={cx('submit')}>
-                        <button className={cx('btn-submit')} onClick={handleSubmit((data) => {
-                            //data.blog_address_vote = currentValue;
-                            data.blog_address_title = 'title tam';
-                            data.id_user = current_user.id;
-                            data.address_id = parseInt(id);
-                           // data.blog_address_image = "chua luu duoc";
-                            data.blog_address_content = "day con cmn tent day";
-                            console.log(data)
-                            http.post('/blogAddress', data).then((res) => {
-                                console.log(res);
-                                //navigate('/');
-                            })
-
-                        })}>
+                        <button 
+                            className={cx('btn-submit')} 
+                            onClick={submitForm}
+                        >
                             Gửi đánh giá của bạn
                         </button>
                     </div>

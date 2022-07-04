@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import Comments from '../CommentBlog/Comments';
 import Comment from "../CommentBlog/Comment";
+import getCookie from '../../../../hooks/getCookie';
 // const [avatarUser, setAvatarUser] = useState();
 // const [username, setUsername] = useState();
 // const [datePost, setDatePost] = useState();
@@ -15,16 +16,18 @@ import Comment from "../CommentBlog/Comment";
 
 const cx = classNames.bind(styles);
 
-function BlogAddressPost() {
+function BlogAddressPost({ postData }) {
+    const userData = JSON.parse(getCookie('userin'));
+
     const [state, setState] = useState(-1) // dang la gia dinh vi chua co api;
 
     const [showComment, setShowComment] = useState(false);
     const [value, setValue] = useState('');
     const raw = JSON.stringify({
-        "blog_id": 1,
-        "id_user": 2,
-        "comment_blog_content": value,
-        "comment_blog_image": 'https://bcp.cdnchinhphu.vn/Uploaded/tranducmanh/2021_06_22/HaTinh.jpg'
+        "blog_address_id": postData.blog_address_id,
+        "id_user": userData.id,
+        "comment_address_content": value,
+        //"comment_address_image": 'https://bcp.cdnchinhphu.vn/Uploaded/tranducmanh/2021_06_22/HaTinh.jpg'
     })
     const obj = {
         method: 'POST',
@@ -40,6 +43,7 @@ function BlogAddressPost() {
         console.log(value);
     }
     function sendComment() {
+        console.log(raw);
         fetch('http://127.0.0.1:8000/api/createCommentBlog', obj)
         .then((response) => { 
             return response.json() 
@@ -103,11 +107,10 @@ function BlogAddressPost() {
                 </div>
                 <div className={cx('post-content')}>
                     <p className={cx('post-title')}>
-                        Hội an là địa điểm tham quan du lịch tuyệt vời, với những ngôi nhà cổ sơn màu vàng .
-                        Khung cảnh vẫn giữ nét cổ xưa, ẩm thực với những quán gà nổi tiếng.
+                        {postData.blog_address_content}
                     </p>
                     <div className={cx('post-img')}>
-                        <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" />
+                        {/* <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" /> */}
                     </div>
                     <div className={cx('post-reaction')}>
                         <div className={cx('d-flex')}>
@@ -179,7 +182,7 @@ function BlogAddressPost() {
                                 </button>
                             </div>
                         </div>
-                        { showComment && <Comments /> }
+                        { showComment && <Comments blog_address_id={postData.blog_address_id} /> }
                     </div>
 
                 </div>

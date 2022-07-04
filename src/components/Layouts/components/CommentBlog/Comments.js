@@ -7,25 +7,13 @@ import styles from './CommentBlog.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Comments = (props) => {
+const Comments = ({ blog_address_id }) => {
     const [commentsBlog, setCommentsBlog] = useState([]);
     const [value, setValue] = useState('');
-    const raw = JSON.stringify({
-        "blog_id": 1,
-        "id_user": 2,
-        "comment_blog_content": value,
-        "comment_blog_image": 'https://bcp.cdnchinhphu.vn/Uploaded/tranducmanh/2021_06_22/HaTinh.jpg'
-    })
-    const obj = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: raw,
-        redirect: 'follow'
-    }
+
+    
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/commentsBlog/1').then((response) => {
+        fetch(`http://127.0.0.1:8000/api/commentsBlog/${blog_address_id}`).then((response) => {
             if (!response.ok) {
                 throw Error(response.statusText);
             }
@@ -43,7 +31,7 @@ const Comments = (props) => {
                 <div className="col-md-12 mt-3">
                     {
                         commentsBlog.map((item) => (
-                            <Comment comment={item.comment_blog_content} key={item.comment_blog_id} />
+                            <Comment comment={item.comment_address_content} key={item.comment_address_id} />
                         )
                         )}
                 </div>
