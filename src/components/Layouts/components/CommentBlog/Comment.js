@@ -1,12 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
+import commentAddressApi from '../../../../api/commentAddressApi';
 
 const cx = classNames.bind(styles);
 
 
-const Comment = (props) => {
+const Comment = ({comment}) => {
     const [state, setState] = useState(-1);
     function setUpReaction() {
         setState(1);
@@ -14,9 +16,17 @@ const Comment = (props) => {
     function setDownReaction() {
         setState(0);
     }
-    function sendReaction() {
-        fetch('http://127.0.0.1:8000/api/reactBlog')
-    }
+    
+    const handleDelete = () => {
+        try {
+            const comment_id = comment.comment_blog_id;
+            console.log(comment_id);
+            commentAddressApi.delete(comment_id);
+            toast.warning('Xóa bình luận thành công !!!');
+        } catch (error) {
+            console.log('Toang meo chay roi loi cc: ', error)
+        }
+    }   
 
     
     return (
@@ -28,7 +38,7 @@ const Comment = (props) => {
             <div className="card p-3 rounded-pill d-flex justify-content-between">
                 <div className="user flex-row align-items-center">
                     <div className='contentComment mt-1'>
-                        <p className="font-weight-bold m-0">{props.comment}</p>
+                        <p className="font-weight-bold m-0">{comment.comment_address_content}</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +47,12 @@ const Comment = (props) => {
                     <button className="btn btn-block btn-info btn-sm">edit</button>
                 </div>
                 <div className='col-4'>
-                    <button className="btn btn-block btn-info btn-sm">delete</button>
+                    <button 
+                        className="btn btn-block btn-info btn-sm"
+                        onClick={handleDelete}
+                    >
+                        delete
+                    </button>
                 </div>
             </div>
             {/* <div className='d-flex post-reaction mt-3'>

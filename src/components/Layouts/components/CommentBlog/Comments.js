@@ -31,7 +31,7 @@ const Comments = ({ blog_address_id }) => {
                 <div className="col-md-12 mt-3">
                     {
                         commentsBlog.map((item) => (
-                            <Comment comment={item.comment_address_content} key={item.comment_address_id} />
+                            <Comment comment={item} key={item.comment_blog_id} />
                         )
                         )}
                 </div>
