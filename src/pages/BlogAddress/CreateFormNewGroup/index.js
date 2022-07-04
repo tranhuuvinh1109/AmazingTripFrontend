@@ -1,6 +1,7 @@
 import { useEffect, useContext, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateFormNewGroup.module.scss';
+import { toast } from 'react-toastify';
 import { FormCreateNewGroupContext } from '../CreateNewGroupContext';
 import getCookie from '../../../hooks/getCookie';
 import { Axios } from 'axios';
@@ -59,7 +60,12 @@ function CreateFormNewGroup() {
             address_id: address,
             group_admin: admin,
             group_member: member
-        }).then(res => console.log(res)).catch(err => console.log(err));
+        }).then(res => {
+            toast.success('Tao nhom thanh cong !!!');
+            formContext.toggleCreate();
+            console.log(res)
+        }
+        ).catch(err => console.log(err));
         console.log("111222")
 
     }
