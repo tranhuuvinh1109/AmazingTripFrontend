@@ -31,7 +31,7 @@ function ByPhoneNumber({ formData, setFormData }) {
 	const handlerSubmit = async () => {
 		try {
 			const res = await authApi.postLogin(formData)
-			if(res.status === 404)
+			if(res.status === 404 || res.status === 400)
 				setErrMsg('SĐT/ mật khẩu không chính xác !!!');
 			else {
 				const user = res.user
