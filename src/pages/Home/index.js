@@ -1,10 +1,13 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import removeCookie from '../../hooks/removeCookie';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import getCookie from '../../hooks/getCookie'
+import getImage from '../../hooks/getImage';
 
 function Home() {
+    const [image, setImage] = useState();
     const navigate = useNavigate();
 
     const handlerLogout = () => {
@@ -14,7 +17,17 @@ function Home() {
         });
         navigate('/landing');
     }
-    
+
+    useEffect(() => {
+        const getUrl = async () => {
+            const imageUrl = await getImage(JSON.parse(getCookie('userin')).avatar);
+
+            setImage(imageUrl)
+        }
+
+        getUrl()
+    }, [])
+
     return (
         <Fragment>
             <div style={{ height: '1000px' }}>
@@ -34,6 +47,8 @@ function Home() {
                     >
                         Đăng xuất
                     </button>
+                    <br/>
+                    <img src={image} style={{ width: '100px', height: '50px' }} />
                 </h1>
             </div>
         </Fragment>

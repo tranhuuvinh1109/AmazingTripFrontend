@@ -9,6 +9,8 @@ import classNames from 'classnames/bind';
 import styles from './ByPhoneNumber.module.scss';
 import images from '../../../../../assets/images';
 import { RegisterContext } from '../../RegisterContext';
+import storeImage from '../../../../../hooks/storeImage';
+import deleteImage from '../../../../../hooks/deleteImage';
 
 const cx = classNames.bind(styles);
 
@@ -42,24 +44,27 @@ function Step4() {
 
     // Xóa ảnh xem tạm thời
     useEffect(() => {
-        
         return () => {
+			// if(context.formData.avatar !== '')
+			//  	deleteImage(context.formData.avatar)
             URL.revokeObjectURL(previewAvatar.preview)
         }
     }, [previewAvatar])
 
     // Xem tạm thời ảnh sau khi ảnh được
-    const handlePreviewAvatar = (e) => {
+    const handlePreviewAvatar = async (e) => {
         const file = e.target.files[0]
-
-        file.preview = URL.createObjectURL(file)
-
-        setPreviewAvatar(file)
+		const imagePath = await storeImage(file);
+		console.log(imagePath);
+		context.setFormData({...context.formData, avatar: imagePath})
+        file.preview = URL.createObjectURL(file);
+		setPreviewAvatar(file);
     }
+
 
 	const handleSubmit = () => {
 		setCheckEmpty(true)
-		console.log(context.formData)
+		
 		if(context.formData.nickname)
 		{
 			context.handleSubmit()

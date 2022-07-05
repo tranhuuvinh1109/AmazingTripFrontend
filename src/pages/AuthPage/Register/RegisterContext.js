@@ -34,6 +34,7 @@ function RegisterProvider({ children }) {
         password: "",
         confirmPassword: "",
         address: "",
+        avatar: "",
         nickname: "",
         role: "2",
     })

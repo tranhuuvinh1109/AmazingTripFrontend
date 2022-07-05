@@ -28,9 +28,9 @@ function CenterContent() {
                     </button>
                 </div>
             </div>
+            {/* <BlogAddressPost />
             <BlogAddressPost />
-            <BlogAddressPost />
-            <BlogAddressPost />
+            <BlogAddressPost /> */}
         </Fragment>
     );
 }

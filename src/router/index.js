@@ -26,6 +26,7 @@ import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
 import { RegisterProvider } from '../pages/AuthPage/Register/RegisterContext';
 
 import Login from '../pages/AuthPage/Login';
+import Test from '../pages/Test';
 
 // Public Page
 const publicRoutes = [
@@ -37,6 +38,8 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
+
+    { path: '/test', component: Test, layout: DefaultLayout },
     { path: '/', component: Home, layout: OneSide },
     // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider },
     { path: '/address/:id/createBlog', component: CreatePost, layout:DefaultLayout },
