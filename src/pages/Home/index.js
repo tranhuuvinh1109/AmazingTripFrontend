@@ -5,8 +5,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getCookie from '../../hooks/getCookie'
 import getImage from '../../hooks/getImage';
+import { UserAuth } from '../../context/AuthFireBaseContext';
 
 function Home() {
+    const [userData, setUserData] = useState({});
+    const { googleSignIn, user } = UserAuth();
     const [image, setImage] = useState();
     const navigate = useNavigate();
 
@@ -27,6 +30,15 @@ function Home() {
 
         getUrl()
     }, [])
+
+    const handleSigin = async () => {
+        try {
+            const res = await googleSignIn();
+
+          } catch (error) {
+            console.log(error);
+          }
+    }
 
     return (
         <Fragment>
@@ -51,6 +63,11 @@ function Home() {
                     <img src={image} style={{ width: '100px', height: '50px' }} />
                 </h1>
             </div>
+            <button
+                onClick={handleSigin}
+            >
+                Đăng nhập google
+            </button>
         </Fragment>
     )
 }

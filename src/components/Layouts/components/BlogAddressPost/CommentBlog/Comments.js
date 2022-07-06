@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import Comment from "./Comment"
-import CommentForm from "./commentForm"
 import classNames from 'classnames/bind';
 import styles from './CommentBlog.module.scss';
 
@@ -9,8 +8,6 @@ const cx = classNames.bind(styles);
 
 const Comments = ({ blog_address_id }) => {
     const [commentsBlog, setCommentsBlog] = useState([]);
-    const [value, setValue] = useState('');
-
     
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/api/commentsBlog/${blog_address_id}`).then((response) => {

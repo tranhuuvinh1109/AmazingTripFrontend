@@ -4,18 +4,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import { AuthProvider } from './context/AuthProvider';
-import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContext'
+import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContext';
+import { AuthFireBaseContextProvider } from './context/AuthFireBaseContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CreateNewGroupProvider>
-      <AuthProvider>
-        <GlobalStyles>
-          <App />
-        </GlobalStyles>
-      </AuthProvider>
-    </CreateNewGroupProvider>
+    <AuthFireBaseContextProvider>
+      <CreateNewGroupProvider>
+        <AuthProvider>
+          <GlobalStyles>
+            <App />
+          </GlobalStyles>
+        </AuthProvider>
+      </CreateNewGroupProvider>
+    </AuthFireBaseContextProvider>
   </React.StrictMode>
 );
 
