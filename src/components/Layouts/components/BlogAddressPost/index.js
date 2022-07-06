@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import Comments from './CommentBlog/Comments';
 import getCookie from '../../../../hooks/getCookie';
+import ReadMore from '../ReadMore';
 
 const cx = classNames.bind(styles);
 
@@ -42,19 +43,19 @@ function BlogAddressPost({ postData }) {
         <div className={cx('feedback-blog')}>
             <div className={cx('user-post')}>
                 <div className={cx('user-infor')}>
-                    <img src="https://vnn-imgs-f.vgcloud.vn/2022/02/26/10/ronaldo-26.jpeg" alt=""
-                    className={cx('user-avt')} />
-                    <h4 className={cx('m-0')}>
-                        Ronaldo
-                        <br/>
-                        <span className={cx('date-post')}>
-                            6 tháng 6 năm 2022
-                        </span>                    
-                    </h4>
+                    <div>
+                        <img src="https://vnn-imgs-f.vgcloud.vn/2022/02/26/10/ronaldo-26.jpeg" alt=""
+                        className={cx('user-avt')} />
+                        <h4 className={cx('m-0')}>
+                            Ronaldo
+                            <br/>
+                            <span className={cx('date-post')}>
+                                6 tháng 6 năm 2022
+                            </span>                    
+                        </h4>
+                    </div>
+                    <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
                 </div>
-                <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
-            </div>
-            <div className={cx('post-container')}>
                 <div className={cx('post-star')}>
                     <i className={cx('fa-solid fa-star')}></i>
                     <i className={cx('fa-solid fa-star')}></i>
@@ -62,10 +63,10 @@ function BlogAddressPost({ postData }) {
                     <i className={cx('fa-solid fa-star')}></i>
                     <i className={cx('fa-solid fa-star')}></i>
                 </div>
+            </div>
+            <div className={cx('post-container')}>
                 <div className={cx('post-content')}>
-                    <p className={cx('post-title')}>
-                        {postData.blog_address_content}
-                    </p>
+                    <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>
                     <div className={cx('post-img')}>
                         {/* <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" /> */}
                     </div>

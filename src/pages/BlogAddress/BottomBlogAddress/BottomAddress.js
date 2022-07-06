@@ -15,7 +15,7 @@ function BottomAddress() {
         const fetchPostList = async () => {
             try {
                 const res = await blogAddressPostApi.get(id);
-                setPostData([res.data]) 
+                setPostData(res.data) 
             } catch (error) {
                 console.log('Toang meo chay r loi cc:  ', error)
             }
