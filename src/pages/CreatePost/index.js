@@ -10,10 +10,17 @@ import http from '../../http';
 const cx = classNames.bind(styles);
 
 function CreatePost() {
+    const {id} = useParams();
+    const [address, setAddress] = useState({});
 
-    
+    useEffect(() => {
+        const fetch = async () => {
+            const res = await http.get(`/address/` + id);
+            setAddress(res.data.data);
+        };
+        fetch();
+    }, [])
 
-    const current_user = JSON.parse(getCookie('userin'))
     return ( 
         <div className={cx('body-content')}>
             <div className={cx('left-content')}>

@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
 const blogAddressPostApi = {
-    getAll: () => {
-        const url = `/blogAddress`;
+    get: (id) => {
+        const url = `/blogAddress/${id}`;
         return axiosClient.get(url);
     },
 }

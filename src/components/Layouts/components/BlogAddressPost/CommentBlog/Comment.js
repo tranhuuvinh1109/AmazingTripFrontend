@@ -40,12 +40,17 @@ function Comment ({comment}) {
 
     const handleEdit = () => {
         setEdit(true);
+        setShowEdit(false);
         inputRef.current.focus();
     }
 
     const handleSendEdit = () => {
         setEdit(false);
-        setShowEdit(false);
+        try {
+            commentAddressApi.patch(editVal);
+        } catch (error) {
+            console.log('Toang meo chay roi loi cc: ', error);
+        }
     }
 
     useEffect(() => {
@@ -80,7 +85,7 @@ function Comment ({comment}) {
                     className={cx('comment')}
                     value={editVal.comment_address_content}
                     onChange={(e) => 
-                        setEditVal({...editVal, comment_address_content: edit.target.value})
+                        setEditVal({...editVal, comment_address_content: e.target.value})
                     }
                     readOnly={!edit}
                     style={ edit ? {} : editStyle}

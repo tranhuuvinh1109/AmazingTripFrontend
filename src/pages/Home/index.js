@@ -31,14 +31,14 @@ function Home() {
         getUrl()
     }, [])
 
-    const handleSigin = async () => {
-        try {
-            const res = await googleSignIn();
+    // const handleSigin = async () => {
+    //     try {
+    //         const res = await googleSignIn();
 
-          } catch (error) {
-            console.log(error);
-          }
-    }
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    // }
 
     return (
         <Fragment>
@@ -63,11 +63,11 @@ function Home() {
                     <img src={image} style={{ width: '100px', height: '50px' }} />
                 </h1>
             </div>
-            <button
+            {/* <button
                 onClick={handleSigin}
             >
                 Đăng nhập google
-            </button>
+            </button> */}
         </Fragment>
     )
 }

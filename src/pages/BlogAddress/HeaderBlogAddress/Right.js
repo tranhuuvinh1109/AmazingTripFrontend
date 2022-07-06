@@ -9,8 +9,7 @@ const cx = classNames.bind(styles);
 function Right() {
     const {id} = useParams();
 
-    const [address, setAddress] = useState({
-    });
+    const [address, setAddress] = useState({});
     useEffect(() => {
         const fetch = async () => {
             const res = await http.get(`/address/` + id);

@@ -1,0 +1,30 @@
+.empty-area {
+    background-color: var(--background-light-blue);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        color: var(--text-dark-blue);
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    button {
+        background-color: transparent;
+        font-weight: bold;
+        font-size: 24px;
+
+        i {
+            margin-right: 5px;
+        }
+
+        &:focus {
+            color: var(--text-orange);
+        }
+    }
+}
