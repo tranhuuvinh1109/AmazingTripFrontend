@@ -2,4 +2,15 @@
     margin-top: 10px;
     font-size: 18px;
     word-break: break-word;
+    overflow: hidden;
+
+    button {
+        background-color: transparent;
+        margin-left: 2px;
+        color: rgba($color: #094067, $alpha: 0.4);
+
+        &:hover {
+            color: var(--text-orange);
+        }
+    }
 }

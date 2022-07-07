@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import getCookie from '../../hooks/getCookie'
 import getImage from '../../hooks/getImage';
 import { UserAuth } from '../../context/AuthFireBaseContext';
+import SlideShow from '../../components/Layouts/components/SlideShow';
+
 
 function Home() {
     const [userData, setUserData] = useState({});
@@ -40,8 +42,10 @@ function Home() {
     //       }
     // }
 
+
     return (
         <Fragment>
+
             <div style={{ height: '1000px' }}>
                 <h1>
                     Home Page
@@ -68,6 +72,9 @@ function Home() {
             >
                 Đăng nhập google
             </button> */}
+            <div style={{ height: '400px' }}>
+                <SlideShow />
+            </div>
         </Fragment>
     )
 }

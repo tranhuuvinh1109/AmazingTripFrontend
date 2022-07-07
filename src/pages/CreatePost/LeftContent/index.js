@@ -69,7 +69,6 @@ function LeftContent() {
 
 
     const submitForm = () => {
-        console.log(inputs);
         http.post('/blogAddress', inputs).then(() => {
             toast.success('Đánh giá thành công !!!');
             navigate(-1);

@@ -20,13 +20,13 @@ function Right() {
     return (
         <div className={cx('right')}>
             <div className={cx('btn-book')}>
-                <button className={cx('btn')}><i className="fa-regular fa-bookmark"></i> Bookmark</button>
+                <button className={cx('btn')}><i className="fa-regular fa-bookmark me-1"></i> Bookmark</button>
             </div>
             <div className={cx('btn-write')}>
                 <button className={cx('btn')}>
                     <Link to={`/address/`+address.address_id+`/createBlog`} >
-                        <i className="fa-solid fa-pen"></i> 
-                        viết bài
+                        <i className="fa-solid fa-pen me-1"></i> 
+                        Viết bài
                     </Link>
                 </button>
             </div>

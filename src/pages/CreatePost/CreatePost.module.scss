@@ -7,22 +7,33 @@
 .left-content {
     width: 50vw;
     padding: 0 10px;
-    flex-grow: 1;
+    flex-basis: 50%;
 }
 
 .right-content {
-    width: 50vw;
+    max-width: 50vw;
+    flex-basis: 50%;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    justify-content: space-between;
+    .slide-show{
+        height: 300px;
+    }
 
     .comment {
         margin-top: 20px;
-        
+        flex-basis: 75%;
+        display: flex;
+        align-items: flex-end;
+
+        & > div > div {
+            margin: 0;
+        }
         h2 {
             text-align: center;
             font-weight: 600;
             color: var(--background-dark-blue);
+            margin-bottom: 20px;
         }
     }
 }

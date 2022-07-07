@@ -5,6 +5,8 @@ import { publicRoutes, privateRoutes } from './router';
 import { DefaultLayout } from './components/Layouts';
 import RequireAuth from './components/RequireAuth';
 import getCookie from './hooks/getCookie';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   // const [userList, setUserList] = useState([]);

@@ -17,7 +17,7 @@ function BlogAddress() {
     return (
         // <FormDiscountProvider>
         <Fragment>
-            <div className='row m-0 ps-1 pe-1' style={{ maxHeight: '550px' }}>
+            <div className='row m-0 ps-1 pe-1'>
                 <HeaderAddress  />
                 <CenterAddress />
             </div>

@@ -4,7 +4,9 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function ReadMore({ limt, children }) {
+function ReadMore({ limit, children }) {
+
+    const text = children ? children : '';
     const [readMore, setReadMore] = useState(false);
 
     const toggleReadMore = () => {
@@ -14,12 +16,14 @@ function ReadMore({ limt, children }) {
     return (  
         <div>
             <p className={cx('content')}>
-                { readMore ? children : children.substr(0, limt)}
-                <button
-                    onClick={toggleReadMore}
-                >
-                    Xem thêm
-                </button>
+                { readMore ? text : text.substr(0, limit)}
+                { text.length > limit && (
+                    <button
+                        onClick={toggleReadMore}
+                    >
+                        { !readMore ? '...Xem thêm' : 'Ẩn bớt'}
+                    </button>
+                )}
             </p>
         </div>
     );

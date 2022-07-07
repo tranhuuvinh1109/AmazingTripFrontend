@@ -66,7 +66,7 @@ function BlogAddressPost({ postData }) {
             </div>
             <div className={cx('post-container')}>
                 <div className={cx('post-content')}>
-                    <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>
+                    <ReadMore limit={400}>{postData.blog_address_content}</ReadMore>
                     <div className={cx('post-img')}>
                         {/* <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" /> */}
                     </div>
