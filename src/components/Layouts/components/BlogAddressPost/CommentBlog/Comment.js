@@ -31,7 +31,9 @@ function Comment ({comment}) {
         try {
             const comment_id = comment.comment_blog_id;
             commentAddressApi.delete(comment_id);
-            toast.warning('Xóa bình luận thành công !!!');
+            toast.warning('Bình luận đã bị xóa !!!', {
+                toastId: 1,
+            });
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
         }
@@ -57,7 +59,6 @@ function Comment ({comment}) {
             if(!editRef.current.contains(e.target))
                 setShowEdit(false);
         }
-
 
         document.addEventListener('mousedown', handler)
 

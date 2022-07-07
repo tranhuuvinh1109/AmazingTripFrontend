@@ -42,7 +42,8 @@
     position: absolute;
     top: 20%;
     left: 98%;
-    z-index: 999999;
+    z-index: 999;
+    border-radius: 4px;
 
     button:first-child {
         border-bottom: 1px rgba($color: #094067, $alpha: 0.3) solid;

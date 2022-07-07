@@ -5,5 +5,9 @@ const blogAddressPostApi = {
         const url = `/blogAddress/${id}`;
         return axiosClient.get(url);
     },
+    delete: (id) => {
+        const url = `/blogAddress/${id}`;
+        return axiosClient.delete(url);
+    },
 }
 export default blogAddressPostApi;

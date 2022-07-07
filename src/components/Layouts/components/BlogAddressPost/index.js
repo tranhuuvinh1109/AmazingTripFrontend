@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import Comments from './CommentBlog/Comments';
 import getCookie from '../../../../hooks/getCookie';
 import ReadMore from '../ReadMore';
+import blogAddressPostApi from '../../../../api/blogAddressPostApi';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function BlogAddressPost({ postData }) {
     const userData = JSON.parse(getCookie('userin'));
+    const deleteBtnRef = useRef();
 
     const [showComment, setShowComment] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+
+
     const [value, setValue] = useState('');
     const raw = JSON.stringify({
         "blog_address_id": postData.blog_address_id,
         "id_user": userData.id,
         "comment_address_content": value,
     })
+
     const obj = {
         method: 'POST',
         headers: {
@@ -26,8 +33,7 @@ function BlogAddressPost({ postData }) {
         redirect: 'follow'
     }
 
-    function sendComment() {
-        console.log(raw);
+    const sendComment = () => {
         fetch('http://127.0.0.1:8000/api/createCommentBlog', obj)
         .then((response) => { 
             return response.json() 
@@ -37,6 +43,30 @@ function BlogAddressPost({ postData }) {
             setValue(''); 
         });
     }
+
+    const handleDelete = () => {
+        try {
+            blogAddressPostApi.delete(postData.blog_address_id)
+            toast.warning('Bài viết đã bị xóa !!!', {
+                toastId: 1,
+            });
+        } catch (error) {
+            console.log('Toang meo chay roi loi cc:', error)
+        }
+    }
+
+    useEffect(() => {
+        const handler = (e) => {
+            if(!deleteBtnRef.current.contains(e.target))
+                setShowDelete(false);
+        }
+
+        document.addEventListener('mousedown', handler)
+
+        return () => {
+            document.removeEventListener('mousedown', handler)
+        }
+    })
 
 
     return (
@@ -54,7 +84,25 @@ function BlogAddressPost({ postData }) {
                             </span>                    
                         </h4>
                     </div>
-                    <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
+                    <div
+                        ref={deleteBtnRef}
+                    >
+                        <button
+                            onClick={() => setShowDelete(!showDelete)}
+                            className={cx('btn-more')}
+                        >
+                            <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
+                        </button>
+                        {showDelete && (
+                            <div 
+                                className={cx('delete-area')}
+                            >
+                                <button onClick={() => handleDelete()}>
+                                    Xóa bài viết
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className={cx('post-star')}>
                     <i className={cx('fa-solid fa-star')}></i>

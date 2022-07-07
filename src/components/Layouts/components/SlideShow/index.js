@@ -49,6 +49,7 @@ function SlideShow({autoplaySpeed, dots, arrows, children}) {
         dots: dots && showUi,
         fade: true,
         infinite: true,
+        pauseOnHover: false,
         autoplay: true,
         speed: 500,
         autoplaySpeed: autoplaySpeed,
