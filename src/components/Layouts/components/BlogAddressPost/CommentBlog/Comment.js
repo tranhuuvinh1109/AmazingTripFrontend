@@ -23,7 +23,6 @@ function Comment ({comment}) {
     const [showDot, setShowDot] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [editFocus, setEditFocus] = useState(false);
 
     const [editVal, setEditVal] = useState(comment);
 

@@ -56,7 +56,8 @@ function Step4() {
         const file = e.target.files[0]
 		const imagePath = await storeImage(file);
 		console.log(imagePath);
-		context.setFormData({...context.formData, avatar: imagePath})
+		context.setFormData({...context.formData, avatar: imagePath});
+		console.log(context.formData);
         file.preview = URL.createObjectURL(file);
 		setPreviewAvatar(file);
     }
@@ -67,6 +68,7 @@ function Step4() {
 		
 		if(context.formData.nickname)
 		{
+			console.log(context.formData);
 			context.handleSubmit()
 		}
 	}

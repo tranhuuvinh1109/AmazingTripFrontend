@@ -1,34 +1,42 @@
+import { useState, useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import './SlideShow.scss';
 
 
 function NextArrow(props) {
-    const { className, arrow, onClick } = props;
+
+    const { className, arrow, showUi, onClick } = props;
     return (
-      <div
-        className={className}
-        onClick={onClick}
-        id='next-arrow'
-        style={ arrow ? {} : {display: 'none',}}
-      />
+        <div
+            className={className}
+            onClick={onClick}
+            id='next-arrow'
+            style={ arrow && showUi ? {} : {display: 'none',}}
+        >
+            <i className="fa-solid fa-circle-chevron-right"/>
+        </div>
     );
 }
   
   function PrevArrow(props) {
-    const { className, arrow, onClick } = props;
+    const { className, arrow, showUi, onClick } = props;
     return (
-      <div
+        <div
         className={className}
         onClick={onClick}
         id='prev-arrow'
-        style={ arrow ? {} : {display: 'none',}}
-      />
+        style={ arrow && showUi ? {} : {display: 'none',}}
+        >
+            <i className="fa-solid fa-circle-chevron-left"/>
+        </div>
     );
 }
 
 
-function SlideShow({autoplaySpeed, dots, arrows , children}) {
-
+function SlideShow({autoplaySpeed, dots, arrows, children}) {
+    const slideRef = useRef();
+    const [showUi, setShowUi] = useState(false);
+    
     const settings = {
         customPaging: function(i) {
             return (
@@ -38,7 +46,7 @@ function SlideShow({autoplaySpeed, dots, arrows , children}) {
             );
         },
         dotsClass: "slick-dots line-indicator",
-        dots: dots,
+        dots: dots && showUi,
         fade: true,
         infinite: true,
         autoplay: true,
@@ -46,30 +54,19 @@ function SlideShow({autoplaySpeed, dots, arrows , children}) {
         autoplaySpeed: autoplaySpeed,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <NextArrow arrow={arrows} />,
-        prevArrow: <PrevArrow arrow={arrows} />
+        nextArrow: <NextArrow arrow={arrows} showUi={showUi} />,
+        prevArrow: <PrevArrow arrow={arrows} showUi={showUi} />
     };
 
     return (  
-        <div className='slide-container'>
+        <div 
+            ref={slideRef}
+            className='slide-container'
+            onMouseOver={() => setShowUi(true)}
+            onMouseLeave={() => setShowUi(false)}
+        >
             <Slider {...settings}>
                 {children}
-
-                {/* <div className='each-slide'>
-                    <img src="https://digialai.com/dlg_media/2021/08/01-top-10-diem-den-du-lich-chup-anh-dep-nhat-viet-nam-hoi-an-1024x678.jpg"></img>
-                </div>
-                <div className='each-slide'>
-                    <img src="https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg"></img>
-                </div>
-                <div className='each-slide'>
-                    <img src="https://media-cdn-v2.laodong.vn/storage/newsportal/2017/8/28/551691/Du-Lich_1.jpg"></img>
-                </div>
-                <div className='each-slide'>
-                    <img src="https://linhhungtourist.com.vn/wp-content/uploads/2019/03/1551111810-291-2-1551079327-width650height433.jpg"></img>
-                </div>
-                <div className='each-slide'>
-                    <img src="https://media.vov.vn/uploaded/ja7idye43pa/2017_07_23/hoi_an_lot_top_anh_dep_du_lich_the_gioi_1_jvin.jpg"></img>
-                </div> */}
             </Slider>
         </div>
     );
