@@ -21,7 +21,7 @@ import Register from '../pages/AuthPage/Register';
 import ListAddresses from '../pages/ListAddresses';
 
 // Provider
-import { FormDiscountProvider } from '../pages/BlogAddress/FormDiscountContext';
+import { BlogAddressProvider } from '../pages/BlogAddress/BlogAddressContext';
 import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
 import { RegisterProvider } from '../pages/AuthPage/Register/RegisterContext';
 
@@ -41,7 +41,7 @@ const privateRoutes = [
 
     { path: '/test', component: Test, layout: DefaultLayout },
     { path: '/', component: Home, layout: OneSide },
-    // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider },
+    // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: BlogAddressProvider },
     { path: '/address/:id/createBlog', component: CreatePost, layout:DefaultLayout },
     { path: '/host', component: HostPage, layout: OneSide },
     { path: '/user', component: UserPage, layout: DefaultLayout },
@@ -54,7 +54,7 @@ const privateRoutes = [
     { path: '/addSale', component: Sale, layout: DefaultLayout },
 
     { path: '/listAddresses', component: ListAddresses, layout: DefaultLayout },
-    { path: '/address/:id', component: BlogAddress, layout: DefaultLayout, provider: FormDiscountProvider},
+    { path: '/address/:id', component: BlogAddress, layout: DefaultLayout, provider: BlogAddressProvider},
 
 ];
 

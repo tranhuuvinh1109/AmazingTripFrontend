@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import Comments from './CommentBlog/Comments';
@@ -6,47 +6,41 @@ import getCookie from '../../../../hooks/getCookie';
 import ReadMore from '../ReadMore';
 import blogAddressPostApi from '../../../../api/blogAddressPostApi';
 import { toast } from 'react-toastify';
+import { BlogAddressContext } from '../../../../pages/BlogAddress/BlogAddressContext';
+import commentAddressApi from '../../../../api/commentAddressApi';
 
 const cx = classNames.bind(styles);
 
 function BlogAddressPost({ postData }) {
     const userData = JSON.parse(getCookie('userin'));
+    const context = useContext(BlogAddressContext);
     const deleteBtnRef = useRef();
 
     const [showComment, setShowComment] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
 
-    const [value, setValue] = useState('');
-    const raw = JSON.stringify({
-        "blog_address_id": postData.blog_address_id,
-        "id_user": userData.id,
-        "comment_address_content": value,
-    })
+    const [value, setValue] = useState({
+        blog_address_id: postData.blog_address_id,
+        id_user: userData.id,
+        comment_address_content: ''
+    });
 
-    const obj = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: raw,
-        redirect: 'follow'
-    }
-
-    const sendComment = () => {
-        fetch('http://127.0.0.1:8000/api/createCommentBlog', obj)
-        .then((response) => { 
-            return response.json() 
-        })
-        .then((responseJSON) => { 
-            setShowComment(true);
-            setValue(''); 
-        });
-    }
-
-    const handleDelete = () => {
+    const sendComment = async () => {
         try {
-            blogAddressPostApi.delete(postData.blog_address_id)
+            const res = await commentAddressApi.post(value.blog_address_id, value);
+            context.setCommentsBlog([...res.data]);
+            setShowComment(true);
+            setValue({...value, comment_address_content: ''}); 
+        } catch (error) {
+            console.log('Toang meo chay r loi cc ', error);
+        }
+    }
+
+    const handleDelete = async () => {
+        try {
+            context.handleResetPostData(postData.blog_address_id);
+            blogAddressPostApi.delete(postData.blog_address_id);
             toast.warning('Bài viết đã bị xóa !!!', {
                 toastId: 1,
             });
@@ -150,11 +144,11 @@ function BlogAddressPost({ postData }) {
                             </div>
                             <div className={cx('input-comment')}>
                                 <input
-                                    value={value}
+                                    value={value.comment_address_content}
                                     type="text"
                                     placeholder="Viết bình luận ..."
                                     onChange={(e) =>{
-                                        setValue(e.target.value)
+                                        setValue({...value, comment_address_content: e.target.value})
                                     }}
                                 />
                                 <button

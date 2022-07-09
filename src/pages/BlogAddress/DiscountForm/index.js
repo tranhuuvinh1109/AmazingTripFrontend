@@ -1,14 +1,14 @@
 import { useEffect, useContext, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DiscountForm.module.scss';
-import { FormDiscountContext } from '../FormDiscountContext';
+import { BlogAddressContext } from '../BlogAddressContext';
 
 const cx = classNames.bind(styles);
 
 
 
 function DiscountForm() {
-    const formContext = useContext(FormDiscountContext)
+    const formContext = useContext(BlogAddressContext)
 
     // Nhấn ra ngoài để đóng form`
     const closeRef = useRef();

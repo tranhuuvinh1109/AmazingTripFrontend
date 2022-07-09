@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Bottom.module.scss';
-import { FormDiscountContext } from '../../FormDiscountContext';
+import { BlogAddressContext } from '../../BlogAddressContext';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 function Bottom() {
 
-    const formContext = useContext(FormDiscountContext)
+    const formContext = useContext(BlogAddressContext)
 
     return (
         <div className={cx('center-left-bottom')}>

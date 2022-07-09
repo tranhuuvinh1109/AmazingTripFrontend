@@ -4,18 +4,18 @@ import HeaderAddress from './HeaderBlogAddress';
 import CenterAddress from './CenterBlogAddress';
 import DiscountForm from './DiscountForm';
 import { FormCreateNewGroupContext } from './CreateNewGroupContext';
-import { FormDiscountContext } from './FormDiscountContext';
+import { BlogAddressContext } from './BlogAddressContext';
 import { Left, Right, Paginate } from '../../components/Layouts/components';
 import CreateFormNewGroup from './CreateFormNewGroup';
 import { useParams } from 'react-router-dom';
 
 function BlogAddress() {
 
-    const formContext = useContext(FormDiscountContext)
+    const formContext = useContext(BlogAddressContext)
     const createNewGroup = useContext(FormCreateNewGroupContext)
     
     return (
-        // <FormDiscountProvider>
+        // <BlogAddressProvider>
         <Fragment>
             <div className='row m-0 ps-1 pe-1'>
                 <HeaderAddress  />
@@ -38,7 +38,7 @@ function BlogAddress() {
             {formContext.showForm && <DiscountForm />}
             {createNewGroup.showCreate && <CreateFormNewGroup />}
         </Fragment>
-        // </FormDiscountProvider>
+        // </BlogAddressProvider>
     );
 }
 export default BlogAddress;

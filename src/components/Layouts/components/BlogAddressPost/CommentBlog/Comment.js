@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
 import commentAddressApi from '../../../../../api/commentAddressApi';
 import getCookie from '../../../../../hooks/getCookie';
+import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
 
 const cx = classNames.bind(styles);
 
 
 function Comment ({comment}) {
-
     const editStyle = {
         cursor: 'context-menu',
         outline: 'none'
     }
 
+    const context = useContext(BlogAddressContext);
+
     const userData = JSON.parse(getCookie('userin'));
 
-    const editRef = useRef();
     const inputRef = useRef();
+
     const [showDot, setShowDot] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -30,10 +32,9 @@ function Comment ({comment}) {
     const handleDelete = () => {
         try {
             const comment_id = comment.comment_blog_id;
+            context.handleResetCommentData(comment_id);
             commentAddressApi.delete(comment_id);
-            toast.warning('Bình luận đã bị xóa !!!', {
-                toastId: 1,
-            });
+            toast.warning('Bình luận đã bị xóa !!!');
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
         }
@@ -53,20 +54,6 @@ function Comment ({comment}) {
             console.log('Toang meo chay roi loi cc: ', error);
         }
     }
-
-    useEffect(() => {
-        const handler = (e) => {
-            if(!editRef.current.contains(e.target))
-                setShowEdit(false);
-        }
-
-        document.addEventListener('mousedown', handler)
-
-        return () => {
-            document.removeEventListener('mousedown', handler)
-        }
-    })
-
     
     return (
         <div className="mb-4" style={{ position: 'relative', }}>
@@ -75,7 +62,6 @@ function Comment ({comment}) {
                 <p className="d-inline">james_olesenn</p>
             </div>
             <div 
-                ref={editRef}
                 className={cx('comment-area')}
                 onMouseOver={() => setShowDot(true)}
                 onMouseLeave={() => setShowDot(false)}

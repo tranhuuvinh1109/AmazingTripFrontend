@@ -1,25 +1,27 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import Comment from "./Comment"
 import classNames from 'classnames/bind';
 import styles from './CommentBlog.module.scss';
+import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
+import commentAddressApi from '../../../../../api/commentAddressApi';
 
 const cx = classNames.bind(styles);
 
 const Comments = ({ blog_address_id }) => {
-    const [commentsBlog, setCommentsBlog] = useState([]);
+    const context = useContext(BlogAddressContext);
     
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/commentsBlog/${blog_address_id}`).then((response) => {
-            if (!response.ok) {
-                throw Error(response.statusText);
+        const fetchCommentList = async () => {
+            try {
+                const res = await commentAddressApi.get(blog_address_id);
+                context.setCommentsBlog(res.data)
+            } catch (error) {
+                console.log('Toang meo chay r loi cc ', error)
             }
-            // Read the response as json.
-            return response.json();
-            //setCommentsBlog(resolve.data);
-        }).then((responseJSON) => {
-            setCommentsBlog(responseJSON.data);
-        });
+        }
+
+        fetchCommentList();
     }, []);
 
     return (
@@ -27,7 +29,7 @@ const Comments = ({ blog_address_id }) => {
             <div className="row  d-flex justify-content-center">
                 <div className="col-md-12 mt-3">
                     {
-                        commentsBlog.map((item) => (
+                        context.commentsBlog.map((item) => (
                             <Comment comment={item} key={item.comment_blog_id} />
                         )
                         )}
