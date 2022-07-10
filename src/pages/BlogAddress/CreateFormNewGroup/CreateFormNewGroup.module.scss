@@ -75,6 +75,40 @@
             border-radius: 50px;
         }
 
+        .image{
+            border: 1px dotted var(--background-dark-blue);
+            border-radius: 20px;
+            position: relative;
+            width: 100%;
+            height: 200px;
+
+            label i {
+                position: absolute;
+                top: calc(50% - 44px);
+                left: calc(50% - 44px);
+                font-size: 88px;
+                opacity: 0.5;
+            }
+
+            label img {
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                object-fit: cover;
+            }
+
+            .input-image {
+                width: 100%;
+                height: 100%;
+                padding: 60px 40px;
+                opacity: 0;
+            }
+        }
+
+
     }
 
     button {

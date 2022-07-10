@@ -4,6 +4,8 @@ const BlogAddressContext = createContext()
 
 function BlogAddressProvider({ children }) {
 
+    const [addressData, setAddressData] = useState([]);
+
     const [showForm, setShowForm] = useState(false)
     const [reShowPost, setReShowPost] = useState(false);
     const [postData, setPostData] = useState([]);
@@ -26,6 +28,8 @@ function BlogAddressProvider({ children }) {
     }
 
     const value = {
+        addressData,
+        setAddressData,
         showForm,
         toggleForm,
         reShowPost,

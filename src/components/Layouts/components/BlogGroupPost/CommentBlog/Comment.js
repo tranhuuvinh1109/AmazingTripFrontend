@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
-import commentAddressApi from '../../../../../api/commentAddressApi';
+import commentGroupApi from '../../../../../api/commentGroupApi';
 import getCookie from '../../../../../hooks/getCookie';
-import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
+import { GroupPageContext } from '../../../../../pages/GroupPage/GroupPageContext';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,7 @@ function Comment ({comment}) {
         outline: 'none'
     }
 
-    const context = useContext(BlogAddressContext);
+    const context = useContext(GroupPageContext);
 
     const userData = JSON.parse(getCookie('userin'));
 
@@ -34,7 +34,7 @@ function Comment ({comment}) {
         try {
             const comment_id = comment.comment_blog_id;
             context.handleResetCommentData(comment_id);
-            commentAddressApi.delete(comment_id);
+            commentGroupApi.delete(comment_id);
             toast.warning('Bình luận đã bị xóa !!!');
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
@@ -50,7 +50,7 @@ function Comment ({comment}) {
     const handleSendEdit = () => {
         setEdit(false);
         try {
-            commentAddressApi.patch(editVal);
+            commentGroupApi.patch(editVal);
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error);
         }
@@ -83,9 +83,9 @@ function Comment ({comment}) {
                 <input
                     ref={inputRef}
                     className={cx('comment')}
-                    value={editVal.comment_address_content}
+                    value={editVal.comment_blog_content}
                     onChange={(e) => 
-                        setEditVal({...editVal, comment_address_content: e.target.value})
+                        setEditVal({...editVal, comment_blog_content: e.target.value})
                     }
                     readOnly={!edit}
                     style={ edit ? {} : editStyle}

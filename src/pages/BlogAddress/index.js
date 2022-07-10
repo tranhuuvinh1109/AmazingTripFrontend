@@ -1,17 +1,33 @@
 import { Fragment, useContext, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import BottomAddress from './BottomBlogAddress/BottomAddress';
 import HeaderAddress from './HeaderBlogAddress';
 import CenterAddress from './CenterBlogAddress';
 import DiscountForm from './DiscountForm';
 import { FormCreateNewGroupContext } from './CreateNewGroupContext';
-import { BlogAddressContext } from './BlogAddressContext';
 import { Left, Right, Paginate } from '../../components/Layouts/components';
 import CreateFormNewGroup from './CreateFormNewGroup';
-import { useParams } from 'react-router-dom';
+import { BlogAddressContext } from './BlogAddressContext';
+import addressApi from '../../api/addressApi';
 
 function BlogAddress() {
+    const context = useContext(BlogAddressContext)
 
-    const formContext = useContext(BlogAddressContext)
+    const { id } = useParams();
+
+    useEffect(() => {
+        const fetchAddressList = async () => {
+            try {
+                const res = await addressApi.get(id);
+                console.log(res.data);
+                context.setAddressData(res.data)
+            } catch (error) {
+                console.log('Toang meo chay r loi cc ', error)
+            }
+        };
+        fetchAddressList();
+    }, [])
+
     const createNewGroup = useContext(FormCreateNewGroupContext)
     
     return (
@@ -35,7 +51,7 @@ function BlogAddress() {
                     <Right />
                 </div>
             </div>
-            {formContext.showForm && <DiscountForm />}
+            {context.showForm && <DiscountForm />}
             {createNewGroup.showCreate && <CreateFormNewGroup />}
         </Fragment>
         // </BlogAddressProvider>

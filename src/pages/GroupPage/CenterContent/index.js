@@ -1,20 +1,36 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './CenterContent.module.scss';
-import { BlogAddressPost } from '../../../components/Layouts/components';
-import { CreatePostContext } from '../CreatePostContext';
+import BlogGroupPost from '../../../components/Layouts/components/BlogGroupPost';
+import { GroupPageContext } from '../GroupPageContext';
+import blogGroupApi from '../../../api/blogGroupApi';
 
 const cx = classNames.bind(styles);
 
 function CenterContent() {
-    const formContext = useContext(CreatePostContext)
+    const context = useContext(GroupPageContext);
+    const { id } = useParams();
+    
+    useEffect(() => {
+        const fetchPostList = async () => {
+            try {
+                const res = await blogGroupApi.get(id);
+                context.setPostData(res.data); 
+            } catch (error) {
+                console.log('Toang meo chay r loi cc:  ', error)
+            }
+        }
+        
+        fetchPostList();
+    }, [])
 
     return ( 
         <Fragment>
             <div className={cx('heading')}>
                 <div className={cx('create-post')}>
                     <button
-                        onClick={ formContext.toggleForm } 
+                        onClick={ context.toggleForm } 
                         id='btn-create'
                     >
                         <i className="fa-solid fa-pen"></i>
@@ -28,9 +44,21 @@ function CenterContent() {
                     </button>
                 </div>
             </div>
-            {/* <BlogAddressPost />
-            <BlogAddressPost />
-            <BlogAddressPost /> */}
+            <div className="bottom">
+                {context.postData?.length == 0 ? (
+                        <div className={cx('empty-area')}>
+                            <h1>
+                                Chưa có bài viết nào cả... 
+                                <br/>
+                                Hãy là người đầu tiên chia sẻ với mọi người !!!
+                            </h1>
+                        </div>
+                    ) : 
+                    context.postData?.map((each) => (
+                        <BlogGroupPost postData={each} key={each.blog_id}/>
+                    ))
+                }      
+            </div>
         </Fragment>
     );
 }

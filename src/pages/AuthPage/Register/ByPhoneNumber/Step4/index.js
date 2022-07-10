@@ -53,6 +53,11 @@ function Step4() {
 	
     // Xem tạm thời ảnh sau khi ảnh được
     const handlePreviewAvatar = async (e) => {
+		if(context.formData.avatar !== '')
+		{
+		 	deleteImage(context.formData.avatar);
+			context.setFormData({ ...context.formData, avatar: ''});
+		}
 		const file = e.target.files[0]
 		const imagePath = await storeImage(file);
 		console.log(imagePath);

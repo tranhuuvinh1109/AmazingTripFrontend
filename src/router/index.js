@@ -22,7 +22,7 @@ import ListAddresses from '../pages/ListAddresses';
 
 // Provider
 import { BlogAddressProvider } from '../pages/BlogAddress/BlogAddressContext';
-import { CreatePostProvider } from '../pages/GroupPage/CreatePostContext';
+import { GroupPageProvider } from '../pages/GroupPage/GroupPageContext';
 import { RegisterProvider } from '../pages/AuthPage/Register/RegisterContext';
 
 import Login from '../pages/AuthPage/Login';
@@ -46,7 +46,7 @@ const privateRoutes = [
     { path: '/host', component: HostPage, layout: OneSide },
     { path: '/user', component: UserPage, layout: DefaultLayout },
     { path: '/user_edit', component: UserEditPage, layout: DefaultLayout },
-    { path: '/group', component: GroupPage, layout: DefaultLayout, provider: CreatePostProvider },
+    { path: '/group/:id', component: GroupPage, layout: DefaultLayout, provider: GroupPageProvider },
 
     // SomeThing
     { path: '/createAddress', component: Form, layout: DefaultLayout },

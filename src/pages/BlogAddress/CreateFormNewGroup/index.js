@@ -1,29 +1,35 @@
 import { useEffect, useContext, useRef, useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './CreateFormNewGroup.module.scss';
 import { toast } from 'react-toastify';
 import { FormCreateNewGroupContext } from '../CreateNewGroupContext';
+import { BlogAddressContext } from '../BlogAddressContext';
 import getCookie from '../../../hooks/getCookie';
-import { Axios } from 'axios';
-import http from '../../../http';
+import getImage from '../../../hooks/storeImage';
+import storeImage from '../../../hooks/storeImage';
+import deleteImage from '../../../hooks/deleteImage';
+import groupApi from '../../../api/groupApi';
+
+
 
 const cx = classNames.bind(styles);
 
 
-
 function CreateFormNewGroup() {
-    const formContext = useContext(FormCreateNewGroupContext)
+    const navigate = useNavigate();
+    const context = useContext(BlogAddressContext);
+    const formContext = useContext(FormCreateNewGroupContext);
+    const userData = JSON.parse(getCookie('userin'));
 
-    // const userData = JSON.parse(getCookie('userin'));
-    // console.log(userData);
 
-    // Nhấn ra ngoài để đóng form`
-
-    const [name, setName] = useState('')
-    const [image, setImage] = useState('')
-    const [address, setAddress] = useState(0)
-    const [admin, setAdmin] = useState(0)
-    const [member, setMember] = useState('')
+    const [previewAvatar, setPreviewAvatar] = useState('');
+    const [formData, setFormData] = useState({
+        group_name: '',
+        group_image: '',
+        address_id: context.addressData.address_id,
+        group_admin: userData.id,
+    });
 
     const closeFormRef = useRef();
     useEffect(() => {
@@ -39,35 +45,35 @@ function CreateFormNewGroup() {
         }
     })
 
-
-    const handleChange = (e) => {
-        setName(e.target.value)
-        setAddress(1)
-        setImage('image1.jpg')
-        setAdmin(1)
-        setMember('1-2')
-        console.log(name, image, address, admin, member);
+    // Xóa ảnh xem tạm thời
+    useEffect(() => {
+        return () => {
+            URL.revokeObjectURL(previewAvatar.preview)
+        }
+    }, [previewAvatar])
+	
+    const handleSetImage = async (e) => {
+        if(formData.group_image !== '')
+        {
+            deleteImage(formData.group_image)
+            setFormData({...formData, group_image: ''})
+        }
+        const file = e.target.files[0];
+		const imagePath = await storeImage(file);
+		setFormData({ ...formData, group_image: imagePath});
+        file.preview = URL.createObjectURL(file);
+		setPreviewAvatar(file);
     }
 
-    const handleClick = (e) => {
-        // formContext.toggleForm
-
+    const handleSubmitForm = async (e) => {
         e.preventDefault()
 
-        http.post('/group', {
-            group_name: name,
-            group_image: image,
-            address_id: address,
-            group_admin: admin,
-            group_member: member
-        }).then(res => {
-            toast.success('Tao nhom thanh cong !!!');
-            formContext.toggleCreate();
-            console.log(res)
+        try {
+            const res = await groupApi.post(formData);
+            navigate(`/group/${res.data.group_id}`)
+        } catch (error) {
+            console.log('Toang meo chay r loi cc', error);
         }
-        ).catch(err => console.log(err));
-        console.log("111222")
-
     }
 
     return (
@@ -82,19 +88,41 @@ function CreateFormNewGroup() {
                     <label className={cx('form-label')} htmlFor="discount-form">
                         Form tạo nhóm mới
                         <br />
-                        <span>Hội An</span>
+                        <span>{context.addressData.address_name}</span>
                     </label>
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Tên nhóm: </label>
-                        <input type="text" id="name" placeholder='Nhập tên nhóm' value={name} onChange={(e) => handleChange(e)} />
+                        <label htmlFor="group-name">Tên nhóm: </label>
+                        <input 
+                            type="text" 
+                            id="group-name" 
+                            placeholder='Nhập tên nhóm' 
+                            value={formData.group_name} 
+                            onChange={
+                                (e) => setFormData({...formData, group_name: e.target.value})
+                            } 
+                        />
                     </div>
 
                     <div className={cx('form-control')}>
-                        <label htmlFor="name">Ảnh bìa: </label>
-                        <input type="file" id="name" />
+                        <label htmlFor="group-image">Ảnh bìa: </label>
+                        <div className={cx('image')}>
+                            <label htmlFor="group-image">
+                                { formData.group_image !== '' ? 
+                                    <img src={previewAvatar.preview || ''} />
+                                    :
+                                    <i className="fa-solid fa-camera"></i>
+                                }
+                            </label>
+                            <input 
+                                type="file" 
+                                className={cx('input-image')}
+                                id="group-image" 
+                                onChange={(e) => handleSetImage(e)}
+                            />
+                        </div>
                     </div>
                     <button
-                        onClick={(e) => handleClick(e)}
+                        onClick={(e) => handleSubmitForm(e)}
                     >
                         Tạo nhóm
                     </button>

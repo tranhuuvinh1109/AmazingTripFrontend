@@ -1,13 +1,35 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Right } from '../../components/Layouts/components';
 import CenterContent from './CenterContent';
 import LeftContent from './LeftContent';
 import CoverImage from './CoverImage';
-import { CreatePostContext } from './CreatePostContext';
+import { GroupPageContext } from './GroupPageContext';
 import CreatePost from './CreatePost';
+import groupApi from '../../api/groupApi';
+import getImage from '../../hooks/getImage';
 
 function UserPage() {
-    const formContext = useContext(CreatePostContext)
+    const context = useContext(GroupPageContext)
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        const fetchGroupData = async () => {
+            try {
+                const res = await groupApi.get(id);
+                context.setGroupData(res.data);
+                const image = await getImage(res.data.group_image);
+                context.setImageUrl(image);
+                const leadAva = await getImage(res.data.admin_image);
+                context.setLeadAva(leadAva);
+            } catch (error) {
+                console.log('Toang meo chay r loi cc ', error)
+            }
+        };
+
+        fetchGroupData();
+    }, [])
 
     return (  
         <Fragment>
@@ -27,7 +49,7 @@ function UserPage() {
                     <Right/>
                 </div>
             </div>
-            { formContext.showForm && <CreatePost /> }
+            { context.showForm && <CreatePost /> }
         </Fragment>
     );
 }

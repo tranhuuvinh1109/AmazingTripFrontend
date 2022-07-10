@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
 import classNames from "classnames/bind";
 import styles from './LeftContent.module.scss';
-import images from "../../../assets/images";
+import { GroupPageContext } from "../GroupPageContext";
 
 const cx = classNames.bind(styles);
 
 function LeftContent() {
+    const context = useContext(GroupPageContext);
+
     return (  
         <div className={cx('sticky-side-bar')}>
             <h2 className={cx('side-title')}>
@@ -16,19 +18,24 @@ function LeftContent() {
                     <i className={cx('fa-solid fa-user-check')}></i>
                     <div className={cx('leader-inf')}>
                         <p>Nhóm trưởng</p>
-                        <img src={images.userAvatar} alt='A image'/>
-                        <label htmlFor=''>User_name</label>
+                        <img src={context.groupData ? context.leadAva : ''} alt='A image'/>
+                        <label htmlFor=''>{context.groupData ? context.groupData.admin_name : ''}</label>
                     </div>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-location-arrow me-2')}></i>
-                    <p> Điểm đến xxx, xxx, xxx, xxx, Ha Noi</p>
+                    <p> {context.groupData ? context.groupData.address : ''}</p>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-cake-candles me-2')}></i>
                     <p>
                         Đã được tạo vào
-                        <span style={{ color: 'orange' }}> 01/01/2022</span>
+                        <span style={{ color: 'orange' }}> 
+                            { context.groupData ? 
+                                new Date(context.groupData.created_at).toLocaleDateString() 
+                                : '' 
+                            }
+                        </span>
                     </p>
                 </li>
             </ul>

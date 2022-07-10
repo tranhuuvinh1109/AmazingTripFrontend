@@ -1,20 +1,22 @@
-import React, { useState, useParams , useEffect} from 'react';
 import classNames from 'classnames/bind';
 import styles from './Top.module.scss';
-import http from '../../../../http';
+import { BlogAddressContext } from '../../BlogAddressContext';
+import { useContext } from 'react';
  
 // const [description, setDescription] = useState();
 
 const cx = classNames.bind(styles);
 
-function Top({address}) {
+function Top() {
+    const context = useContext(BlogAddressContext);
+
     return (
         <div className={cx('center-left-top')}>
             <h3 className={cx('des')}>
                 Mô tả
             </h3>
             <p>
-               {address.address_description}
+               {context.addressData.address_description}
             </p>
         </div>
     )
