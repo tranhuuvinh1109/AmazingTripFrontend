@@ -44,7 +44,7 @@ function LeftContent() {
                     </p>
                 </li>
                 <li>
-                    <Link to='/user_edit' className={cx('d-flex align-items-start justify-content-start')}>
+                    <Link to={`/user_edit/${context.userData?.id}`} className={cx('d-flex align-items-start justify-content-start')}>
                         <i className={cx('fa-solid fa-user-pen')}></i>
                         <p>Chinh sua thong tin</p>
                     </Link>

@@ -20,7 +20,7 @@ function CoverImage() {
                 <div className={cx('user-inf')}>
                     <h2>
                         {context.userData?.nickname}
-                        <Link to='/user_edit'>
+                        <Link to={`/user_edit/${context.userData?.id}`}>
                             <i className="fa-solid fa-pen-to-square"></i>
                         </Link>
 
