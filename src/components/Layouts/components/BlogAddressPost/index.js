@@ -1,13 +1,17 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import Comments from './CommentBlog/Comments';
-import getCookie from '../../../../hooks/getCookie';
 import ReadMore from '../ReadMore';
-import blogAddressPostApi from '../../../../api/blogAddressPostApi';
-import { toast } from 'react-toastify';
 import { BlogAddressContext } from '../../../../pages/BlogAddress/BlogAddressContext';
+import getCookie from '../../../../hooks/getCookie';
+import blogAddressPostApi from '../../../../api/blogAddressPostApi';
 import commentAddressApi from '../../../../api/commentAddressApi';
+import reactionAddressBlogApi from '../../../../api/reactionAddressBlogApi';
+import getImage from '../../../../hooks/getImage';
+import images from '../../../../assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +22,12 @@ function BlogAddressPost({ postData }) {
 
     const [showComment, setShowComment] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
+
+    const [like, setLike] = useState(false);
+    const [dislike, setDislike] = useState(false);
+
+    const [ava, setAva] = useState('');
+    const [blogImg, setBlogImg] = useState('');
 
 
     const [value, setValue] = useState({
@@ -30,6 +40,7 @@ function BlogAddressPost({ postData }) {
         try {
             const res = await commentAddressApi.post(value.blog_address_id, value);
             context.setCommentsBlog([...res.data]);
+            context.handleResetCommentCount(postData.blog_address_id, true);
             setShowComment(true);
             setValue({...value, comment_address_content: ''}); 
         } catch (error) {
@@ -49,9 +60,69 @@ function BlogAddressPost({ postData }) {
         }
     }
 
+    const handleLike = async () => {
+        if(like)
+        {
+            try {
+                await reactionAddressBlogApi.unReaction(postData.blog_address_id, userData.id);
+                setLike(false);
+                context.handleResetReactionCount(postData.blog_address_id, true, false, false);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+        else 
+        {
+            const data = {
+                blog_address_id: postData.blog_address_id,
+                id_user: userData.id,
+                reaction: '1'
+            }
+            try {
+                await reactionAddressBlogApi.post(data);
+                const status = dislike;
+                setLike(true);
+                setDislike(false);
+                context.handleResetReactionCount(postData.blog_address_id, true, true, status);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+    }
+
+    const handleDislike = async () => {
+        if(dislike)
+        {
+            try {
+                await reactionAddressBlogApi.unReaction(postData.blog_address_id, userData.id);
+                setDislike(false);
+                context.handleResetReactionCount(postData.blog_address_id, false, false, false);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+        else 
+        {
+            const data = {
+                blog_address_id: postData.blog_address_id,
+                id_user: userData.id,
+                reaction: '0'
+            }
+            try {
+                reactionAddressBlogApi.post(data);
+                const status = like;
+                setDislike(true);
+                setLike(false);
+                context.handleResetReactionCount(postData.blog_address_id, false, true, status);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+    }
+
     useEffect(() => {
         const handler = (e) => {
-            if(!deleteBtnRef.current.contains(e.target))
+            if(!deleteBtnRef?.current.contains(e.target))
                 setShowDelete(false);
         }
 
@@ -62,19 +133,61 @@ function BlogAddressPost({ postData }) {
         }
     })
 
+    // get Image url from firebase
+    useEffect(() => {
+        const getImageUrl = async () => {
+            if(postData.avatar !== null)
+            {
+                const res = await getImage(postData.avatar);
+                setAva(res);
+            }
+            // if(postData?.blog_image !== null)
+            // {
+            //     const res2 = await getImage(postData.blog_image);
+            //     setBlogImg(res2);
+            // }
+        }
+        
+        getImageUrl();
+    }, [])
+    
+    // Check CurrentUser like/dislike status
+    useEffect(() => {
+        const checkReaction = async () => {
+            const res = await reactionAddressBlogApi.checkReaction(postData.blog_address_id, userData.id);
+            if(res.status == 400)
+            {
+                setLike(false);
+                setDislike(false);
+            }
+            if(res.status == 200)
+            {
+                if(res.data.reaction == '1')
+                    setLike(true);
+                else
+                    setDislike(true);
+            }
+        }
+
+        checkReaction();
+    }, [])
+
 
     return (
         <div className={cx('feedback-blog')}>
             <div className={cx('user-post')}>
                 <div className={cx('user-infor')}>
                     <div>
-                        <img src="https://vnn-imgs-f.vgcloud.vn/2022/02/26/10/ronaldo-26.jpeg" alt=""
-                        className={cx('user-avt')} />
+                        <img 
+                            src={ava || images.defaultava}
+                            alt="A image"
+                            className={cx('user-avt')} 
+                        />
                         <h4 className={cx('m-0')}>
-                            Ronaldo
+                            {postData?.nickname}
                             <br/>
                             <span className={cx('date-post')}>
-                                6 tháng 6 năm 2022
+                                {moment(postData.created_at).format('D [tháng] M [năm] YYYY')}
                             </span>                    
                         </h4>
                     </div>
@@ -110,21 +223,37 @@ function BlogAddressPost({ postData }) {
                 <div className={cx('post-content')}>
                     <ReadMore limit={400}>{postData.blog_address_content}</ReadMore>
                     <div className={cx('post-img')}>
-                        {/* <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" /> */}
+                        { blogImg && 
+                            <img 
+                                src={blogImg} 
+                                alt="A image"
+                                className={cx('blog-image')} 
+                            />
+                        }
                     </div>
                     <div className={cx('post-reaction')}>
                         <div className={cx('d-flex')}>
                             <div className={cx('d-flex align-items-center')}>
-                                <button className={cx('btn-reaction')}>
-                                    <i className={cx('fa-regular fa-thumbs-up')}/>
+                                <button 
+                                    className={cx('btn-reaction')}
+                                    onClick={() => handleLike()}
+                                >
+                                    <i className={ like ? cx('fa-solid fa-thumbs-up') : cx('fa-regular fa-thumbs-up')}/>
                                 </button>
-                                <span className={cx('sum-like ms-1')}>100</span>
+                                <span className={cx('sum-like ms-1')}>
+                                    {postData?.likeCount}
+                                </span>
                             </div>
                             <div className={cx('d-flex align-items-center ms-3')}>  
-                                <button className={cx('btn-reaction')}>
-                                    <i className={ cx('fa-regular fa-thumbs-down')}/>
+                                <button 
+                                    className={cx('btn-reaction')}
+                                    onClick={() => handleDislike()}
+                                >
+                                    <i className={ dislike ? cx('fa-solid fa-thumbs-down') : cx('fa-regular fa-thumbs-down')}/>
                                 </button>
-                                <span className={cx('sum-dislike ms-1')}>15</span>
+                                <span className={cx('sum-dislike ms-1')}>
+                                    {postData?.dislikeCount}
+                                </span>
                             </div> 
                         </div>
 
@@ -132,7 +261,7 @@ function BlogAddressPost({ postData }) {
                             className={cx('sum-comment')}
                             onClick={() => setShowComment(!showComment)}
                         >
-                            20 Bình luận
+                            {postData?.commentCount} Bình luận
                         </span>
                     </div>
 

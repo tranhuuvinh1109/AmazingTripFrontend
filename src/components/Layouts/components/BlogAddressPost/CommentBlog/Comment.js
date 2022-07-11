@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
+import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
+import images from '../../../../../assets/images';
 import commentAddressApi from '../../../../../api/commentAddressApi';
 import getCookie from '../../../../../hooks/getCookie';
-import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
+import getImage from '../../../../../hooks/getImage';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +24,8 @@ function Comment ({comment}) {
     const inputRef = useRef();
     const toggleRef = useRef();
 
+    const [ava, setAva] = useState();
+
     const [showDot, setShowDot] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -32,9 +35,9 @@ function Comment ({comment}) {
 
     const handleDelete = () => {
         try {
-            const comment_id = comment.comment_blog_id;
-            context.handleResetCommentData(comment_id);
-            commentAddressApi.delete(comment_id);
+            context.handleResetCommentData(comment.comment_blog_id);
+            context.handleResetCommentCount(comment.blog_address_id, false);
+            commentAddressApi.delete(comment.comment_blog_id);
             toast.warning('Bình luận đã bị xóa !!!');
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
@@ -68,12 +71,29 @@ function Comment ({comment}) {
             document.removeEventListener('mousedown', handler)
         }
     })
+
+    useEffect(() => {
+        const getImageUrl = async () => {
+            if(comment.avatar !== null)
+            {
+                const res = await getImage(comment.avatar);
+                setAva(res);
+            }
+        }
+        getImageUrl();
+    }, [])
     
     return (
         <div className="mb-4" style={{ position: 'relative', }}>
             <div className={cx('avt-and-name')}>
-                <img src="https://i.imgur.com/hczKIze.jpg" width="35" className="user-img rounded-circle m-2 col-xs-2" />
-                <p className="d-inline">james_olesenn</p>
+                <img 
+                    src={ava || images.defaultava} 
+                    width="35" 
+                    className={cx('user-ava')}
+                />
+                <p className="d-inline">
+                    {comment.nickname}
+                </p>
             </div>
             <div 
                 className={cx('comment-area')}

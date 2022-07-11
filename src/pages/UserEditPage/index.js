@@ -110,7 +110,7 @@ function UserEditPage() {
                                     type="text" 
                                     className={cx('w-50 ms-3')}
                                     placeholder="User_name" 
-                                    value={userData.nickname}
+                                    value={userData?.nickname}
                                 />
                             </div>
                             <div className={cx('form-control')}>
@@ -119,7 +119,7 @@ function UserEditPage() {
                                     type="text" 
                                     placeholder="User_name" 
                                     className={cx('w-50 ms-3')}
-                                    value={userData.username}
+                                    value={userData?.username}
                                 />
                             </div>
                             <div className={cx('form-control')}>
@@ -128,7 +128,7 @@ function UserEditPage() {
                                     type="text" 
                                     placeholder="xxx, xxx, xxx, xxx, Ha Noi" 
                                     className={cx('w-75 ms-5')}
-                                    value={userData.address}
+                                    value={userData?.address}
                                 />
                             </div>
                             <div className={cx('form-control')}>
@@ -136,7 +136,7 @@ function UserEditPage() {
                                 <input 
                                     type="date" 
                                     className={cx('w-50 ms-2')}
-                                    value={userData.birthday}
+                                    value={userData?.birthday}
                                 />
                             </div>
                             <div className={cx('form-control')} >
@@ -145,7 +145,7 @@ function UserEditPage() {
                                     type="text" 
                                     placeholder="Email" 
                                     className={cx('w-50 ms-5')}
-                                    value={userData.email}
+                                    value={userData?.email}
                                 />
                             </div>
                             <div className={cx('d-flex justify-content-center mt-3')}><button>Cập nhật</button></div>

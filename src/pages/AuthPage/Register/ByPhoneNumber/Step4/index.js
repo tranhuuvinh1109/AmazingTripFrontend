@@ -60,12 +60,16 @@ function Step4() {
 		}
 		const file = e.target.files[0]
 		const imagePath = await storeImage(file);
-		console.log(imagePath);
+		//console.log(imagePath);
 		await context.setFormData({ ...context.formData, avatar: imagePath});
-		console.log(context.formData);
+		//console.log('0', context.formData);
         file.preview = URL.createObjectURL(file);
 		setPreviewAvatar(file);
     }
+
+	useEffect(() => {
+		
+	}, [])
 	
 	
 	const handleSubmit = () => {
@@ -73,7 +77,7 @@ function Step4() {
 		
 		if(context.formData.nickname)
 		{
-			//console.log(context.formData);
+			//console.log('1', context.formData);
 			context.handleSubmit()
 		}
 	}

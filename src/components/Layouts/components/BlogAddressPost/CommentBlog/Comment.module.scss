@@ -1,12 +1,21 @@
 .avt-and-name {
+    margin-bottom: 10px;
     p {
         font-weight: bold;
+        margin-left: 10px;
+    }
+    .user-ava {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 }
 
 .comment-area {
     display: flex;
     align-items: center;
+
 
     .comment {
         background-color: white;

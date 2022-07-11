@@ -10,6 +10,7 @@
     img {
         height: var(--avatar-size);
         width: var(--avatar-size);
+        object-fit: cover;
     }
 
     li {

@@ -88,7 +88,6 @@ function Comment ({comment}) {
             <div className={cx('avt-and-name')}>
                 <img 
                     src={ava} 
-                    width="35" 
                     className={cx('user-ava')}
                 />
                 <p className="d-inline">
