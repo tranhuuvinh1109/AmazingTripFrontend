@@ -1,6 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const groupApi = {
+    getAll: (id) => {
+        const url = `/groupAddress/${id}`;
+        return axiosClient.get(url);
+    },
     get: (id) => {
         const url = `/group/${id}`;
         return axiosClient.get(url);

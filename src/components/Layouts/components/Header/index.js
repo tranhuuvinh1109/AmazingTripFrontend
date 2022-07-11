@@ -1,23 +1,40 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
-import { useState, useEffect } from 'react';
+import getCookie from '../../../../hooks/getCookie';
 
 import Menu from './MenuDropDown';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-
-    const history = useNavigate()
+    const history = useNavigate();
+    //const userData = JSON.parse(getCookie('userin'));
 
     const [showMenu, setShowMenu] = useState(false);
+    const [userData, setUserData] = useState(''); 
+
+    const closeRef = useRef();
+    
+    useEffect(() => {
+        const res = getCookie('userin');
+        if(res)
+            setUserData(JSON.parse(res));
+    }, [])
 
     useEffect(() => {
-        document.addEventListener('mousedown', () => {
-            setShowMenu(false)
-        })
+        const handler = (e) => {
+            if(!closeRef?.current?.contains(e.target))
+                setShowMenu(false);
+        }
+
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
     })
 
     return (
@@ -41,19 +58,29 @@ function Header() {
                         </div>
                     </form>
                 </div>
-                <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
-                    <li className={cx('message')}><i className={cx('fa-brands fa-facebook-messenger')}></i></li>
-                    <li className={cx('notification')}><i className={cx('fa-regular fa-bell ms-sm-2')}></i></li>
-                    <li className={cx('user-avatar')}>
-                        <button 
-                            className={cx('btn-avatar')}
-                            onClick={() => setShowMenu(!showMenu)}
-                        >
-                            <img src={images.userAvatar} alt="User-avatar" className={cx('rounded-circle')}/>
-                        </button>
-                        {showMenu && <Menu />}
-                    </li>
-                </ul>
+                {
+                    userData !== '' ? (
+                    <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
+                        <li className={cx('message')}><i className={cx('fa-brands fa-facebook-messenger')}></i></li>
+                        <li className={cx('notification')}><i className={cx('fa-regular fa-bell ms-sm-2')}></i></li>
+                        <li ref={closeRef} className={cx('user-avatar')}>
+                            <button 
+                                className={cx('btn-avatar')}
+                                onClick={() => setShowMenu(!showMenu)}
+                            >
+                                <img src={userData.avatar ? userData.avatar : images.defaultAvatar} alt="User-avatar" className={cx('rounded-circle')}/>
+                            </button>
+                            {showMenu && <Menu userData={userData}/>}
+                        </li>
+                    </ul>
+                    ) : (
+                        <Link to='/login'>
+                            <button className={cx('btn-login')}>
+                                Đăng nhập
+                            </button>
+                        </Link>
+                    )
+                }
             </div>
         </header>
     );

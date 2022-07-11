@@ -1,0 +1,53 @@
+.list-users {
+    background-color: var(--background-light-blue);
+    position: relative;
+    top: -10px;
+    padding: 10px 0;
+    border-end-start-radius: 10px;
+    border-end-end-radius: 10px;
+    
+    img {
+        width: var(--avatar-size);
+        height: var(--avatar-size);
+    }
+
+    li {
+        padding-top: 10px;
+    }
+
+    .line-span {
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        left: 10%;
+        right: 0;
+        height: 1px;
+        width: 80%;
+        z-index: 2;
+        background-color: var(--background-dark-blue);
+        animation-name: line-apper;
+        animation-duration: 1s;
+        transition: ease-out;
+    }
+
+    .btn-user {
+        background-color: var(--background-light-blue);
+        width: 100%;
+        height: 100%;
+        padding: 5px 0;
+        border-radius: 5px;
+
+        &:focus {
+            filter: brightness(0.9);
+        }
+    }
+
+    .each-user {
+        position: relative;
+    }
+}
+
+@keyframes line-apper {
+    0%   {transform: scale(0, 1);}
+    100% {transform: scale(1, 1);}
+}

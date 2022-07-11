@@ -7,6 +7,7 @@ import authApi from '../../../../api/authApi';
 import useAuth from '../../../../hooks/useAuth';
 import setCookie from '../../../../hooks/setCookie';
 import removeCookie from '../../../../hooks/removeCookie';
+import getImage from '../../../../hooks/getImage';
 
 const cx = classNames.bind(styles);
 
@@ -34,9 +35,11 @@ function ByPhoneNumber({ formData, setFormData }) {
 			if(res.status === 404 || res.status === 400)
 				setErrMsg('SĐT/ mật khẩu không chính xác !!!');
 			else {
-				const user = res.user
+				let user = res.user;
 				setAuth({user});
-				removeCookie('userin')
+				removeCookie('userin');
+				const res2 = await getImage(user.avatar);
+				user.avatar = res2;
 				setCookie('userin', JSON.stringify(user))
 				setFormData({...formData, phone: ''});
 				setFormData({...formData, password: ''});

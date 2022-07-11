@@ -1,22 +1,14 @@
 import { useState, createContext } from 'react';
 
-const GroupPageContext = createContext()
+const UserPageContext = createContext()
 
-function GroupPageProvider({ children }) {
+function UserPageProvider({ children }) {
 
-    const [showForm, setShowForm] = useState(false);
-    const [groupData, setGroupData] = useState();
-    const [imageUrl, setImageUrl] = useState();
-    const [leadAva, setLeadAva] = useState();
-    
+    const [userAva, setUserAva] = useState();
+    const [userData, setUserData] = useState();
     const [postData, setPostData] = useState();
-    const [commentsBlog, setCommentsBlog] = useState([]);
 
-    // Reset post Data after
-    const handleResetPostData = (id) => {
-        const obj = postData.filter(obj => obj.blog_id != id);
-        setPostData([...obj])
-    }
+    const [commentsBlog, setCommentsBlog] = useState([]);
 
     // Reset comment Data after
     const handleResetCommentData = (id) => {
@@ -61,22 +53,13 @@ function GroupPageProvider({ children }) {
     }
 
 
-    const toggleForm = () => {
-        setShowForm(!showForm)
-    }
-
     const value = {
-        showForm,
-        toggleForm,
-        groupData,
-        setGroupData,
-        imageUrl,
-        setImageUrl,
-        leadAva,
-        setLeadAva,
+        userData,
+        setUserData,
+        userAva,
+        setUserAva,
         postData,
         setPostData,
-        handleResetPostData,
         commentsBlog,
         setCommentsBlog,
         handleResetCommentData,
@@ -85,10 +68,10 @@ function GroupPageProvider({ children }) {
     }
 
     return (
-        <GroupPageContext.Provider value={value}>
+        <UserPageContext.Provider value={value}>
             {children}
-        </GroupPageContext.Provider>
+        </UserPageContext.Provider>
     )
 }
 
-export { GroupPageContext, GroupPageProvider }
+export { UserPageContext, UserPageProvider }

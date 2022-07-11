@@ -2,8 +2,8 @@ import { useEffect, useState, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
-import commentGroupApi from '../../../../../api/commentGroupApi';
-import { GroupPageContext } from '../../../../../pages/GroupPage/GroupPageContext';
+import commentAddressApi from '../../../../../api/commentAddressApi';
+import { UserPageContext } from '../../../../../pages/UserPage/UserPageContext';
 import getCookie from '../../../../../hooks/getCookie';
 import getImage from '../../../../../hooks/getImage';
 
@@ -16,7 +16,7 @@ function Comment ({comment}) {
         outline: 'none'
     }
 
-    const context = useContext(GroupPageContext);
+    const context = useContext(UserPageContext);
 
     const userData = JSON.parse(getCookie('userin'));
 
@@ -37,7 +37,7 @@ function Comment ({comment}) {
             const comment_id = comment.comment_blog_id;
             context.handleResetCommentData(comment_id);
             context.handleResetCommentCount(comment.blog_id, false);
-            commentGroupApi.delete(comment_id);
+            commentAddressApi.delete(comment_id);
             toast.warning('Bình luận đã bị xóa !!!');
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
@@ -53,7 +53,7 @@ function Comment ({comment}) {
     const handleSendEdit = () => {
         setEdit(false);
         try {
-            commentGroupApi.patch(editVal);
+            commentAddressApi.patch(editVal);
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error);
         }
@@ -103,9 +103,9 @@ function Comment ({comment}) {
                 <input
                     ref={inputRef}
                     className={cx('comment')}
-                    value={editVal.comment_blog_content}
+                    value={editVal.comment_address_content}
                     onChange={(e) => 
-                        setEditVal({...editVal, comment_blog_content: e.target.value})
+                        setEditVal({...editVal, comment_address_content: e.target.value})
                     }
                     readOnly={!edit}
                     style={ edit ? {} : editStyle}

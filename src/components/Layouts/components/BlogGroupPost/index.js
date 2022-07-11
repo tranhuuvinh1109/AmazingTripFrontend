@@ -8,8 +8,9 @@ import ReadMore from '../ReadMore';
 import blogGroupApi from '../../../../api/blogGroupApi';
 import { toast } from 'react-toastify';
 import { GroupPageContext } from '../../../../pages/GroupPage/GroupPageContext';
-import commentGroupApi from '../../../../api/commentGroupApi';
 import getImage from '../../../../hooks/getImage';
+import commentGroupApi from '../../../../api/commentGroupApi';
+import reactionGroupBlogApi from '../../../../api/reactionGroupBlogApi';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +25,9 @@ function BlogGroupPost({ postData }) {
     const [showComment, setShowComment] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
+    const [like, setLike] = useState(false);
+    const [dislike, setDislike] = useState(false);
+
 
     const [value, setValue] = useState({
         blog_id: postData.blog_id,
@@ -36,6 +40,7 @@ function BlogGroupPost({ postData }) {
             try {
                 const res = await commentGroupApi.post(value);
                 context.setCommentsBlog([...res.data]);
+                context.handleResetCommentCount(postData.blog_id, true);
                 setShowComment(true);
                 setValue({...value, comment_blog_content: ''}); 
             } catch (error) {
@@ -53,6 +58,87 @@ function BlogGroupPost({ postData }) {
         }
     }
 
+    const handleLike = async () => {
+        if(like)
+        {
+            try {
+                await reactionGroupBlogApi.unReaction(postData.blog_id, userData.id);
+                setLike(false);
+                context.handleResetReactionCount(postData.blog_id, true, false, false);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+        else 
+        {
+            const data = {
+                blog_id: postData.blog_id,
+                id_user: userData.id,
+                reaction: '1'
+            }
+            try {
+                await reactionGroupBlogApi.post(data);
+                const status = dislike;
+                setLike(true);
+                setDislike(false);
+                context.handleResetReactionCount(postData.blog_id, true, true, status);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+    }
+
+    const handleDislike = async () => {
+        if(dislike)
+        {
+            try {
+                await reactionGroupBlogApi.unReaction(postData.blog_id, userData.id);
+                setDislike(false);
+                context.handleResetReactionCount(postData.blog_id, false, false, false);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+        else 
+        {
+            const data = {
+                blog_id: postData.blog_id,
+                id_user: userData.id,
+                reaction: '0'
+            }
+            try {
+                reactionGroupBlogApi.post(data);
+                const status = like;
+                setDislike(true);
+                setLike(false);
+                context.handleResetReactionCount(postData.blog_id, false, true, status);
+            } catch (error) {
+                console.log('Toang meo chay roi loi cc:', error)
+            }
+        }
+    }
+
+    // Check CurrentUser like/dislike status
+    useEffect(() => {
+        const checkReaction = async () => {
+            const res = await reactionGroupBlogApi.checkReaction(postData.blog_id, userData.id);
+            if(res.status == 400)
+            {
+                setLike(false);
+                setDislike(false);
+            }
+            if(res.status == 200)
+            {
+                if(res.data.reaction == '1')
+                    setLike(true);
+                else
+                    setDislike(true);
+            }
+        }
+        checkReaction();
+    }, [])
+
+    // Click outSide to colse toggle
     useEffect(() => {
         const handler = (e) => {
             if(!deleteBtnRef?.current.contains(e.target))
@@ -66,6 +152,7 @@ function BlogGroupPost({ postData }) {
         }
     })
 
+    // get Image url from firebase
     useEffect(() => {
         const getImageUrl = async () => {
             if(postData.avatar !== null)
@@ -143,16 +230,22 @@ function BlogGroupPost({ postData }) {
                     <div className={cx('post-reaction')}>
                         <div className={cx('d-flex')}>
                             <div className={cx('d-flex align-items-center')}>
-                                <button className={cx('btn-reaction')}>
-                                    <i className={cx('fa-regular fa-thumbs-up')}/>
+                                <button 
+                                    className={cx('btn-reaction')}
+                                    onClick={() => handleLike()}
+                                >
+                                    <i className={ like ? cx('fa-solid fa-thumbs-up') : cx('fa-regular fa-thumbs-up')}/>
                                 </button>
                                 <span className={cx('sum-like ms-1')}>
                                     {postData?.likeCount}
                                 </span>
                             </div>
                             <div className={cx('d-flex align-items-center ms-3')}>  
-                                <button className={cx('btn-reaction')}>
-                                    <i className={ cx('fa-regular fa-thumbs-down')}/>
+                                <button 
+                                    className={cx('btn-reaction')}
+                                    onClick={() => handleDislike()}
+                                >
+                                    <i className={ dislike ? cx('fa-solid fa-thumbs-down') : cx('fa-regular fa-thumbs-down')}/>
                                 </button>
                                 <span className={cx('sum-dislike ms-1')}>
                                     {postData?.dislikeCount}
@@ -171,8 +264,11 @@ function BlogGroupPost({ postData }) {
                     <div className='comments'>
                         <div className={cx('user-comment')}>
                             <div className=''>
-                                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/281896920_534554055067659_2103376413571668716_n.jpg?stp=dst-jpg_s206x206&_nc_cat=101&ccb=1-7&_nc_sid=aee45a&_nc_ohc=j7BNtyGXhXAAX_hRifl&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVLnllXQKcQizy9OEzLQUonG7eViUgPq4ynxejsTjcQClQ&oe=62D02342"
-                                    alt="" className='rounded-circle d-inline' width={50} />
+                                <img 
+                                    src={userData.avatar}
+                                    alt="A image" 
+                                    className={cx('user-avatar')}
+                                />
                             </div>
                             <div className={cx('input-comment')}>
                                 <input

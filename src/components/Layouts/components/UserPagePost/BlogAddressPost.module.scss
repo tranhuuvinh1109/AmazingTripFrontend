@@ -13,7 +13,6 @@
     width: var(--avatar-size);
     height: var(--avatar-size);
     border-radius: 50%;
-    object-fit: cover;
 }
 
 .user-post {
@@ -40,7 +39,11 @@
             text-align: left;
             line-height: 0.9;
             padding-left: 15px;
-            span {
+            .address-post {
+                color: var(--text-orange);
+                margin-left: 4px;
+            }
+            .date-post {
                 font-weight: 400 !important;
                 font-size: 16px;
                 color: var(--text-light-gray);
@@ -61,27 +64,25 @@
         font-size: 32px;
     }
 
+}
 
-
+.post-star {
+    margin-top: 8px;
+    i {
+        font-size: 18px;
+        color: rgb(231, 231, 9) !important;
+        margin-left: 3px;
+    }
 }
 
 .post-content {
-
-    .blog-title {
-        margin-top: 10px;
-        font-weight: 600;
-        font-size: 28px;
-        text-align: left;
-    }
 
     .post-img {
         padding: 15px 0;
         text-align: center;
 
         img {
-            width: 600px;
-            height: 300px;
-            object-fit: cover;
+            max-width: 568px;
             border-radius: 10px;
         }
     }
@@ -153,7 +154,7 @@
 
 .delete-area {
     position: absolute;
-    top: 90%;
+    top: 65%;
     left: 83%;
     width: 150px;
     display: flex;
