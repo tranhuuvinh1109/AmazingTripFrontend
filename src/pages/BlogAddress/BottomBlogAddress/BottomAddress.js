@@ -1,9 +1,8 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './BottomAddress.module.scss';
 import { BlogAddressPost } from '../../../components/Layouts/components';
-import blogAddressPostApi from '../../../api/blogAddressPostApi';
 import { BlogAddressContext } from '../BlogAddressContext';
 import { CommentProvider } from '../../../components/Layouts/components/BlogAddressPost/ReactComment/CommentContext';
 
@@ -14,7 +13,7 @@ function BottomAddress() {
     const context = useContext(BlogAddressContext);
     
     return (
-            <div className="bottom">
+            <div className={cx('bottom')}>
                 {context.postData?.length == 0 ? (
                         <div className={cx('empty-area')}>
                             <h1>
@@ -32,7 +31,9 @@ function BottomAddress() {
                     ) : 
                     context.postData?.map((each) => (
                         <CommentProvider  key={each.blog_address_id}>
-                            <BlogAddressPost postData={each} slideShow={false}/>
+                            <div className={cx('each-post')}>
+                                <BlogAddressPost postData={each} slideShow={false}/>
+                            </div>
                         </CommentProvider>
                     ))
                 } 

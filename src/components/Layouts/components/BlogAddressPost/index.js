@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { FaStar } from "react-icons/fa";
 import classNames from 'classnames/bind';
 import styles from './BlogAddressPost.module.scss';
 import ReadMore from '../ReadMore';
 import { BlogAddressContext } from '../../../../pages/BlogAddress/BlogAddressContext';
 import { CommentContext } from './ReactComment/CommentContext';
-import getCookie from '../../../../hooks/getCookie';
 import blogAddressPostApi from '../../../../api/blogAddressPostApi';
 import commentAddressApi from '../../../../api/commentAddressApi';
 import getImage from '../../../../hooks/getImage';
@@ -21,9 +21,16 @@ function BlogAddressPost({ postData, slideShow }) {
     const deleteBtnRef = useRef();
 
     const [showDelete, setShowDelete] = useState(false);
+    const currentValue = parseInt(postData.blog_address_vote);
 
     const [ava, setAva] = useState('');
     const [blogImg, setBlogImg] = useState('');
+    const stars = Array(5).fill(0);
+
+    const colors = {
+        orange: "#FFBA5A",
+        grey: "#a9a9a9"
+    };
 
     const handleDelete = async () => {
         try {
@@ -123,16 +130,28 @@ function BlogAddressPost({ postData, slideShow }) {
                         )}
                     </div>
                 </div>
-                <div className={cx('post-star')}>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
+                <div style={{ display: 'flex' }}>
+                    {stars.map((_, index) => {
+                        return (
+                            <FaStar
+                                key={index}
+                                size={20}
+                                color={currentValue > index ? colors.orange : colors.grey}
+                                style={{ marginRight: '5'}}
+                            />
+                        )
+                    })}
                 </div>
+                {/* <div className={cx('post-star')}>
+                    <i className={cx('fa-solid fa-star')}></i>
+                    <i className={cx('fa-solid fa-star')}></i>
+                    <i className={cx('fa-solid fa-star')}></i>
+                    <i className={cx('fa-solid fa-star')}></i>
+                    <i className={cx('fa-solid fa-star')}></i>
+                </div> */}
             </div>
             <div className={cx('post-content')}>
-                <ReadMore limit={400}>{postData.blog_address_content}</ReadMore>
+                <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>
                 <div className={cx('post-img')}>
                     { blogImg && 
                         <img 

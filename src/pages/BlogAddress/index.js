@@ -32,10 +32,9 @@ function BlogAddress() {
     const createNewGroup = useContext(FormCreateNewGroupContext)
     
     return (
-        // <BlogAddressProvider>
         <Fragment>
             <div className='row m-0 ps-1 pe-1'>
-                <HeaderAddress  />
+                <HeaderAddress />
                 <CenterAddress />
             </div>
             <div className='row m-0 ps-1 pe-1 mt-3'>
@@ -55,7 +54,6 @@ function BlogAddress() {
             {context.showForm && <DiscountForm />}
             {createNewGroup.showCreate && <CreateFormNewGroup />}
         </Fragment>
-        // </BlogAddressProvider>
     );
 }
 export default BlogAddress;

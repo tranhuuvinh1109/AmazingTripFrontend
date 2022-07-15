@@ -66,7 +66,6 @@ function CreatePost() {
                 <div className={cx('comment')}>
                     <div>
                         <h2> Bình luận gần đây </h2>
-                        { postData[0] && <BlogAddressPost postData={postData[0]}/>}
                         <div style={{ width: '50vw' }}>
                             {postData[0] && (
                                 <SlideShow

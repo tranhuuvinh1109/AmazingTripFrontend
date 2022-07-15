@@ -10,7 +10,6 @@ import http from '../../../http';
 import getCookie from '../../../hooks/getCookie';
 import blogAddressPostApi from '../../../api/blogAddressPostApi';
 import storeImage from '../../../hooks/storeImage';
-import deleteImage from '../../../hooks/deleteImage';
 
 
 const cx = classNames.bind(styles);
@@ -42,7 +41,7 @@ function LeftContent() {
 
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
-    const stars = Array(5).fill(0)
+    const stars = Array(5).fill(0);
 
     const [inputs, setInputs] = useState({
         id_user: current_user.id,
@@ -157,7 +156,7 @@ function LeftContent() {
                     <textarea
                         {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })}
                         id="content" 
-                        cols="30" rows="8"
+                        cols="30" rows="9   "
                         placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"
 
                         onChange={(e) =>
