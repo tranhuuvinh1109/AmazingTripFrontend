@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Dropzone from 'react-dropzone';
+import { FaStar } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import styles from './LeftContent.module.scss';
 import http from '../../../http';
-import { FaStar } from "react-icons/fa";
 import getCookie from '../../../hooks/getCookie';
 import blogAddressPostApi from '../../../api/blogAddressPostApi';
+import storeImage from '../../../hooks/storeImage';
+import deleteImage from '../../../hooks/deleteImage';
 
 
 const cx = classNames.bind(styles);
@@ -20,21 +23,16 @@ const colors = {
 function LeftContent() {
     const navigate = useNavigate();
     const { id } = useParams();
+    const imgRef = useRef();
+    const btnDelRef = useRef();
     const current_user = JSON.parse(getCookie('userin'));
+
+    const [showDelete, setShowDelete] = useState(false);
+    const [delAble, setDelAble] = useState(false);
+ 
+    const [previewAvatar, setPreviewAvatar] = useState('');
     const [addressData, setAddessData] = useState({});
 
-    useEffect(() => {
-        const fetchAddress = async () => {
-            try {
-                const res = await http.get(`/address/` + id);
-                setAddessData(res.data.data) 
-            } catch (error) {
-                console.log('Toang meo chay r loi cc:  ', error)
-            }
-        }
-
-        fetchAddress();
-    },[])
 
     const {
         register,
@@ -48,15 +46,15 @@ function LeftContent() {
 
     const [inputs, setInputs] = useState({
         id_user: current_user.id,
-        address_id: parseInt(id),
-        blog_address_title: 'title tam',
+        address_id: id,
+        blog_address_vote: currentValue,
         blog_address_content: '',
         blog_address_image: ''
     });
 
     const handleClick = (value) => {
         setCurrentValue(value);
-        // setInputs(values => ({ ...values, blog_address_vote: value }))
+        setInputs({...inputs, blog_address_vote: value})
     }
 
     const handleMouseOver = (newHoverValue) => {
@@ -67,14 +65,55 @@ function LeftContent() {
         setHoverValue(undefined)
     }
 
-
-    const submitForm = () => {
-        http.post('/blogAddress', inputs).then(() => {
-            toast.success('Đánh giá thành công !!!');
-            navigate(-1);
-        })
-
+    const handleDrop = async (e) => {
+        const file = e[0];
+        
+        file.preview = URL.createObjectURL(file);
+        setPreviewAvatar(file);
+        const image = await storeImage(file);
+        setInputs({ ...inputs,  blog_address_image: image});
     }
+
+    const handleDel = () => {
+        URL.revokeObjectURL(previewAvatar.preview);
+        setPreviewAvatar('');
+        setShowDelete(false);
+        setDelAble(false);
+    }
+
+
+    const submitForm = async () => {
+        try {
+            await blogAddressPostApi.post(inputs);
+            toast.success("Chia sẻ của bạn đã được mọi người biết đến !!!", {
+                toastId: 1,
+            }); 
+            navigate(-1);   
+        } catch (error) {
+            console.log('Toang meo chay r loi cc ', error);
+        }
+    }
+
+    // Xóa ảnh xem tạm thời
+    useEffect(() => {
+        
+        return () => {
+            URL.revokeObjectURL(previewAvatar.preview);
+        }
+    }, [previewAvatar])
+
+    useEffect(() => {
+        const fetchAddress = async () => {
+            try {
+                const res = await http.get(`/address/` + id);
+                setAddessData(res.data.data); 
+            } catch (error) {
+                console.log('Toang meo chay r loi cc:  ', error)
+            }
+        }
+
+        fetchAddress();
+    },[])
 
     
     return (
@@ -108,17 +147,16 @@ function LeftContent() {
                             )
                         })}
                     </div>
-                    {/* <h1>{currentValue}</h1> */}
                 </div>
 
 
                 <div className={cx('share')}>
-                    <h5 className={cx('share-title')}>
+                    <label htmlFor='content' className={cx('share-title')}>
                         Chia sẻ
-                    </h5>
+                    </label>
                     <textarea
                         {...register("blog_address_content", { required: "Vui lòng nhập chia sẻ của bạn" })}
-                        id="" 
+                        id="content" 
                         cols="30" rows="8"
                         placeholder="Chia sẻ với mọi người về trải nghiệm của bạn: mô tả địa điểm, mức độ hài lòng về phục vụ, gọi ý cho khách du lịch?"
 
@@ -131,17 +169,48 @@ function LeftContent() {
 
                 </div>
                 <div className={cx('moment')}>
-                    <h5 className={cx('moment-title')}>
+                    <label htmlFor='post-image' className={cx('moment-title')}>
                         Khoẳng khắc của bạn
-                    </h5>
-                    <div className={cx('wrapper')}>
-                        <div className={cx('file-upload')}>
-                            <input {...register("blog_address_image")} type="file" className={cx('choose-image')}
-                            />
-                            <i className={cx('fa fa-arrow-up')}></i>
-                        </div>
-                    </div>
-                    {/* <p>{inputs}</p> */}
+                    </label>
+                    <Dropzone 
+                        onDrop={(e) => handleDrop(e)}
+                        noClick={delAble}
+                    >
+                        {({getRootProps, getInputProps}) => (
+                            <div
+                                className={cx('drop-zone')} 
+                                {...getRootProps()}
+                                onMouseOver={() => setShowDelete(true)}
+                                onMouseOut={() => setShowDelete(false)}
+                            >
+                                <input
+                                    id='post-image'
+                                    {...getInputProps()} 
+                                />
+                                <p>Chia sẻ khoảnh khắc của bạn với chúng tôi ... !!</p>
+                                { previewAvatar !== '' && (
+                                    <div className={cx('preview-image')}>
+                                        <img 
+                                            src={previewAvatar.preview}
+                                        />
+                                        { showDelete && (
+                                            <div className={cx('del-area')}>
+                                                <button
+                                                    ref={btnDelRef}
+                                                    className={cx('btn-del')}
+                                                    onClick={() => handleDel()}
+                                                    onMouseOver={() => setDelAble(true)}
+                                                    onMouseOut={() => setDelAble(false)}
+                                                >
+                                                    <i className="fa-solid fa-circle-xmark"></i>
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </Dropzone>
                     <div className={cx('check')}>
                         <input type="checkbox" className={cx('accept')} />
                         <p className={cx('check-content')}>

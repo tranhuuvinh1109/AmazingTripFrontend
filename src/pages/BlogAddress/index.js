@@ -19,7 +19,9 @@ function BlogAddress() {
         const fetchAddressList = async () => {
             try {
                 const res = await addressApi.get(id);
-                context.setAddressData(res.data)
+                context.setAddressData(res.data);
+                context.setGroupList(res.group);
+                context.setPostData(res.blog);
             } catch (error) {
                 console.log('Toang meo chay r loi cc ', error)
             }

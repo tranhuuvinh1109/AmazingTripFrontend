@@ -9,8 +9,6 @@ import groupApi from '../../../../../api/groupApi';
 const cx = classNames.bind(styles);
 
 function Left() {
-    const { id } =  useParams();
-    const [groupList, setGroupList] = useState();
     
     // Đặt trạng thái mặc định của toggle
     const [actived, setActived] = useState(['1', '2']);
@@ -27,18 +25,6 @@ function Left() {
         })
     }
 
-    useEffect(() => {
-        const fetchGroupList = async () => {
-            try {
-                const res = await groupApi.getAll(id);
-                setGroupList(res.data);
-            } catch (error) {
-                
-            }
-        }
-
-        fetchGroupList();
-    }, [])
     
     return (
         <Fragment>
@@ -68,10 +54,7 @@ function Left() {
                     >
                         Nhóm địa điểm
                     </button>
-                    <GroupList
-                        activedList={actived.includes('2')} 
-                        groupList={groupList}
-                    />
+                    <GroupList activedList={actived.includes('2')} />
                 </li>
             </ul>
         </Fragment>

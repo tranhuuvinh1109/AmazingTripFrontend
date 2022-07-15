@@ -2,11 +2,12 @@ import { useEffect, useState, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Comment.module.scss' ;
 import classNames from 'classnames/bind';
-import { BlogAddressContext } from '../../../../../pages/BlogAddress/BlogAddressContext';
-import images from '../../../../../assets/images';
-import commentAddressApi from '../../../../../api/commentAddressApi';
-import getCookie from '../../../../../hooks/getCookie';
-import getImage from '../../../../../hooks/getImage';
+import { BlogAddressContext } from '../../../../../../pages/BlogAddress/BlogAddressContext';
+import { CommentContext } from '../CommentContext';
+import images from '../../../../../../assets/images';
+import commentAddressApi from '../../../../../../api/commentAddressApi';
+import getCookie from '../../../../../../hooks/getCookie';
+import getImage from '../../../../../../hooks/getImage';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,7 @@ function Comment ({comment}) {
     }
 
     const context = useContext(BlogAddressContext);
+    const commentContext = useContext(CommentContext);
 
     const userData = JSON.parse(getCookie('userin'));
 
@@ -35,7 +37,7 @@ function Comment ({comment}) {
 
     const handleDelete = () => {
         try {
-            context.handleResetCommentData(comment.comment_blog_id);
+            commentContext.handleResetCommentData(comment.comment_blog_id);
             context.handleResetCommentCount(comment.blog_address_id, false);
             commentAddressApi.delete(comment.comment_blog_id);
             toast.warning('Bình luận đã bị xóa !!!');
@@ -76,8 +78,11 @@ function Comment ({comment}) {
         const getImageUrl = async () => {
             if(comment.avatar !== null)
             {
-                const res = await getImage(comment.avatar);
-                setAva(res);
+                try {
+                    const res = await getImage(comment.avatar);
+                    setAva(res);
+                } catch (error) {
+                }
             }
         }
         getImageUrl();

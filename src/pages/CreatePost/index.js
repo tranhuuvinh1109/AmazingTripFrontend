@@ -35,7 +35,7 @@ function CreatePost() {
         const fetchPostList = async () => {
             try {
                 const res = await blogAddressPostApi.get(id);
-                setPostData(res.data) 
+                setPostData(res.data);
             } catch (error) {
                 console.log('Toang meo chay r loi cc:  ', error)
             }
@@ -66,7 +66,7 @@ function CreatePost() {
                 <div className={cx('comment')}>
                     <div>
                         <h2> Bình luận gần đây </h2>
-                        {/* { postData[0] && <BlogAddressPost postData={postData[0]}/>} */}
+                        { postData[0] && <BlogAddressPost postData={postData[0]}/>}
                         <div style={{ width: '50vw' }}>
                             {postData[0] && (
                                 <SlideShow
@@ -75,7 +75,7 @@ function CreatePost() {
                                     dots={false}
                                 >
                                    { postData.map((each) => (
-                                        <BlogAddressPost key={each.blog_address_id} postData={each}/>
+                                        <BlogAddressPost key={each.blog_address_id} postData={each} slideShow={true}/>
                                     ))}
                                 </SlideShow>
                             )}

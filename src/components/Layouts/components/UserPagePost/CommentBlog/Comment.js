@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
-import styles from './Comment.module.scss' ;
+import styles from './UserPageComment.module.scss' ;
 import classNames from 'classnames/bind';
 import commentAddressApi from '../../../../../api/commentAddressApi';
 import { UserPageContext } from '../../../../../pages/UserPage/UserPageContext';
@@ -85,11 +85,10 @@ function Comment ({comment}) {
     
     return (
         <div className="mb-4" style={{ position: 'relative', }}>
-            <div className={cx('avt-and-name')}>
+            <div className={cx('user-inf')}>
                 <img 
                     src={ava} 
-                    width="35" 
-                    className={cx('user-ava')}
+                    className={cx('user-avatar')}
                 />
                 <p className="d-inline">
                     {comment.nickname}

@@ -5,11 +5,11 @@ const BlogAddressContext = createContext()
 function BlogAddressProvider({ children }) {
 
     const [addressData, setAddressData] = useState([]);
+    const [postData, setPostData] = useState([]);
+    const [groupList, setGroupList] = useState([]);
 
     const [showForm, setShowForm] = useState(false)
     const [reShowPost, setReShowPost] = useState(false);
-    const [postData, setPostData] = useState([]);
-    const [commentsBlog, setCommentsBlog] = useState([]);
 
     const toggleForm = () => {
         setShowForm(!showForm)
@@ -19,12 +19,6 @@ function BlogAddressProvider({ children }) {
     const handleResetPostData = (id) => {
         const obj = postData.filter(obj => obj.blog_address_id != id);
         setPostData([...obj])
-    }
-
-    // Reset comment Data after
-    const handleResetCommentData = (id) => {
-        const obj = commentsBlog.filter(obj => obj.comment_blog_id != id);
-        setCommentsBlog([...obj])
     }
 
     // Resetcomment Count
@@ -66,18 +60,17 @@ function BlogAddressProvider({ children }) {
     const value = {
         addressData,
         setAddressData,
+        groupList,
+        setGroupList,
+        postData,
+        setPostData,
         showForm,
         toggleForm,
         reShowPost,
         setReShowPost,
-        postData,
-        setPostData,
         handleResetPostData,
-        commentsBlog,
-        setCommentsBlog,
-        handleResetCommentData,
         handleResetCommentCount,
-        handleResetReactionCount
+        handleResetReactionCount,
     }
 
     return (

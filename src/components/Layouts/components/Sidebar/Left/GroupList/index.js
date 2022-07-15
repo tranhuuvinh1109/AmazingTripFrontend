@@ -1,18 +1,22 @@
 import classNames from 'classnames/bind';
 import styles from './ListItem.module.scss';
 import { Link } from 'react-router-dom';
+import { BlogAddressContext } from '../../../../../../pages/BlogAddress/BlogAddressContext';
+import { useContext } from 'react';
 
 
 const cx = classNames.bind(styles);
 
-function GroupList ({ groupList, activedList }) {
+function GroupList ({ activedList }) {
+
+    const context = useContext(BlogAddressContext);
 
     return (
         <div>
             {activedList && (
                 <ul className={cx('list-users')}>
                     <span className={cx('line-span')}></span>
-                    {groupList?.map( each => (
+                    {context.groupList?.map( each => (
                         <li 
                             key={each.group_id} 
                             className={cx('each-user')}
