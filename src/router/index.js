@@ -7,18 +7,19 @@ import {
 
 // Pages
 import LandingPage from '../pages/LandingPage';
-import Home from '../pages/Home';
 import BlogAddress from '../pages/BlogAddress';
 import HostPage from '../pages/HostPage';
 import UserPage from '../pages/UserPage';
 import UserEditPage from '../pages/UserEditPage';
 import CreatePost from '../pages/CreatePost';
 import GroupPage from '../pages/GroupPage';
-import Form from '../pages/Form';
+import CreateAddress from '../pages/CreateAddress';
 import UpdateAdress from '../pages/UpdateAddress';
 import Sale from "../pages/Sale";
 import Register from '../pages/AuthPage/Register';
 import ListAddresses from '../pages/ListAddresses';
+import HomePage from '../pages/HomePage';
+import AddressPage from '../pages/AddressPage';
 
 // Provider
 import { UserPageProvider } from '../pages/UserPage/UserPageContext';
@@ -41,7 +42,7 @@ const publicRoutes = [
 const privateRoutes = [
 
     { path: '/test', component: Test, layout: DefaultLayout },
-    { path: '/', component: Home, layout: OneSide },
+    { path: '/', component: HomePage, layout: OneSide },
     // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: BlogAddressProvider },
     { path: '/address/:id/createBlog', component: CreatePost, layout:DefaultLayout },
     { path: '/host', component: HostPage, layout: OneSide },
@@ -50,12 +51,12 @@ const privateRoutes = [
     { path: '/group/:id', component: GroupPage, layout: DefaultLayout, provider: GroupPageProvider },
 
     // SomeThing
-    { path: '/createAddress', component: Form, layout: DefaultLayout },
+    { path: '/createAddress/:id', component: CreateAddress, layout: DefaultLayout },
     { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
-    { path: '/addSale', component: Sale, layout: DefaultLayout },
+    { path: '/addSale/:id', component: Sale, layout: DefaultLayout },
 
     { path: '/listAddresses', component: ListAddresses, layout: DefaultLayout },
-    { path: '/address/:id', component: BlogAddress, layout: DefaultLayout, provider: BlogAddressProvider},
+    { path: '/address/:id', component: AddressPage, layout: DefaultLayout, provider: BlogAddressProvider},
 
 ];
 

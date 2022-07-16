@@ -1,14 +1,14 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-function NewHostPage({user_id}) {
+function NewHostPage({ user_id }) {
   return (
     <div>
-                  <p>{user_id}</p>
-                  <Link to='/createAddress' >
+      <p>{user_id}</p>
+      <Link to='/createAddress' >
 
-                          <button>Tạo địa điểm </button>
-    </Link>
+        <button>Tạo địa điểm </button>
+      </Link>
     </div>
   )
 }

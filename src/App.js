@@ -4,10 +4,10 @@ import { ToastContainer } from 'react-toastify';
 import { publicRoutes, privateRoutes } from './router';
 import { DefaultLayout } from './components/Layouts';
 import RequireAuth from './components/RequireAuth';
-import getCookie from './hooks/getCookie';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'react-loading-skeleton/dist/skeleton.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // const [userList, setUserList] = useState([]);
