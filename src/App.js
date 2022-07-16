@@ -7,6 +7,7 @@ import RequireAuth from './components/RequireAuth';
 import getCookie from './hooks/getCookie';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function App() {
   // const [userList, setUserList] = useState([]);

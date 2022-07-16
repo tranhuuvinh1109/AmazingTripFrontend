@@ -3,6 +3,7 @@ import styles from './ListItem.module.scss';
 import { Link } from 'react-router-dom';
 import { BlogAddressContext } from '../../../../../../pages/BlogAddress/BlogAddressContext';
 import { useContext } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 
 const cx = classNames.bind(styles);
@@ -27,7 +28,7 @@ function GroupList ({ activedList }) {
                             >
                                 <div className={cx('d-flex align-items-center ps-4')}>
                                     <span className={cx('ms-2')}>
-                                        {each.group_name}
+                                        {each.group_name || <Skeleton />}
                                     </span>
                                 </div>
                             </Link>

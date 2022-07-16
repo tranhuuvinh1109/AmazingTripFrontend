@@ -1,45 +1,94 @@
-.avt-and-name {
-    margin-bottom: 10px;
-    p {
-        font-weight: bold;
-        margin-left: 10px;
-    }
+.each-comment {
+    position: relative;
+    margin-bottom: 40px;
+    display: flex;
     .user-ava {
-        width: 35px;
-        height: 35px;
+        position: absolute;
+        left: 0;
+        bottom: 5px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
         object-fit: cover;
+        z-index: 1;
     }
-}
 
+    .toggle {
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        button {
+            background-color: transparent;
+        
+            i {
+                font-size: 24px;
+            }
+        
+            &:hover i {
+                color: var(--text-orange);
+            }
+        }
+    }
+
+}
 .comment-area {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 20px;
+    border-bottom-left-radius: 0 !important;
+    padding: 0 20px;
+    margin-left: 50px;
+    flex-grow: 1;
+    position: relative;
 
-
-    .comment {
+    &::before {
+        content: '';
+        width: 60px;
+        height: 28px;
         background-color: white;
-        padding: 10px 20px;
-        border-radius: 50px;
-        width: 90%;
-        p{
-            margin: 0;
-        }
-
+        position: absolute;
+        left: -25px;
+        bottom: 0;
     }
 
-    button {
-        background-color: transparent;
-
-        i {
-            margin-left: 20px;
-            font-size: 24px;
-        }
-
-        &:hover i {
-            color: var(--text-orange);
-        }
+    &::after {
+        content: '';
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        //background-color: yellow;
+        background-color: var(--background-light-blue);
+        position: absolute;
+        left: -55px;
+        bottom: 0;
     }
+
+    label {
+        font-weight: 600;
+        line-height: 1;
+        font-size: 16px;
+        padding-top: 5px;
+    }
+
+    input {
+        width: 100%;
+        word-break: break-word;
+        font-size: 16px;
+        color: var(--text-dark-blue);;
+        padding: 2px 0;
+        outline: none;
+        z-index: 1;
+    }
+    
+}
+
+.comment:focus > .comment-area {
+    background-color: red !important;
 }
 
 .btn-edit-del {
@@ -49,8 +98,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 20%;
-    left: 98%;
+    top: -55%;
+    left: 105%;
     z-index: 999;
     border-radius: 4px;
 
@@ -82,8 +131,11 @@
 }
 
 .btn-edit {
+    background: transparent;
     position: absolute;
-    left: 80%;
+    top: 40%;
+    right:  5%;
+    z-index: 2;
 
     i {
         font-size: 20px !important;

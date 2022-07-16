@@ -123,6 +123,7 @@ function BlogAddressPost({ postData, slideShow }) {
                             <div 
                                 className={cx('delete-area')}
                             >
+                                {/* Report here */}
                                 <button onClick={() => handleDelete()}>
                                     Xóa bài viết
                                 </button>
@@ -142,13 +143,6 @@ function BlogAddressPost({ postData, slideShow }) {
                         )
                     })}
                 </div>
-                {/* <div className={cx('post-star')}>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                </div> */}
             </div>
             <div className={cx('post-content')}>
                 <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>

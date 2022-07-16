@@ -1,0 +1,186 @@
+.left {
+    .address {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+.center {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .top-content {
+        flex-grow: 1;
+        height: 100%;
+    }
+
+    .bottom-content {
+        flex-grow: 1;
+        height: 100%;
+        margin-top: 10px;
+    }
+
+    .center-left-top {
+        border: 1px solid rgba($color: gray, $alpha: 0.5);
+        border-radius: 10px;
+        height: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .center-left-bottom {
+        border: 1px solid rgba($color: gray, $alpha: 0.5);
+        border-radius: 10px;
+        height: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    
+        .sub {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.feedback-blog {
+    background-color: var(--background-light-blue);
+    border-radius: 10px;
+    padding: 15px 30px;
+    margin-bottom: 40px;
+}
+
+.user-avt {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-post {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    color: var(--text-light-gray);
+    position: relative;
+    
+    .user-infor {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+
+        div:first-child {
+            display: flex;
+            align-items: center;
+        }
+
+        h4 {
+            text-align: left;
+            line-height: 0.1;
+            padding-left: 15px;
+            span {
+                font-size: 16px;
+                line-height: 0;
+            }
+        }
+    }
+
+    .btn-more {
+        background-color: transparent;
+        position: absolute;
+        top: 10%;
+        left: 97%;
+
+        &:hover i {
+            color: var(--btn-orange);
+        }
+    }
+
+    i {
+        font-size: 32px;
+    }
+
+}
+
+.post-content {
+    margin-top: 10px;
+    .post-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 0;
+    }
+
+    .post-reaction {
+        display: flex;
+        padding: 10px 5px;
+        justify-content: space-between;
+        border-top: 1px solid rgba($color: #094067, $alpha: 0.2);
+    
+        .btn-reaction {
+            background-color: transparent;
+    
+            i {
+                font-size: 24px;
+            }
+        }
+    
+        .sum-comment {
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+    
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .user-comment {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        
+        .input-comment {
+            flex-grow: 1;
+            width: 100%;
+            min-height: 100%;
+            position: relative;
+            margin-left: 20px;
+    
+            input {
+                min-height: 100%;
+                width: 100%;
+                padding: 10px 20px;
+                border-radius: 50px;
+                font-size: 18px;
+            }
+    
+            button {
+                background-color: transparent;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 93%;
+                i {
+                    align-items: center;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

@@ -89,24 +89,25 @@ function Comment ({comment}) {
     }, [])
     
     return (
-        <div className="mb-4" style={{ position: 'relative', }}>
-            <div className={cx('avt-and-name')}>
-                <img 
-                    src={ava || images.defaultava} 
-                    width="35" 
-                    className={cx('user-ava')}
-                />
-                <p className="d-inline">
-                    {comment.nickname}
-                </p>
-            </div>
+        <div 
+            className={cx('each-comment')}
+            onMouseOver={() => setShowDot(true)}
+            onMouseLeave={() => setShowDot(false)}
+        >
+            <img 
+                src={ava || images.defaultava} 
+                width="35" 
+                className={cx('user-ava')}
+            />
             <div 
                 className={cx('comment-area')}
-                onMouseOver={() => setShowDot(true)}
-                onMouseLeave={() => setShowDot(false)}
             >
+                <label htmlFor='input-comment'>
+                    {comment.nickname}
+                </label>
                 <input
                     ref={inputRef}
+                    id='input-comment'
                     className={cx('comment')}
                     value={editVal.comment_address_content}
                     onChange={(e) => 
@@ -123,6 +124,8 @@ function Comment ({comment}) {
                         <i className="fa-solid fa-paper-plane"></i>
                     </button>
                 )}
+            </div>
+            <div className={cx('toggle')}>
                 { comment.id_user === userData.id && showDot && !edit && (
                     <button
                         onClick={() => setShowEdit(!showEdit)}
