@@ -15,9 +15,11 @@ function Top() {
             <h3 className={cx('des')}>
                 Mô tả
             </h3>
-            <p>
-               {context.addressData.address_description}
-            </p>
+            <div className={cx('description')}>
+                <p>
+                   {context.addressData.address_description}
+                </p>
+            </div>
         </div>
     )
 }

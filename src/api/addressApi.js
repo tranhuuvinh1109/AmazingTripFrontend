@@ -9,6 +9,10 @@ const addressApi = {
         const url = `/address/${id}`;
         return axiosClient.get(url);
     },
+    post: (data) => {
+        const url = `/address`;
+        return axiosClient.post(url, data);
+    },
     getAllHostAddress: (user_id) => {
         const url = `/addressHost/${user_id}`;
         return axiosClient.get(url);
