@@ -10,6 +10,7 @@ import CreateFormNewGroup from './CreateFormNewGroup';
 import { BlogAddressContext } from './BlogAddressContext';
 import addressApi from '../../api/addressApi';
 import { BlogAddressSkeleton } from '../../components/Skeleton';
+import getImage from '../../hooks/getImage';
 
 function BlogAddress() {
     const context = useContext(BlogAddressContext);
@@ -21,8 +22,14 @@ function BlogAddress() {
         const fetchAddressList = async () => {
             try {
                 const res = await addressApi.get(id);
+                if(res.data.avatar !== undefined)
+                {
+                    const image = await getImage(res.data.avatar);
+                    res.data.avatar = image;
+                }
                 context.setAddressData(res.data);
                 context.setGroupList(res.group);
+                context.setDiscountData(res.discount);
                 context.setPostData(res.blog);
                 setLoading(false);
             } catch (error) {

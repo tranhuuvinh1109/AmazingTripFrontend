@@ -18,6 +18,7 @@
 
         .day-start, .day-end {
             font-weight: bold;
+            margin-left: 5px;
         }
     }
 
@@ -25,7 +26,8 @@
         font-size: 16px;
         .discount {
             color: var(--text-orange);
-            font-size: 20px;
+            font-size: 24px;
+            margin-left: 5px;
         }
 
         .quantity {
@@ -44,6 +46,7 @@
             .sb {
                 color: var(--text-orange);
                 font-size: 32px;
+                margin-left: 5px;
             }
         }
 

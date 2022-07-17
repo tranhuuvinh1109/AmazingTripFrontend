@@ -24,7 +24,7 @@ function AddressInf() {
                                     {new Date(context.discountData?.time_start).toLocaleDateString()}
                                 </span> tới ngày
                                 <span className={cx('day-end')}> 
-                                {new Date(context.discountData?.time_finish).toLocaleDateString()}
+                                    {new Date(context.discountData?.time_finish).toLocaleDateString()}
                                 </span>
                             </h4>
                             <p className={cx('block-discount')}>
