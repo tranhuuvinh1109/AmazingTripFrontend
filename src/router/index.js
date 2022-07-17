@@ -7,15 +7,13 @@ import {
 
 // Pages
 import LandingPage from '../pages/LandingPage';
-import BlogAddress from '../pages/BlogAddress';
-import HostPage from '../pages/HostPage';
 import UserPage from '../pages/UserPage';
 import UserEditPage from '../pages/UserEditPage';
 import CreatePost from '../pages/CreatePost';
 import GroupPage from '../pages/GroupPage';
-import CreateAddress from '../pages/CreateAddress';
+import CreateAddress from '../pages/AddressPage/CreateAddress';
 import UpdateAdress from '../pages/UpdateAddress';
-import Sale from "../pages/Sale";
+import Sale from '../pages/AddressPage/AddressHostPage/HostPage/Sale';
 import Register from '../pages/AuthPage/Register';
 import ListAddresses from '../pages/ListAddresses';
 import HomePage from '../pages/HomePage';
@@ -45,7 +43,6 @@ const privateRoutes = [
     { path: '/', component: HomePage, layout: OneSide },
     // { path: '/blog', component: BlogAddress, layout: DefaultLayout, provider: BlogAddressProvider },
     { path: '/address/:id/createBlog', component: CreatePost, layout:DefaultLayout },
-    { path: '/host', component: HostPage, layout: OneSide },
     { path: '/user/:id', component: UserPage, layout: DefaultLayout, provider: UserPageProvider },
     { path: '/user_edit/:id', component: UserEditPage, layout: DefaultLayout },
     { path: '/group/:id', component: GroupPage, layout: DefaultLayout, provider: GroupPageProvider },

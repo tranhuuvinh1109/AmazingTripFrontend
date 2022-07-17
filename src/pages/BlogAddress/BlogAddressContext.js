@@ -7,6 +7,7 @@ function BlogAddressProvider({ children }) {
     const [addressData, setAddressData] = useState([]);
     const [postData, setPostData] = useState([]);
     const [groupList, setGroupList] = useState([]);
+    const [discountData, setDiscountData] = useState([]);
 
     const [showForm, setShowForm] = useState(false)
     const [reShowPost, setReShowPost] = useState(false);
@@ -64,6 +65,8 @@ function BlogAddressProvider({ children }) {
         setGroupList,
         postData,
         setPostData,
+        discountData,
+        setDiscountData,
         showForm,
         toggleForm,
         reShowPost,

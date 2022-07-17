@@ -1,5 +1,6 @@
 import BlogAddress from "../BlogAddress";
-import HostPage from "../HostPage";
+import AddressHostPage from "./AddressHostPage";
+import { AddressHostPageProvider } from "./AddressHostPage/AddressHostPageContext";
 import getCookie from "../../hooks/getCookie";
 
 
@@ -7,13 +8,15 @@ function AddressPage() {
     const userData = JSON.parse(getCookie('userin'));
 
     return ( 
-        <>
-            {userData.role == '1' ? 
-                <HostPage />
-                :
-                <BlogAddress />
-            }
-        </>
+        <AddressHostPageProvider>
+            <>
+                {userData.role == '1' ? 
+                    <AddressHostPage />
+                    :
+                    <BlogAddress />
+                }
+            </>
+        </AddressHostPageProvider>
     );
 }
 

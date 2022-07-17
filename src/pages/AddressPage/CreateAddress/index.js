@@ -1,15 +1,13 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames/bind';
 import styles from './Form.module.scss';
-import http from '../../http';
-import getCookie from "../../hooks/getCookie";
-import { useForm } from 'react-hook-form';
-import storeImage from '../../hooks/storeImage';
-import addressApi from '../../api/addressApi';
-import { toast } from 'react-toastify';
-
+import getCookie from '../../../hooks/getCookie';
+import storeImage from '../../../hooks/storeImage';
+import addressApi from '../../../api/addressApi';
 
 const cx = classNames.bind(styles);
 

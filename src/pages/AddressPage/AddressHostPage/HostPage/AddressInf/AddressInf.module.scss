@@ -1,0 +1,96 @@
+.description-more {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+
+    .sale, .statistical {
+        height: 300px;
+        flex-grow: 1;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        padding: 10px 20px;
+    }
+
+    .sale {
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            align-self: flex-start !important;
+        }
+
+        .sale-content {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h3 {
+                font-weight: 400 !important;
+                font-size: 20px;
+                word-break: break-word;
+                margin: 0;
+            }
+
+            .btn-add {
+                background: transparent;
+                color: var(--background-dark-blue);
+                font-size: 64px;
+            }
+
+            .center-left-bottom {
+                height: 80%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            
+                h4, h5,  p{
+                    margin: 0;
+                    color: var(--background-dark-blue);
+                }
+            
+                h4 {
+                    text-align: left;
+                    font-size: 24px;
+            
+                    .day-start, .day-end {
+                        font-weight: bold;
+                        margin-left: 5px;
+                    }
+                }
+            
+                p {
+                    font-size: 18px;
+                    .discount {
+                        color: var(--text-orange);
+                        font-size: 28px;
+                        margin-left: 5px;
+                    }
+            
+                    .quantity {
+                        color: var(--text-orange);
+                        font-size: 32px;
+                    }
+                }
+            
+                .sub {
+                    display: flex;
+                    justify-content: space-between;
+            
+                    .submit {
+                        font-weight: bold;
+                        font-size: 24px;
+                        .sb {
+                            color: var(--text-orange);
+                            font-size: 32px;
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
