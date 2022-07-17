@@ -1,8 +1,16 @@
 import axiosClient from "./axiosClient";
 
 const addressApi = {
+    getAll: () => {
+        const url = `/address`;
+        return axiosClient.get(url);
+    },
     get: (id) => {
         const url = `/address/${id}`;
+        return axiosClient.get(url);
+    },
+    getAllHostAddress: (user_id) => {
+        const url = `/addressHost/${user_id}`;
         return axiosClient.get(url);
     },
     getHost: (address_id, user_id) => {

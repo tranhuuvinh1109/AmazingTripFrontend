@@ -22,7 +22,6 @@ function Sale() {
 	});
 
 	const navigate = useNavigate();
-	const location = useLocation()
 	const { id } = useParams();
 	return (
 		<div>
