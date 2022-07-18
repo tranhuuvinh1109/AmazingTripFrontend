@@ -5,8 +5,9 @@ const UserPageContext = createContext()
 function UserPageProvider({ children }) {
 
     const [userAva, setUserAva] = useState();
-    const [userData, setUserData] = useState();
-    const [postData, setPostData] = useState();
+    const [userData, setUserData] = useState([]);
+    const [postData, setPostData] = useState([]);
+    const [followData, setFollowData] = useState([]);
 
     const [commentsBlog, setCommentsBlog] = useState([]);
 
@@ -60,6 +61,8 @@ function UserPageProvider({ children }) {
         setUserAva,
         postData,
         setPostData,
+        followData,
+        setFollowData,
         commentsBlog,
         setCommentsBlog,
         handleResetCommentData,

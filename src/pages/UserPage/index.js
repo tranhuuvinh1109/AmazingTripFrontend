@@ -7,18 +7,20 @@ import CoverImage from './CoverImage';
 import { UserPageContext } from './UserPageContext';
 import userApi from '../../api/userApi';
 import getImage from '../../hooks/getImage';
+import getCookie from '../../hooks/getCookie';
 
 function UserPage() {
     const { id } = useParams();
     const context = useContext(UserPageContext);
-
+    const userData = JSON.parse(getCookie('userin'));
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await userApi.getAll(id);
+                const res = await userApi.getAll(id, userData.id);
                 context.setUserData(res.data);
                 context.setPostData(res.blog);
+                context.setFollowData(res.follow);
                 const imageUrl = await getImage(res.data.avatar);
                 context.setUserAva(imageUrl);
             } catch (error) {
