@@ -38,8 +38,11 @@ function ByPhoneNumber({ formData, setFormData }) {
 				let user = res.user;
 				setAuth({user});
 				removeCookie('userin');
-				const res2 = await getImage(user.avatar);
-				user.avatar = res2;
+				if(user.avatar != null)
+				{
+					const res2 = await getImage(user.avatar);
+					user.avatar = res2;
+				}
 				setCookie('userin', JSON.stringify(user))
 				setFormData({...formData, phone: ''});
 				setFormData({...formData, password: ''});
