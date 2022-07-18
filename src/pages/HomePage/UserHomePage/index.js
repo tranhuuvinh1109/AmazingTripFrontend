@@ -1,6 +1,7 @@
+import { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import removeCookie from "../../../hooks/removeCookie";
 import { toast } from 'react-toastify';
+import removeCookie from "../../../hooks/removeCookie";
 
 function UserHomePage() {
     const navigate = useNavigate();

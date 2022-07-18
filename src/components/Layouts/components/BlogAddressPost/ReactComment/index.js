@@ -101,16 +101,14 @@ const ReactComment = ({ postData }) => {
 
     // Check CurrentUser like/dislike status
     useEffect(() => {
-        const checkReaction = async () => {
-            const res = await reactionAddressBlogApi.checkReaction(postData.blog_address_id, userData.id);
-            if(res.status == 400)
+        const checkReaction = () => {
+                    
+            if(postData.reactStatus == null)
             {
                 setLike(false);
                 setDislike(false);
-            }
-            if(res.status == 200)
-            {
-                if(res.data.reaction == '1')
+            } else {
+                if(postData.reactStatus == '1')
                     setLike(true);
                 else
                     setDislike(true);

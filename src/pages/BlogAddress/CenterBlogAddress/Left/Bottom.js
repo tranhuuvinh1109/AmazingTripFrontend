@@ -1,13 +1,27 @@
-import React, { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Bottom.module.scss';
 import { BlogAddressContext } from '../../BlogAddressContext';
+import getCookie from '../../../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
 function Bottom() {
+    const context = useContext(BlogAddressContext);
+    const userData = JSON.parse(getCookie('userin'));
 
-    const context = useContext(BlogAddressContext)
+    const [show, setShow] = useState(true);
+
+    useEffect(() => {
+        const handleCheck = () => {
+            const res = context.friendList?.filter(each => each.id_user == userData.id);
+            
+            if(res?.length != 0)
+                setShow(false);
+        }
+
+        handleCheck();
+    }, [])
 
     return (
         <div className={cx('center-left-bottom')}>
@@ -45,8 +59,9 @@ function Bottom() {
                         <button
                             onClick={context.toggleForm}
                             className={cx('btn-register')}
+                            disabled={!show}
                         >
-                            Đăng ký
+                            { show ? 'Đăng ký' : 'Đã đăng ký' }
                         </button>
                     </div>
                 </>

@@ -48,7 +48,7 @@ const privateRoutes = [
     { path: '/group/:id', component: GroupPage, layout: DefaultLayout, provider: GroupPageProvider },
 
     // SomeThing
-    { path: '/createAddress/:id', component: CreateAddress, layout: DefaultLayout },
+    { path: '/createAddress/:id', component: CreateAddress, layout: DefaultLayout, provider: BlogAddressProvider },
     { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
     { path: '/addSale/:id', component: Sale, layout: DefaultLayout },
 

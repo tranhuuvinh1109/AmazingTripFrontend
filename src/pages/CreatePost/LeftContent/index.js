@@ -10,6 +10,8 @@ import http from '../../../http';
 import getCookie from '../../../hooks/getCookie';
 import blogAddressPostApi from '../../../api/blogAddressPostApi';
 import storeImage from '../../../hooks/storeImage';
+import addressApi from '../../../api/addressApi';
+import getImage from '../../../hooks/getImage';
 
 
 const cx = classNames.bind(styles);
@@ -104,8 +106,13 @@ function LeftContent() {
     useEffect(() => {
         const fetchAddress = async () => {
             try {
-                const res = await http.get(`/address/` + id);
-                setAddessData(res.data.data); 
+                const res = await addressApi.get(id, current_user.id);
+                if(res.data.avatar != null)
+                {
+                    const image = await getImage(res.data.avatar);
+                    res.data.avatar = image;
+                }
+                setAddessData(res.data); 
             } catch (error) {
                 console.log('Toang meo chay r loi cc:  ', error)
             }
@@ -118,11 +125,10 @@ function LeftContent() {
     return (
         <div className={cx('top-left')}>
             <div className={cx('address')}>
-                <h2> {addressData.address_name ? addressData.address_name : ''} </h2>
+                <h2> {addressData?.address_name} </h2>
                 <i className={cx('fa-solid fa-location-dot')}></i>
                 <span className={cx('avatar')}>
-                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/281896920_534554055067659_2103376413571668716_n.jpg?stp=dst-jpg_s206x206&_nc_cat=101&ccb=1-7&_nc_sid=aee45a&_nc_ohc=j7BNtyGXhXAAX_hRifl&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVLnllXQKcQizy9OEzLQUonG7eViUgPq4ynxejsTjcQClQ&oe=62D02342"
-                        alt="" className={cx('avt-host')} />
+                    <img src={addressData?.avatar} className={cx('avt-host')} />
                 </span>
             </div>
             <div className={cx('top-form')}>

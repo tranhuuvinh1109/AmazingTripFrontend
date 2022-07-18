@@ -5,6 +5,7 @@ import LeftContent from './LeftContent';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import blogAddressPostApi from '../../api/blogAddressPostApi';
+import getCookie from '../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +30,7 @@ const img = [
 
 function CreatePost() {
     const {id} = useParams();
+    const userData = JSON.parse(getCookie('userin'));
     const [postData, setPostData] = useState([]);
 
     useEffect(() => {

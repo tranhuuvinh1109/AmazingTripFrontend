@@ -12,7 +12,6 @@ function AddressInf() {
 
     return (
         <div className={cx('description-more')}>
-            {console.log(context.discountData)}
             <div className={cx('sale')}>
                 <h2 className={cx('subtitle')}>Khuyến mãi</h2>
                 <div className={cx('sale-content')}>
@@ -42,7 +41,7 @@ function AddressInf() {
                                 <h5 className={cx('submit')}>
                                     Số lượng đã đăng ký: 
                                     <span className={cx('sb')}>
-                                        {context.discountData?.number_registed}
+                                        {context.discountData?.quantity_registed}
                                         /
                                         {context.discountData?.discount_quantity}
                                     </span>

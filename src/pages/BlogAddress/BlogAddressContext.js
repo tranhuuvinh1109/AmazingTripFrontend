@@ -8,6 +8,12 @@ function BlogAddressProvider({ children }) {
     const [postData, setPostData] = useState([]);
     const [groupList, setGroupList] = useState([]);
     const [discountData, setDiscountData] = useState([]);
+    const [friendList, setFriendList] = useState([]);
+    const [bookmarkData, setBookmarkData] = useState({
+        address_id: '',
+        id_user: '',
+        status: '',
+    });
 
     const [showForm, setShowForm] = useState(false)
     const [reShowPost, setReShowPost] = useState(false);
@@ -67,6 +73,10 @@ function BlogAddressProvider({ children }) {
         setPostData,
         discountData,
         setDiscountData,
+        friendList,
+        setFriendList,
+        bookmarkData,
+        setBookmarkData,
         showForm,
         toggleForm,
         reShowPost,

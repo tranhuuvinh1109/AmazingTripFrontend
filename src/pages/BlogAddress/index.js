@@ -11,9 +11,11 @@ import { BlogAddressContext } from './BlogAddressContext';
 import addressApi from '../../api/addressApi';
 import { BlogAddressSkeleton } from '../../components/Skeleton';
 import getImage from '../../hooks/getImage';
+import getCookie from '../../hooks/getCookie';
 
 function BlogAddress() {
     const context = useContext(BlogAddressContext);
+    const userData = JSON.parse(getCookie('userin'));
     const [loading, setLoading] = useState(true);
 
     const { id } = useParams();
@@ -21,16 +23,26 @@ function BlogAddress() {
     useEffect(() => {
         const fetchAddressList = async () => {
             try {
-                const res = await addressApi.get(id);
-                if(res.data.avatar !== undefined)
+                const res = await addressApi.get(id, userData.id);
+                if(res.data.avatar !== null)
                 {
                     const image = await getImage(res.data.avatar);
                     res.data.avatar = image;
                 }
+                res.friendList?.map( async (friend) => {
+                    const image = await getImage(friend.avatar);
+                    friend.avatar = image;
+                })
                 context.setAddressData(res.data);
                 context.setGroupList(res.group);
                 context.setDiscountData(res.discount);
+                context.setFriendList(res.friendList);
                 context.setPostData(res.blog);
+                context.setBookmarkData({...res.bookmarkData, 
+                    address_id: id,
+                    id_user: userData.id,
+                    status: res.bookmark.status,
+                });
                 setLoading(false);
             } catch (error) {
                 console.log('Toang meo chay r loi cc ', error)

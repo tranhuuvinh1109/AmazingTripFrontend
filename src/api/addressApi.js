@@ -5,8 +5,8 @@ const addressApi = {
         const url = `/address`;
         return axiosClient.get(url);
     },
-    get: (id) => {
-        const url = `/address/${id}`;
+    get: (address_id, user_id) => {
+        const url = `/address/${address_id}/${user_id}`;
         return axiosClient.get(url);
     },
     post: (data) => {

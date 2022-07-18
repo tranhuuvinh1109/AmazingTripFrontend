@@ -1,10 +1,9 @@
 import { Fragment, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Left.module.scss';
 import GroupList from './GroupList';
 import BtnCreateGroup from '../../../../../pages/BtnCreateGroup';
-import groupApi from '../../../../../api/groupApi';
+import FriendList from './FriendList';
 
 const cx = classNames.bind(styles);
 
@@ -28,8 +27,12 @@ function Left() {
     
     return (
         <Fragment>
-            <BtnCreateGroup />
             <ul className={cx('sticky-side-bar')}>
+                <li
+                    className={cx('mb-2')} 
+                >
+                    <BtnCreateGroup />
+                </li>
                 <li
                     className={cx('mb-2')} 
                 >
@@ -39,11 +42,7 @@ function Left() {
                     >
                         Bạn đồng hành
                     </button>
-                    {/* <ListItem 
-                        location={content.id === 'location-list'}
-                        openStatus={openStatus} 
-                        activedList={actived.includes(content.id)} 
-                    /> */}
+                    <FriendList activedList={actived.includes('1')} />
                 </li>
                 <li
                     className={cx('mb-2')} 

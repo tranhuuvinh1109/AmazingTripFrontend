@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, useRef } from 'react';
+import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import styles from './DiscountForm.module.scss';
 import { BlogAddressContext } from '../BlogAddressContext';
@@ -27,6 +28,11 @@ function DiscountForm() {
 
         try {
             await discountApi.postSaleRegister(inputData);
+            const total = parseInt(context.discountData.quantity_registed) + parseInt(inputData.quantity_registed);
+            context.setDiscountData({...context.discountData, quantity_registed: total});
+            toast.success('Đăng ký du lịch thành công !!!', {
+                toastId: 1,
+            });
             context.toggleForm();
         } catch (error) {
             console.log('Toang meo chay r loi cc: ', error);

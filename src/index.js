@@ -6,6 +6,7 @@ import GlobalStyles from './components/GlobalStyles';
 import { AuthProvider } from './context/AuthProvider';
 import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContext';
 import { AuthFireBaseContextProvider } from './context/AuthFireBaseContext';
+import { GlobalProvider } from './context/GlobalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,9 +14,11 @@ root.render(
     <AuthFireBaseContextProvider>
       <CreateNewGroupProvider>
         <AuthProvider>
-          <GlobalStyles>
-            <App />
-          </GlobalStyles>
+          <GlobalProvider>
+            <GlobalStyles>
+              <App />
+            </GlobalStyles>
+          </GlobalProvider>
         </AuthProvider>
       </CreateNewGroupProvider>
     </AuthFireBaseContextProvider>
