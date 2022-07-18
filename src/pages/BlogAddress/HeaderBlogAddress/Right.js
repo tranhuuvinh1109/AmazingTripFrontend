@@ -59,7 +59,7 @@ function Right() {
                     onClick={() => handleBookmark()}
                 >
                     <i 
-                        className={context.bookmarkData.status == '1' ? "fa-solid fa-bookmark me-1" : "fa-regular fa-bookmark me-1"}
+                        className={context.bookmarkData?.status == '1' ? "fa-solid fa-bookmark me-1" : "fa-regular fa-bookmark me-1"}
                     ></i> Bookmark
                 </button>
             </div>

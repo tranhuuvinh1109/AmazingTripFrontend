@@ -1,15 +1,18 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from './LeftContent.module.scss';
 import { UserPageContext } from "../UserPageContext";
+import getCookie from "../../../hooks/getCookie";
 
 const cx = classNames.bind(styles);
 
-function LeftContent() {    
+function LeftContent() {
     const context = useContext(UserPageContext);
+    const { id } = useParams();
+    const userData = JSON.parse(getCookie('userin'));
 
-    return (  
+    return (
         <div className={cx('sticky-side-bar')}>
             <h2 className={cx('side-title')}>
                 Về tôi
@@ -18,9 +21,9 @@ function LeftContent() {
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-cake-candles me-2')}></i>
                     <p>
-                        { context.userData ? 
-                            new Date(context.userData.birthday).toLocaleDateString() 
-                            : '' 
+                        {context.userData ?
+                            new Date(context.userData.birthday).toLocaleDateString()
+                            : ''
                         }
                     </p>
                 </li>
@@ -31,23 +34,25 @@ function LeftContent() {
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-user-check')}></i>
                     <p>Thành viên gia đình
-                        
-                        <span className={cx('web-logo')}> AmazingTrip </span> 
+
+                        <span className={cx('web-logo')}> AmazingTrip </span>
                         từ
-                        
-                        <span> 
-                            { context.userData ? 
-                                new Date(context.userData.created_at).toLocaleDateString() 
-                                : '' 
+
+                        <span>
+                            {context.userData ?
+                                new Date(context.userData.created_at).toLocaleDateString()
+                                : ''
                             }
                         </span>
                     </p>
                 </li>
                 <li>
-                    <Link to={`/user_edit/${context.userData?.id}`} className={cx('d-flex align-items-start justify-content-start')}>
-                        <i className={cx('fa-solid fa-user-pen')}></i>
-                        <p>Chinh sua thong tin</p>
-                    </Link>
+                    {userData.id == id && (
+                        <Link to={`/user_edit/${context.userData?.id}`} className={cx('d-flex align-items-start justify-content-start')}>
+                            <i className={cx('fa-solid fa-user-pen')}></i>
+                            <p>Chinh sua thong tin</p>
+                        </Link>
+                    )}
                 </li>
             </ul>
         </div>

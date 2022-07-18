@@ -41,7 +41,7 @@ function BlogAddress() {
                 context.setBookmarkData({...res.bookmarkData, 
                     address_id: id,
                     id_user: userData.id,
-                    status: res.bookmark.status,
+                    status: res.bookmark?.status,
                 });
                 setLoading(false);
             } catch (error) {

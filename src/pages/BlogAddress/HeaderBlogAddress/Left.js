@@ -36,7 +36,7 @@ function Left() {
                         />
                     )
                 })}
-                <span className={cx('vote')}>{context.addressData.vote.toFixed(2)}</span>
+                <span className={cx('vote')}>{context.addressData?.vote?.toFixed(2)}</span>
             </div>
         </div>
     )
