@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
-import styles from './Comment.module.scss' ;
+import Tippy from '@tippyjs/react';
+import styles from './Comment.module.scss';
 import classNames from 'classnames/bind';
 import { BlogAddressContext } from '../../../../../../pages/BlogAddress/BlogAddressContext';
 import { CommentContext } from '../CommentContext';
@@ -13,7 +14,7 @@ import Avatar from '../../../Avatar';
 const cx = classNames.bind(styles);
 
 
-function Comment ({comment}) {
+function Comment({ comment }) {
     const editStyle = {
         cursor: 'context-menu',
         outline: 'none'
@@ -45,7 +46,7 @@ function Comment ({comment}) {
         } catch (error) {
             console.log('Toang meo chay roi loi cc: ', error)
         }
-    }   
+    }
 
     const handleEdit = () => {
         setEdit(true);
@@ -64,7 +65,7 @@ function Comment ({comment}) {
 
     useEffect(() => {
         const handler = (e) => {
-            if(!toggleRef?.current?.contains(e.target))
+            if (!toggleRef?.current?.contains(e.target))
                 setShowEdit(false);
         }
 
@@ -77,8 +78,7 @@ function Comment ({comment}) {
 
     useEffect(() => {
         const getImageUrl = async () => {
-            if(comment.avatar !== null)
-            {
+            if (comment.avatar !== null) {
                 try {
                     const res = await getImage(comment.avatar);
                     setAva(res);
@@ -95,9 +95,9 @@ function Comment ({comment}) {
         id_user: comment.id_user
     };
 
-    
+
     return (
-        <div 
+        <div
             className={cx('each-comment')}
             onMouseOver={() => setShowDot(true)}
             onMouseLeave={() => setShowDot(false)}
@@ -110,7 +110,7 @@ function Comment ({comment}) {
                     placement={'left'}
                 />
             </div>
-            <div 
+            <div
                 className={cx('comment-area')}
             >
                 <label htmlFor='input-comment'>
@@ -121,13 +121,13 @@ function Comment ({comment}) {
                     id='input-comment'
                     className={cx('comment')}
                     value={editVal.comment_address_content}
-                    onChange={(e) => 
-                        setEditVal({...editVal, comment_address_content: e.target.value})
+                    onChange={(e) =>
+                        setEditVal({ ...editVal, comment_address_content: e.target.value })
                     }
                     readOnly={!edit}
-                    style={ edit ? {} : editStyle}
+                    style={edit ? {} : editStyle}
                 />
-                { edit && (
+                {edit && (
                     <button
                         className={cx('btn-edit')}
                         onClick={() => handleSendEdit()}
@@ -137,33 +137,38 @@ function Comment ({comment}) {
                 )}
             </div>
             <div className={cx('toggle')}>
-                { comment.id_user === userData.id && showDot && !edit && (
-                    <button
-                        onClick={() => setShowEdit(!showEdit)}
-                    >
-                        <i className="fa-solid fa-ellipsis icon-more"></i>
-                    </button>
-                )}
-                { showEdit && 
-                    <div 
-                        ref={toggleRef}
-                        className={cx('btn-edit-del')}
-                    >
-                        <button 
-                            className="btn-edit"
-                            onClick={() => handleEdit()}
-                        >
-                            Chỉnh sửa
-                        </button>
+                {comment.id_user === userData.id && showDot && !edit && (
+                    <Tippy
+                        theme={'light'}
+                        interactive={true}
+                        placement={'right'}
+                        animation={'fade'}
+                        arrow={true}
+                        allowHTML={true}
+                        trigger={'click'}
+                        content={(
+                            <div className={cx('btn-edit-del')}>
+                                <button
+                                    className="btn-edit"
+                                    onClick={() => handleEdit()}
+                                >
+                                    Chỉnh sửa
+                                </button>
 
-                        <button 
-                            className="btn-del"
-                            onClick={() => handleDelete()}
-                        >
-                            Xóa bình luận
+                                <button
+                                    className="btn-del"
+                                    onClick={() => handleDelete()}
+                                >
+                                    Xóa bình luận
+                                </button>
+                            </div>
+                        )}
+                    >
+                        <button >
+                            <i className="fa-solid fa-ellipsis icon-more"></i>
                         </button>
-                    </div>
-                }
+                    </Tippy>
+                )}
             </div>
         </div>
     )

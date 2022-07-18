@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function Left() {
     
     // Đặt trạng thái mặc định của toggle
-    const [actived, setActived] = useState(['1', '2']);
+    const [actived, setActived] = useState(['2']);
     
     // Đặt trạng thái đóng bật của toggle    
     const handleActived = (id) => {

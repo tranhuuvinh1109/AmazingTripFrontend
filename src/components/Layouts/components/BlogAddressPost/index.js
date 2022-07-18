@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { toast } from 'react-toastify';
+import Tippy from '@tippyjs/react';
 import moment from 'moment';
 import { FaStar } from "react-icons/fa";
 import classNames from 'classnames/bind';
@@ -51,49 +52,33 @@ function BlogAddressPost({ postData, slideShow }) {
         }
     }
 
-    useEffect(() => {
-        const handler = (e) => {
-            if(!deleteBtnRef?.current.contains(e.target))
-                setShowDelete(false);
-        }
-
-        document.addEventListener('mousedown', handler)
-
-        return () => {
-            document.removeEventListener('mousedown', handler)
-        }
-    })
-
     // get Image url from firebase
     useEffect(() => {
         const getImageUrl = async () => {
-            if(postData.avatar !== null)
-            {
+            if (postData.avatar !== null) {
                 const res = await getImage(postData.avatar);
                 setAva(res);
             }
-            if(postData?.blog_address_image !== null)
-            {
+            if (postData?.blog_address_image !== null) {
                 const res2 = await getImage(postData.blog_address_image);
                 setBlogImg(res2);
             }
         }
-        
+
         getImageUrl();
     }, [])
 
     // Get Comment Data
     useEffect(() => {
         const fetchCommentList = async () => {
-            if(slideShow !== undefined && !slideShow)
-            {
+            if (slideShow !== undefined && !slideShow) {
                 try {
                     const res = await commentAddressApi.get(postData.blog_address_id);
                     commentContext.setCommentsBlog([...commentContext.commentsBlog, ...res.data]);
                 } catch (error) {
                     console.log('Toang meo chay r loi cc ', error)
                 }
-        
+
             }
         }
         fetchCommentList();
@@ -112,32 +97,33 @@ function BlogAddressPost({ postData, slideShow }) {
                         />
                         <h4 className={cx('m-0')}>
                             {postData?.nickname}
-                            <br/>
+                            <br />
                             <span className={cx('date-post')}>
                                 {moment(postData.created_at).format('D [tháng] M [năm] YYYY')}
-                            </span>                    
+                            </span>
                         </h4>
                     </div>
-                    <div
-                        ref={deleteBtnRef}
-                    >
-                        <button
-                            onClick={() => setShowDelete(!showDelete)}
-                            className={cx('btn-more')}
-                        >
-                            <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
-                        </button>
-                        {showDelete && (
-                            <div 
-                                className={cx('delete-area')}
-                            >
+                    <Tippy
+                        theme={'light'}
+                        interactive={true}
+                        placement={'bottom'}
+                        animation={'fade'}
+                        arrow={true}
+                        allowHTML={true}
+                        trigger={'click'}
+                        content={(
+                            <div className={cx('delete-area')}>
                                 {/* Report here */}
                                 <button onClick={() => handleDelete()}>
                                     Xóa bài viết
                                 </button>
                             </div>
                         )}
-                    </div>
+                    >
+                        <button className={cx('btn-more')} >
+                            <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
+                        </button>
+                    </Tippy>
                 </div>
                 <div style={{ display: 'flex' }}>
                     {stars.map((_, index) => {
@@ -146,7 +132,7 @@ function BlogAddressPost({ postData, slideShow }) {
                                 key={index}
                                 size={20}
                                 color={currentValue > index ? colors.orange : colors.grey}
-                                style={{ marginRight: '5'}}
+                                style={{ marginRight: '5' }}
                             />
                         )
                     })}
@@ -155,16 +141,16 @@ function BlogAddressPost({ postData, slideShow }) {
             <div className={cx('post-content')}>
                 <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>
                 <div className={cx('post-img')}>
-                    { blogImg && 
-                        <img 
-                            src={blogImg} 
+                    {blogImg &&
+                        <img
+                            src={blogImg}
                             alt="A image"
-                            className={cx('blog-image')} 
+                            className={cx('blog-image')}
                         />
                     }
                 </div>
 
-                <ReactComment postData={postData}/>
+                <ReactComment postData={postData} />
             </div>
         </div>
     )
