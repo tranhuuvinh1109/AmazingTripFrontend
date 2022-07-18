@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import styles from './FriendList.module.scss';
 import UserMenu from './UserMenu';
 import images from '../../../../../../assets/images';
 import { BlogAddressContext } from '../../../../../../pages/BlogAddress/BlogAddressContext';
-import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
 
 function FriendList ({ activedList }) {
     const context = useContext(BlogAddressContext);
-    const [test, setTest] = useState([]);
 
     return (
         <>
@@ -23,26 +22,27 @@ function FriendList ({ activedList }) {
                                 key={each.id_user} 
                                 className={cx('each-user')}
                             >
-                                <button 
-                                    className={cx('btn-user')}
-                                    onMouseOver={() => setTest([...test, each.id_user])}
-                                    onMouseOut={() => setTest([])}
+                                <Tippy
+                                    theme={'custom'}
+                                    interactive={true}
+                                    placement={'right'}
+                                    animation={'fade'}
+                                    arrow={false}
+                                    allowHTML={true}
+                                    content={(<UserMenu userInf={each} />)}
+                                    className={cx('tippy-box')}
                                 >
-                                    <div className={cx('d-flex align-items-center ps-4')}>
-                                        <img 
-                                            id="User-avatar"
-                                            className={cx('rounded-circle')} 
-                                            src={each.avatar || images.defaultava}
-                                        />
-                                        <span className={cx('ms-2')} style={{ color: '#094067' }}>{each.nickname}</span>
-                                    </div>
-                                    { test.includes(each.id_user) && (
-                                        <UserMenu 
-                                            openStatus={true} 
-                                            userInf={each} 
-                                        />
-                                    )}
-                                </button>
+                                    <button className={cx('btn-user')}>
+                                        <div className={cx('d-flex align-items-center ps-4')}>
+                                            <img 
+                                                id="User-avatar"
+                                                className={cx('rounded-circle')} 
+                                                src={each.avatar}
+                                            />
+                                            <span className={cx('ms-2')} style={{ color: '#094067' }}>{each.nickname}</span>
+                                        </div>
+                                    </button>
+                                </Tippy>
                             </li>
                         ))}
                 </ul>

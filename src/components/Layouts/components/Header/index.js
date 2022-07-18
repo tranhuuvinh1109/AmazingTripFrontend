@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
@@ -61,16 +62,26 @@ function Header() {
                 {
                     userData !== '' ? (
                     <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
-                        <li className={cx('message')}><i className={cx('fa-brands fa-facebook-messenger')}></i></li>
-                        <li className={cx('notification')}><i className={cx('fa-regular fa-bell ms-sm-2')}></i></li>
+                        <li className={cx('message')}>
+                            <i className={cx('fa-brands fa-facebook-messenger')}></i>
+                        </li>
+                        <li className={cx('notification')}>
+                            <i className={cx('fa-regular fa-bell ms-sm-2')}></i>
+                        </li>
                         <li ref={closeRef} className={cx('user-avatar')}>
-                            <button 
-                                className={cx('btn-avatar')}
-                                onClick={() => setShowMenu(!showMenu)}
+                            <Tippy
+                                theme={'light'}
+                                interactive={true}
+                                placement={'bottom-end'}
+                                animation={'fade'}
+                                arrow={false}
+                                allowHTML={true}
+                                content={(<Menu userData={userData} />)}
                             >
-                                <img src={userData.avatar ? userData.avatar : images.defaultAvatar} alt="User-avatar" className={cx('rounded-circle')}/>
-                            </button>
-                            {showMenu && <Menu userData={userData}/>}
+                                <button className={cx('btn-avatar')} >
+                                    <img src={userData.avatar ? userData.avatar : images.defaultAvatar} className={cx('rounded-circle')}/>
+                                </button>
+                            </Tippy>
                         </li>
                     </ul>
                     ) : (

@@ -2,6 +2,8 @@ import { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import removeCookie from "../../../hooks/removeCookie";
+import Avatar from '../../../components/Layouts/components/Avatar';
+import getCookie from '../../../hooks/getCookie';
 
 function UserHomePage() {
     const navigate = useNavigate();
@@ -13,6 +15,8 @@ function UserHomePage() {
         navigate('/landing');
     }
 
+    const userData = JSON.parse(getCookie('userin'));
+
     return (
         <>
 
@@ -22,12 +26,11 @@ function UserHomePage() {
                     <br/>
                     <Link to="/listAddresses">Danh sách địa điểm</Link>
                     <br/>
-                    <Link to="/host">Trang của host</Link>
-                    <br/>
-                    <Link to="/user">Trang của người dùng</Link>
-                    <br/>
-                    <Link to="/group">Trang nhóm</Link>
-                    <br/>
+                    <Avatar 
+                        src={userData?.avatar} 
+                        size='50px'
+                        userData={userData}
+                    />
                     <button
                         onClick={() => handlerLogout()}
                     >

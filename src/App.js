@@ -8,6 +8,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/animations/scale.css';
+import 'tippy.js/animations/scale-subtle.css';
+import 'tippy.js/animations/scale-extreme.css';
 
 function App() {
   // const [userList, setUserList] = useState([]);

@@ -12,6 +12,7 @@ import commentAddressApi from '../../../../api/commentAddressApi';
 import getImage from '../../../../hooks/getImage';
 import images from '../../../../assets/images';
 import ReactComment from './ReactComment';
+import Avatar from '../Avatar';
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +27,12 @@ function BlogAddressPost({ postData, slideShow }) {
     const [ava, setAva] = useState('');
     const [blogImg, setBlogImg] = useState('');
     const stars = Array(5).fill(0);
+
+    const avatarData = {
+        avatar: ava,
+        nickname: postData.nickname,
+        id_user: postData.id_user
+    };
 
     const colors = {
         orange: "#FFBA5A",
@@ -96,11 +103,12 @@ function BlogAddressPost({ postData, slideShow }) {
         <div className={cx('feedback-blog')}>
             <div className={cx('user-post')}>
                 <div className={cx('user-infor')}>
-                    <div>
-                        <img 
+                    <div className={cx('inf')}>
+                        <Avatar
                             src={ava || images.defaultava}
-                            alt="A image"
-                            className={cx('user-avt')} 
+                            size={'50px'}
+                            userData={avatarData}
+                            placement={'right'}
                         />
                         <h4 className={cx('m-0')}>
                             {postData?.nickname}

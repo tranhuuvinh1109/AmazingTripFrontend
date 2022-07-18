@@ -8,6 +8,7 @@ import images from '../../../../../../assets/images';
 import commentAddressApi from '../../../../../../api/commentAddressApi';
 import getCookie from '../../../../../../hooks/getCookie';
 import getImage from '../../../../../../hooks/getImage';
+import Avatar from '../../../Avatar';
 
 const cx = classNames.bind(styles);
 
@@ -87,6 +88,13 @@ function Comment ({comment}) {
         }
         getImageUrl();
     }, [])
+
+    const avatarData = {
+        avatar: ava,
+        nickname: comment.nickname,
+        id_user: comment.id_user
+    };
+
     
     return (
         <div 
@@ -94,11 +102,14 @@ function Comment ({comment}) {
             onMouseOver={() => setShowDot(true)}
             onMouseLeave={() => setShowDot(false)}
         >
-            <img 
-                src={ava || images.defaultava} 
-                width="35" 
-                className={cx('user-ava')}
-            />
+            <div className={cx('user-ava')}>
+                <Avatar
+                    src={ava || images.defaultava}
+                    size={'45px'}
+                    userData={avatarData}
+                    placement={'left'}
+                />
+            </div>
             <div 
                 className={cx('comment-area')}
             >
