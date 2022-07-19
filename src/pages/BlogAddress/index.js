@@ -21,6 +21,7 @@ function BlogAddress() {
     const { id } = useParams();
 
     useEffect(() => {
+        setLoading(true);
         const fetchAddressList = async () => {
             try {
                 const res = await addressApi.get(id, userData.id);
@@ -49,7 +50,7 @@ function BlogAddress() {
             }
         };
         fetchAddressList();
-    }, [])
+    }, [id])
 
     const createNewGroup = useContext(FormCreateNewGroupContext)
     

@@ -32,7 +32,7 @@ function UserPage() {
         };
 
         fetchUserData();
-    }, [])
+    }, [id])
 
     return (  
         <Fragment>

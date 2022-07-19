@@ -18,13 +18,13 @@ function LeftContent() {
                     <i className={cx('fa-solid fa-user-check')}></i>
                     <div className={cx('leader-inf')}>
                         <p>Nhóm trưởng</p>
-                        <img src={context.groupData ? context.leadAva : ''} alt='A image'/>
-                        <label htmlFor=''>{context.groupData ? context.groupData.admin_name : ''}</label>
+                        <img src={context.groupData?.avatar} alt='A image'/>
+                        <label htmlFor=''>{context.groupData?.nickname}</label>
                     </div>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-location-arrow me-2')}></i>
-                    <p> {context.groupData ? context.groupData.address : ''}</p>
+                    <p> {context.groupData?.address_map}</p>
                 </li>
                 <li className={cx('d-flex align-items-start justify-content-start')}>
                     <i className={cx('fa-solid fa-cake-candles me-2')}></i>

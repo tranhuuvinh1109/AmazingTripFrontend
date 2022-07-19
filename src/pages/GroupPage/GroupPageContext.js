@@ -5,12 +5,12 @@ const GroupPageContext = createContext()
 function GroupPageProvider({ children }) {
 
     const [showForm, setShowForm] = useState(false);
-    const [groupData, setGroupData] = useState();
-    const [imageUrl, setImageUrl] = useState();
-    const [leadAva, setLeadAva] = useState();
-    
-    const [postData, setPostData] = useState();
+    const [groupData, setGroupData] = useState([]);
+    const [memberData, setMemberData] = useState([]);
+    const [postData, setPostData] = useState([]);
     const [commentsBlog, setCommentsBlog] = useState([]);
+
+    const [memberCheck, setMemberCheck] = useState(false);
 
     // Reset post Data after
     const handleResetPostData = (id) => {
@@ -70,10 +70,10 @@ function GroupPageProvider({ children }) {
         toggleForm,
         groupData,
         setGroupData,
-        imageUrl,
-        setImageUrl,
-        leadAva,
-        setLeadAva,
+        memberData,
+        setMemberData,
+        memberCheck,
+        setMemberCheck,
         postData,
         setPostData,
         handleResetPostData,

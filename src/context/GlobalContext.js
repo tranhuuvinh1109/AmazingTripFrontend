@@ -15,7 +15,8 @@ function GlobalProvider({ children }) {
 
     //reset user follow Data
     const handleResetFollowData = (id) => {
-        const obj = followData.filter(obj => obj.being_follower != id);
+        const obj = followData.filter(obj => obj.id != id);
+        console.log(obj);
         setFollowData([...obj])
     }
 
