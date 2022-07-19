@@ -18,9 +18,12 @@ function UserPage() {
         const fetchUserData = async () => {
             try {
                 const res = await userApi.getAll(id, userData.id);
+                if(res.data?.follow_status == '1')
+                    context.setFollowCheck(true);
+                else
+                    context.setFollowCheck(false);
                 context.setUserData(res.data);
                 context.setPostData(res.blog);
-                context.setFollowData(res.follow);
                 if(res.data.avatar !== null)
                 {
                     const imageUrl = await getImage(res.data.avatar);

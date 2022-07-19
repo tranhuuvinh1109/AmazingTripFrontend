@@ -19,29 +19,30 @@ function CoverImage() {
     const userData = JSON.parse(getCookie('userin'));
 
     const handleFollow = async () => {
-        let inputData = {
+        const data = {
             follower: userData.id,
             being_follower: id,
-            follow_status: '0',
+            follow_status: context.followCheck ? '0' : '1',
         }
-        if(context.followData?.follow_status == '1')
+        if(context.followCheck)
         {
             toast.warning('Xóa khỏi danh sách bạn bè !!!', {
                 toastId: 1,
             });
+            context.setFollowCheck(false);
             globalContext.handleResetFollowData(id);
         } else {
-            inputData.follow_status = '1';
+            context.setFollowCheck(true);
             toast.success('Thêm vào danh sách bạn bè !!!', {
                 toastId: 2,
             });
         }
         try {
-            const res = await followApi.post(inputData);
-            context.setFollowData({...context.followData, follow_status: res.data.follow_status});
+            const res = await followApi.post(data);
+            context.setUserData({...context.userData, follow_status: res.data.follow_status});
             if(res.data.follow_status == 1)
             {
-                if(res.data.avatar !== null)
+                if(res.data?.avatar !== null)
                 {
                     const image = await getImage(res.data.avatar);
                     res.data.avatar = image;
@@ -74,7 +75,7 @@ function CoverImage() {
                                 style={{ backgroundColor: 'transparent' }}
                             >
                                 <i 
-                                    className={context.followData?.follow_status == '1' ? "fa-solid fa-heart" : "fa-regular fa-heart"}
+                                    className={context.followCheck ? "fa-solid fa-heart" : "fa-regular fa-heart"}
                                     style={{ color: '#ff6666'}}
                                 ></i>
                             </button>
