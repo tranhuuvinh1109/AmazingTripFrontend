@@ -5,6 +5,8 @@ import classNames from "classnames/bind";
 import styles from './CoverImage.module.scss';
 import images from '../../../assets/images';
 import { UserPageContext } from "../UserPageContext";
+import { GlobalContext } from "../../../context/GlobalContext";
+import getImage from '../../../hooks/getImage';
 import getCookie from '../../../hooks/getCookie';
 import followApi from "../../../api/followApi";
 
@@ -12,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function CoverImage() {
     const context = useContext(UserPageContext);
+    const globalContext = useContext(GlobalContext);
     const { id } = useParams();
     const userData = JSON.parse(getCookie('userin'));
 
@@ -26,6 +29,7 @@ function CoverImage() {
             toast.warning('Xóa khỏi danh sách bạn bè !!!', {
                 toastId: 1,
             });
+            globalContext.handleResetFollowData(id);
         } else {
             inputData.follow_status = '1';
             toast.success('Thêm vào danh sách bạn bè !!!', {
@@ -35,6 +39,15 @@ function CoverImage() {
         try {
             const res = await followApi.post(inputData);
             context.setFollowData({...context.followData, follow_status: res.data.follow_status});
+            if(res.data.follow_status == 1)
+            {
+                if(res.data.avatar !== null)
+                {
+                    const image = await getImage(res.data.avatar);
+                    res.data.avatar = image;
+                }
+                globalContext.setFollowData([...globalContext.followData, res.data]);
+            }
         } catch (error) {
             console.log('Toang meo chay r loi cc: ', error);
         }
@@ -62,6 +75,7 @@ function CoverImage() {
                             >
                                 <i 
                                     className={context.followData?.follow_status == '1' ? "fa-solid fa-heart" : "fa-regular fa-heart"}
+                                    style={{ color: '#ff6666'}}
                                 ></i>
                             </button>
                         )}

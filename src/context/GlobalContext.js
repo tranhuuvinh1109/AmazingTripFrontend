@@ -5,6 +5,7 @@ const GlobalContext = createContext()
 function GlobalProvider({ children }) {
 
     const [bookmarkData, setBookmarkData] = useState([]);
+    const [followData, setFollowData] = useState([]);
 
     //reset address Bookmark Data
     const handleResetBookmarkData = (id) => {
@@ -12,10 +13,19 @@ function GlobalProvider({ children }) {
         setBookmarkData([...obj])
     }
 
+    //reset user follow Data
+    const handleResetFollowData = (id) => {
+        const obj = followData.filter(obj => obj.being_follower != id);
+        setFollowData([...obj])
+    }
+
     const value = {
         bookmarkData,
         setBookmarkData,
-        handleResetBookmarkData
+        followData,
+        setFollowData,
+        handleResetBookmarkData,
+        handleResetFollowData
     }
 
     return (

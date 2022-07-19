@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function AddressList ({ activedList }) {
 
-    const context = useContext(GlobalContext);
+    const globalContext = useContext(GlobalContext);
 
     return (
         <div>
@@ -18,8 +18,8 @@ function AddressList ({ activedList }) {
                 <ul className={cx('list-users')}>
                     <span className={cx('line-span')}></span>
                     {
-                        context.bookmarkData.length != 0 ? (
-                            context.bookmarkData?.map( each => (
+                        globalContext.bookmarkData?.length != 0 ? (
+                            globalContext.bookmarkData?.map( each => (
                                 <li 
                                     key={each.address_id} 
                                     className={cx('each-user')}

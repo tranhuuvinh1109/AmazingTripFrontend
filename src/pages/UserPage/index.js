@@ -21,8 +21,11 @@ function UserPage() {
                 context.setUserData(res.data);
                 context.setPostData(res.blog);
                 context.setFollowData(res.follow);
-                const imageUrl = await getImage(res.data.avatar);
-                context.setUserAva(imageUrl);
+                if(res.data.avatar !== null)
+                {
+                    const imageUrl = await getImage(res.data.avatar);
+                    context.setUserAva(imageUrl);
+                }
             } catch (error) {
                 console.log('Toang meo chay r loi cc ', error);
             }
