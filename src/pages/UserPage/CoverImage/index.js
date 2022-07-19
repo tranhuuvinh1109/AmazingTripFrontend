@@ -24,7 +24,7 @@ function CoverImage() {
             being_follower: id,
             follow_status: '0',
         }
-        if(context.followData.follow_status == '1')
+        if(context.followData?.follow_status == '1')
         {
             toast.warning('Xóa khỏi danh sách bạn bè !!!', {
                 toastId: 1,
