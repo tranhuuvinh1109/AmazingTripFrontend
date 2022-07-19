@@ -4,11 +4,10 @@ import styles from './Right.module.scss';
 import AddressList from './AddressList';
 import getCookie from '../../../../../hooks/getCookie';
 import { GlobalContext } from '../../../../../context/GlobalContext';
-import bookmarkApi from '../../../../../api/bookmarkApi';
 import userRefApi from '../../../../../api/userRefApi';
 import FriendList from './FriendList';
 import getImage from '../../../../../hooks/getImage';
-import { logDOM } from '@testing-library/react';
+import GroupList from './GroupList';
 
 const cx = classNames.bind(styles);
 
@@ -44,6 +43,7 @@ function Right() {
                 })
                 globalContext.setBookmarkData(res.bookmark);
                 globalContext.setFollowData(res.follow);
+                globalContext.setGroupData(res.group);
             } catch (error) {
                 console.log('Toang meo chay r loi cc: ', error);
             }
@@ -74,6 +74,16 @@ function Right() {
                         Bạn bè
                     </button>
                     <FriendList activedList={actived.includes('2')} />
+                </li>
+
+                <li className={cx('mb-2')}>
+                    <button
+                        className={cx('btn-title')}
+                        onClick={() => handleActived('3')}
+                    >
+                        Nhóm của bạn
+                    </button>
+                    <GroupList activedList={actived.includes('3')} />
                 </li>
             </ul>
         </>

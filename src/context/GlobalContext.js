@@ -6,6 +6,7 @@ function GlobalProvider({ children }) {
 
     const [bookmarkData, setBookmarkData] = useState([]);
     const [followData, setFollowData] = useState([]);
+    const [groupData, setGroupData] = useState([]);
 
     //reset address Bookmark Data
     const handleResetBookmarkData = (id) => {
@@ -25,6 +26,8 @@ function GlobalProvider({ children }) {
         setBookmarkData,
         followData,
         setFollowData,
+        groupData,
+        setGroupData,
         handleResetBookmarkData,
         handleResetFollowData
     }
