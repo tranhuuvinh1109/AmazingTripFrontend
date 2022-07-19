@@ -75,6 +75,7 @@ function Header() {
                                 placement={'bottom-end'}
                                 animation={'fade'}
                                 arrow={false}
+                                trigger={'click'}
                                 allowHTML={true}
                                 content={(<Menu userData={userData} />)}
                             >

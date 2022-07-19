@@ -11,15 +11,15 @@ function UserPageProvider({ children }) {
 
     const [commentsBlog, setCommentsBlog] = useState([]);
 
-    // Reset comment Data after
-    const handleResetCommentData = (id) => {
-        const obj = commentsBlog.filter(obj => obj.comment_blog_id != id);
-        setCommentsBlog([...obj])
+    // Reset post Data after
+    const handleResetPostData = (id) => {
+        const obj = postData.filter(obj => obj.blog_address_id != id);
+        setPostData([...obj])
     }
 
     // Resetcomment Count
     const handleResetCommentCount = (id, type) => {
-        const obj = postData.filter(obj => obj.blog_id == id);
+        const obj = postData.filter(obj => obj.blog_address_id == id);
         if(type)
             obj[0].commentCount += 1;
         else
@@ -28,7 +28,7 @@ function UserPageProvider({ children }) {
 
     // Reset Reaction Count
     const handleResetReactionCount = (id, reaction, type, status) => {
-        const obj = postData.filter(obj => obj.blog_id == id);
+        const obj = postData.filter(obj => obj.blog_address_id == id);
         if(type)
         {
             if(reaction)
@@ -65,9 +65,9 @@ function UserPageProvider({ children }) {
         setFollowCheck,
         commentsBlog,
         setCommentsBlog,
-        handleResetCommentData,
         handleResetCommentCount,
-        handleResetReactionCount
+        handleResetReactionCount,
+        handleResetPostData
     }
 
     return (

@@ -1,244 +1,149 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
-import classNames from 'classnames/bind';
-import styles from './UserPagePost.module.scss';
-import Comments from './CommentBlog/Comments';
-import getCookie from '../../../../hooks/getCookie';
-import ReadMore from '../ReadMore';
 import { toast } from 'react-toastify';
+import Tippy from '@tippyjs/react';
+import moment from 'moment';
+import { FaStar } from "react-icons/fa";
+import classNames from 'classnames/bind';
+import styles from './BlogAddressPost.module.scss';
+import ReadMore from '../ReadMore';
 import { UserPageContext } from '../../../../pages/UserPage/UserPageContext';
+import { CommentContext } from './ReactComment/CommentContext';
+import blogAddressPostApi from '../../../../api/blogAddressPostApi';
 import commentAddressApi from '../../../../api/commentAddressApi';
+import getImage from '../../../../hooks/getImage';
+import images from '../../../../assets/images';
+import ReactComment from './ReactComment';
 
 const cx = classNames.bind(styles);
 
-function UserPagePost({ postData }) {
-    const userData = JSON.parse(getCookie('userin'));
+function UserPagePost({ postData, slideShow }) {
     const context = useContext(UserPageContext);
-    const deleteBtnRef = useRef();
+    const commentContext = useContext(CommentContext);
+    const currentValue = parseInt(postData.blog_address_vote);
 
-    const [showComment, setShowComment] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
+    const [ava, setAva] = useState('');
+    const [blogImg, setBlogImg] = useState('');
+    const stars = Array(5).fill(0);
 
-
-    const [value, setValue] = useState({
-        blog_address_id: postData.blog_address_id,
-        id_user: context.userData.id,
-        comment_address_content: ''
-    });
-
-    const handleSendComment = async () => {
-        console.log(value)
-        try {
-            const res = await commentAddressApi.post(value.blog_address_id, value);
-            context.setCommentsBlog([...res.data]);
-            setShowComment(true);
-            setValue({...value, comment_address_content: ''}); 
-        } catch (error) {
-            console.log('Toang meo chay r loi cc ', error);
-        }
-    }
+    const colors = {
+        orange: "#FFBA5A",
+        grey: "#a9a9a9"
+    };
 
     const handleDelete = async () => {
-        // try {
-        //     context.handleResetPostData(postData.blog_address_id);
-        //     blogAddressPostApi.delete(postData.blog_address_id);
-        //     toast.warning('Bài viết đã bị xóa !!!', {
-        //         toastId: 1,
-        //     });
-        // } catch (error) {
-        //     console.log('Toang meo chay roi loi cc:', error)
-        // }
+        try {
+            context.handleResetPostData(postData.blog_address_id);
+            blogAddressPostApi.delete(postData.blog_address_id);
+            toast.warning('Bài viết đã bị xóa !!!', {
+                toastId: 1,
+            });
+        } catch (error) {
+            console.log('Toang meo chay roi loi cc:', error)
+        }
     }
 
-    // const handleLike = async () => {
-    //     if(like)
-    //     {
-    //         try {
-    //             await reactionGroupBlogApi.unReaction(postData.blog_id, userData.id);
-    //             setLike(false);
-    //             context.handleResetReactionCount(postData.blog_id, true, false, false);
-    //         } catch (error) {
-    //             console.log('Toang meo chay roi loi cc:', error)
-    //         }
-    //     }
-    //     else 
-    //     {
-    //         const data = {
-    //             blog_id: postData.blog_id,
-    //             id_user: userData.id,
-    //             reaction: '1'
-    //         }
-    //         try {
-    //             await reactionGroupBlogApi.post(data);
-    //             const status = dislike;
-    //             setLike(true);
-    //             setDislike(false);
-    //             context.handleResetReactionCount(postData.blog_id, true, true, status);
-    //         } catch (error) {
-    //             console.log('Toang meo chay roi loi cc:', error)
-    //         }
-    //     }
-    // }
-
-    // const handleDislike = async () => {
-    //     if(dislike)
-    //     {
-    //         try {
-    //             await reactionGroupBlogApi.unReaction(postData.blog_id, userData.id);
-    //             setDislike(false);
-    //             context.handleResetReactionCount(postData.blog_id, false, false, false);
-    //         } catch (error) {
-    //             console.log('Toang meo chay roi loi cc:', error)
-    //         }
-    //     }
-    //     else 
-    //     {
-    //         const data = {
-    //             blog_id: postData.blog_id,
-    //             id_user: userData.id,
-    //             reaction: '0'
-    //         }
-    //         try {
-    //             reactionGroupBlogApi.post(data);
-    //             const status = like;
-    //             setDislike(true);
-    //             setLike(false);
-    //             context.handleResetReactionCount(postData.blog_id, false, true, status);
-    //         } catch (error) {
-    //             console.log('Toang meo chay roi loi cc:', error)
-    //         }
-    //     }
-    // }
-
+    // get Image url from firebase
     useEffect(() => {
-        const handler = (e) => {
-            if(!deleteBtnRef.current.contains(e.target))
-                setShowDelete(false);
+        const getImageUrl = async () => {
+            if (postData.avatar !== null) {
+                const res = await getImage(postData.avatar);
+                setAva(res);
+            }
+            if (postData?.blog_address_image !== null) {
+                const res2 = await getImage(postData.blog_address_image);
+                setBlogImg(res2);
+            }
         }
 
-        document.addEventListener('mousedown', handler)
+        getImageUrl();
+    }, [])
 
-        return () => {
-            document.removeEventListener('mousedown', handler)
+    // Get Comment Data
+    useEffect(() => {
+        const fetchCommentList = async () => {
+            if (slideShow !== undefined && !slideShow) {
+                try {
+                    const res = await commentAddressApi.get(postData.blog_address_id);
+                    commentContext.setCommentsBlog([...commentContext.commentsBlog, ...res.data]);
+                } catch (error) {
+                    console.log('Toang meo chay r loi cc ', error)
+                }
+
+            }
         }
-    })
-
+        fetchCommentList();
+    }, []);
 
     return (
         <div className={cx('feedback-blog')}>
             <div className={cx('user-post')}>
                 <div className={cx('user-infor')}>
-                    <div>
-                        <img src={context.userData ? context.userAva : ''} alt=""
-                        className={cx('user-avt')} />
+                    <div className={cx('inf')}>
+                        <img
+                            src={ava || images.defaultava}
+                            style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }}
+                        />
                         <h4 className={cx('m-0')}>
-                            {context.userData?.nickname}
-                            ở
-                            <Link 
-                                className={cx('address-post')}
-                                to={`/address/${postData.address_id}`}
-                            >
+                            {postData?.nickname}
+                            <span className={cx('address-span')}>ở</span>
+                            <Link className={cx('address-link')} to={`/address/${postData.address_id}`}>
                                 {postData?.address_name}
-                            </Link>  
-                            <br/>
+                            </Link>
+                            <br />
                             <span className={cx('date-post')}>
                                 {moment(postData.created_at).format('D [tháng] M [năm] YYYY')}
-                            </span>                    
+                            </span>
                         </h4>
                     </div>
-                    <div
-                        ref={deleteBtnRef}
-                    >
-                        <button
-                            onClick={() => setShowDelete(!showDelete)}
-                            className={cx('btn-more')}
-                        >
-                            <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
-                        </button>
-                        {showDelete && (
-                            <div 
-                                className={cx('delete-area')}
-                            >
+                    <Tippy
+                        theme={'light'}
+                        interactive={true}
+                        placement={'bottom'}
+                        animation={'fade'}
+                        arrow={true}
+                        allowHTML={true}
+                        trigger={'click'}
+                        content={(
+                            <div className={cx('delete-area')}>
+                                {/* Report here */}
                                 <button onClick={() => handleDelete()}>
                                     Xóa bài viết
                                 </button>
                             </div>
                         )}
-                    </div>
+                    >
+                        <button className={cx('btn-more')} >
+                            <i className={cx('fa-solid fa-ellipsis icon-more')}></i>
+                        </button>
+                    </Tippy>
                 </div>
-                <div className={cx('post-star')}>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
-                    <i className={cx('fa-solid fa-star')}></i>
+                <div style={{ display: 'flex' }}>
+                    {stars.map((_, index) => {
+                        return (
+                            <FaStar
+                                key={index}
+                                size={20}
+                                color={currentValue > index ? colors.orange : colors.grey}
+                                style={{ marginRight: '5' }}
+                            />
+                        )
+                    })}
                 </div>
             </div>
-            <div className={cx('post-container')}>
-                <div className={cx('post-content')}>
-                    <ReadMore limit={400}>{postData.blog_address_content}</ReadMore>
-                    <div className={cx('post-img')}>
-                        {/* <img src="https://images.vietnamtourism.gov.vn/vn/images/2021/hoianvna.jpg" alt="" /> */}
-                    </div>
-                    <div className={cx('post-reaction')}>
-                        <div className={cx('d-flex')}>
-                            <div className={cx('d-flex align-items-center')}>
-                                <button className={cx('btn-reaction')}>
-                                    <i className={cx('fa-regular fa-thumbs-up')}/>
-                                </button>
-                                <span className={cx('sum-like ms-1')}>
-                                    {postData?.likeCount}
-                                </span>
-                            </div>
-                            <div className={cx('d-flex align-items-center ms-3')}>  
-                                <button className={cx('btn-reaction')}>
-                                    <i className={ cx('fa-regular fa-thumbs-down')}/>
-                                </button>
-                                <span className={cx('sum-dislike ms-1')}>
-                                    {postData?.dislikeCount}
-                                </span>
-                            </div> 
-                        </div>
-
-                        <span 
-                            className={cx('sum-comment')}
-                            onClick={() => setShowComment(!showComment)}
-                        >
-                            {postData?.commentCount} Bình luận
-                        </span>
-                    </div>
-
-                    <div className='comments'>
-                        <div className={cx('user-comment')}>
-                            <div className=''>
-                                <img 
-                                    src={context.userAva}
-                                    alt="A image" 
-                                    className={cx('user-avatar')}
-                                />
-                            </div>
-                            <div className={cx('input-comment')}>
-                                <input
-                                    value={value.comment_address_content}
-                                    type="text"
-                                    placeholder="Viết bình luận ..."
-                                    onChange={(e) =>{
-                                        setValue({...value, comment_address_content: e.target.value})
-                                    }}
-                                />
-                                <button
-                                    onClick={() => handleSendComment()}
-                                    className={cx('send-comment')}
-                                >
-                                    <i className="h4 fa-solid fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </div>
-                        { showComment && <Comments blog_address_id={postData.blog_address_id} /> }
-                    </div>
-
+            <div className={cx('post-content')}>
+                <ReadMore limit={200}>{postData.blog_address_content}</ReadMore>
+                <div className={cx('post-img')}>
+                    {blogImg &&
+                        <img
+                            src={blogImg}
+                            alt="A image"
+                            className={cx('blog-image')}
+                        />
+                    }
                 </div>
+
+                <ReactComment postData={postData} />
             </div>
         </div>
     )
