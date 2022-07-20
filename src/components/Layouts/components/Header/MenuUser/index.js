@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function Menu({userData}) {
+function MenuUser({userData}) {
     const navigate = useNavigate();
     const handlerLogout = () => {
         removeCookie('userin');
@@ -35,4 +35,4 @@ function Menu({userData}) {
     )
 }
 
-export default Menu;
+export default MenuUser;

@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './CenterContent.module.scss';
 import BlogGroupPost from '../../../components/Layouts/components/BlogGroupPost';
 import { GroupPageContext } from '../GroupPageContext';
+import { GlobalContext } from '../../../context/GlobalContext';
 import blogGroupApi from '../../../api/blogGroupApi';
 import getCookie from '../../../hooks/getCookie';
 import groupApi from '../../../api/groupApi';
@@ -13,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function CenterContent() {
     const context = useContext(GroupPageContext);
+    const globalContext = useContext(GlobalContext);
     const userData = JSON.parse(getCookie('userin'));
     const { id } = useParams();
     const data = {
@@ -23,15 +25,17 @@ function CenterContent() {
     const handleJoin = async () => {
         try {
             const res = await groupApi.joinGroup(data);
-            if (res) {
-                toast.success('Tham gia nhóm thành công !!!', {
-                    toastId: 1,
-                });
-                context.setMemberCheck(true);
-                context.setGroupData({ ...context.groupData, 
-                    number_member: context.groupData.number_member + 1,
-                })
-            }
+            toast.success('Tham gia nhóm thành công !!!', {
+                toastId: 1,
+            });
+            context.setMemberCheck(true);
+            context.setGroupData({ ...context.groupData, 
+                number_member: context.groupData.number_member + 1,
+            })
+            globalContext.setGroupData([...globalContext.groupData, {
+                group_name: context.groupData.group_name,
+                group_id: context.groupData.group_id,
+            }]);
         } catch (error) {
             console.log('Toang meo chay r loi cc: ', error);
         }
@@ -48,6 +52,7 @@ function CenterContent() {
                 context.setGroupData({ ...context.groupData, 
                     number_member: context.groupData.number_member - 1,
                 })
+                globalContext.handleResetGroupData(context.groupData.group_id);
             }
         } catch (error) {
             console.log('Toang meo chay r loi cc: ', error);

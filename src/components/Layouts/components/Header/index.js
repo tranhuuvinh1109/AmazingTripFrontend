@@ -5,8 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import getCookie from '../../../../hooks/getCookie';
-
-import Menu from './MenuDropDown';
+import MenuUser from './MenuUser';
 
 const cx = classNames.bind(styles);
 
@@ -77,7 +76,7 @@ function Header() {
                                 arrow={false}
                                 trigger={'click'}
                                 allowHTML={true}
-                                content={(<Menu userData={userData} />)}
+                                content={(<MenuUser userData={userData} />)}
                             >
                                 <button className={cx('btn-avatar')} >
                                     <img src={userData.avatar ? userData.avatar : images.defaultAvatar} className={cx('rounded-circle')}/>

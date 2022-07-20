@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './Bottom.module.scss';
 import { BlogAddressContext } from '../../BlogAddressContext';
 import getCookie from '../../../../hooks/getCookie';
+import discountApi from '../../../../api/discountApi';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -10,14 +12,27 @@ function Bottom() {
     const context = useContext(BlogAddressContext);
     const userData = JSON.parse(getCookie('userin'));
 
-    const [show, setShow] = useState(true);
+    const handleCancel = async () => {
+        try {
+            const res = await discountApi.cancelSaleRegister(context.discountData.discount_id, userData.id);
+            context.handleResetFriendList(res.data.id_user);
+            const total = parseInt(context.discountData.quantity_registed) - parseInt(res.data.quantity_registed);
+            context.setDiscountData({...context.discountData, quantity_registed: total});
+            context.setShow(true);
+            toast.warning('Hủy đăng ký sale !!!', {
+                toastId: 1,
+            });
+        } catch (error) {
+            console.log('Toang meo chay r loi cc: ', error);
+        }
+    }
 
     useEffect(() => {
         const handleCheck = () => {
             const res = context.friendList?.filter(each => each.id_user == userData.id);
-            
-            if(res?.length != 0)
-                setShow(false);
+
+            if (res?.length != 0)
+                context.setShow(false);
         }
 
         handleCheck();
@@ -56,13 +71,21 @@ function Bottom() {
                                 {context.discountData?.discount_quantity}
                             </span>
                         </h5>
-                        <button
-                            onClick={context.toggleForm}
-                            className={cx('btn-register')}
-                            disabled={!show}
-                        >
-                            { show ? 'Đăng ký' : 'Đã đăng ký' }
-                        </button>
+                        {context.show ? (
+                            <button
+                                onClick={context.toggleForm}
+                                className={cx('btn-register')}
+                            >
+                                Đăng ký
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => handleCancel()}
+                                className={cx('btn-register')}
+                            >
+                                Hủy đăng ký
+                            </button>
+                        )}
                     </div>
                 </>
             ) : (

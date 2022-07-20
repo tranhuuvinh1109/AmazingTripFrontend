@@ -21,6 +21,12 @@ function GlobalProvider({ children }) {
         setFollowData([...obj])
     }
 
+    //reset group Data
+    const handleResetGroupData = (id) => {
+        const obj = groupData.filter(obj => obj.group_id != id);
+        setGroupData([...obj])
+    }
+
     const value = {
         bookmarkData,
         setBookmarkData,
@@ -29,7 +35,8 @@ function GlobalProvider({ children }) {
         groupData,
         setGroupData,
         handleResetBookmarkData,
-        handleResetFollowData
+        handleResetFollowData,
+        handleResetGroupData
     }
 
     return (

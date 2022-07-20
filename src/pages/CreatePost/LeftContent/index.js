@@ -107,12 +107,12 @@ function LeftContent() {
         const fetchAddress = async () => {
             try {
                 const res = await addressApi.get(id, current_user.id);
-                if(res.data.avatar != null)
+                if(res.address?.avatar != null)
                 {
-                    const image = await getImage(res.data.avatar);
-                    res.data.avatar = image;
+                    const image = await getImage(res.address.avatar);
+                    res.address.avatar = image;
                 }
-                setAddessData(res.data); 
+                setAddessData(res.address); 
             } catch (error) {
                 console.log('Toang meo chay r loi cc:  ', error)
             }

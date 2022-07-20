@@ -5,6 +5,7 @@ import styles from './DiscountForm.module.scss';
 import { BlogAddressContext } from '../BlogAddressContext';
 import getCookie from '../../../hooks/getCookie';
 import discountApi from '../../../api/discountApi';
+import getImage from '../../../hooks/getImage';
 
 const cx = classNames.bind(styles);
 
@@ -27,9 +28,16 @@ function DiscountForm() {
         e.preventDefault();
 
         try {
-            await discountApi.postSaleRegister(inputData);
+            const res = await discountApi.postSaleRegister(inputData);
             const total = parseInt(context.discountData.quantity_registed) + parseInt(inputData.quantity_registed);
             context.setDiscountData({...context.discountData, quantity_registed: total});
+            if(res.data?.avatar !== null)
+            {
+                const image = await getImage(res.data.avatar);
+                res.data.avatar = image;
+            }
+            context.setFriendList([...context.friendList, res.data]);
+            context.setShow(false);
             toast.success('Đăng ký du lịch thành công !!!', {
                 toastId: 1,
             });

@@ -15,11 +15,18 @@ function BlogAddressProvider({ children }) {
         status: '',
     });
 
+    const [show, setShow] = useState(true);
     const [showForm, setShowForm] = useState(false)
     const [reShowPost, setReShowPost] = useState(false);
 
     const toggleForm = () => {
         setShowForm(!showForm)
+    }
+
+    // Reset friendList Data =
+    const handleResetFriendList = (id) => {
+        const obj = friendList.filter(obj => obj.id_user != id);
+        setFriendList([...obj])
     }
 
     // Reset post Data after
@@ -65,6 +72,8 @@ function BlogAddressProvider({ children }) {
     }
 
     const value = {
+        show,
+        setShow,
         addressData,
         setAddressData,
         groupList,
@@ -84,6 +93,7 @@ function BlogAddressProvider({ children }) {
         handleResetPostData,
         handleResetCommentCount,
         handleResetReactionCount,
+        handleResetFriendList
     }
 
     return (
