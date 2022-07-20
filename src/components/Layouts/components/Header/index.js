@@ -5,26 +5,51 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import getCookie from '../../../../hooks/getCookie';
+import { db } from '../../../../firebase';
+import firebase from '../../../../firebase';
+import 'tippy.js/dist/tippy.css'; // optional
+import { useContext } from 'react';
+import { MessageContext } from '../../../../context/MessageContext';
 import MenuUser from './MenuUser';
 import MenuNotification from './MenuNotification';
 
 const cx = classNames.bind(styles);
 
+
 function Header() {
+    const {
+        rooms,
+        setRooms,
+        messages,
+        setMessages,
+        selectedRoomId,
+        setSelectedRoomId,
+        notSeenCount,
+        setNotSeenCount,
+        notification,
+        setNotification,
+        notiCount,
+        setNotiCount
+    } = useContext(MessageContext);
     const history = useNavigate();
     //const userData = JSON.parse(getCookie('userin'));
 
-    const [showMenu, setShowMenu] = useState(false);
     const [userData, setUserData] = useState(''); 
+    const [showMenu, setShowMenu] = useState(false); 
 
     const closeRef = useRef();
-    
-    useEffect(() => {
+    //console.log(notification);
+    //console.log(rooms)
+    //console.log(messages);
+    useEffect(()=>{
+        let resJSON ;
         const res = getCookie('userin');
         if(res)
-            setUserData(JSON.parse(res));
-    }, [])
-
+            resJSON = JSON.parse(res)
+        console.log(resJSON);
+        if(resJSON)
+            setUserData(resJSON);
+    }, []);
     useEffect(() => {
         const handler = (e) => {
             if(!closeRef?.current?.contains(e.target))
@@ -37,7 +62,7 @@ function Header() {
             document.removeEventListener('mousedown', handler);
         }
     })
-
+    
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
