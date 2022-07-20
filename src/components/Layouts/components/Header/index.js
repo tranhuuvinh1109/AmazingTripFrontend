@@ -6,6 +6,7 @@ import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import getCookie from '../../../../hooks/getCookie';
 import MenuUser from './MenuUser';
+import MenuNotification from './MenuNotification';
 
 const cx = classNames.bind(styles);
 
@@ -65,7 +66,22 @@ function Header() {
                             <i className={cx('fa-brands fa-facebook-messenger')}></i>
                         </li>
                         <li className={cx('notification')}>
-                            <i className={cx('fa-regular fa-bell ms-sm-2')}></i>
+                            <Tippy
+                                theme={'light'}
+                                interactive={true}
+                                offset={[60, 16]}
+                                placement={'bottom-end'}
+                                animation={'fade'}
+                                arrow={true}
+                                trigger={'click'}
+                                allowHTML={true}
+                                content={(<MenuNotification userData={userData} />)}
+                                className={cx('tippy-box')}
+                            >
+                                <button className={cx('btn-noti')} >
+                                    <i className={cx('fa-regular fa-bell')}></i>
+                                </button>
+                            </Tippy>
                         </li>
                         <li ref={closeRef} className={cx('user-avatar')}>
                             <Tippy

@@ -24,7 +24,7 @@ function FriendList({ activedList }) {
                                 globalContext.followData?.map((each) =>
                                 (
                                     <li
-                                        key={each.follow_id}
+                                        key={each.id}
                                         className={cx('each-user')}
                                     >
                                         <Tippy
