@@ -5,15 +5,11 @@
     padding: 10px 0;
     border-end-start-radius: 10px;
     border-end-end-radius: 10px;
-    
+
     img {
         width: var(--avatar-size);
         height: var(--avatar-size);
         object-fit: cover;
-    }
-
-    li {
-        padding-top: 10px;
     }
 
     .line-span {
@@ -31,6 +27,35 @@
         transition: ease-out;
     }
 
+    .list-content {
+        max-height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin-top: 10px;
+
+        &:hover{
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+    
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: var(--btn-orange);
+                border-radius: 10px;
+            }
+    
+            /* Handle on hover */
+            &::-webkit-scrollbar-thumb:hover {
+                background: #f66a0d;
+            }
+        }
+
+    }
+
+    .each-user {
+        z-index: 999;
+        margin-bottom: 15px;
+    }
 
     .btn-user {
         background-color: var(--background-light-blue);
@@ -44,18 +69,20 @@
         }
     }
 
-    .each-user {
-        position: relative;
-    }
 }
 
 @keyframes line-apper {
-    0%   {transform: scale(0, 1);}
-    100% {transform: scale(1, 1);}
+    0% {
+        transform: scale(0, 1);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
 }
 
 .tippy-box[data-theme~='custom'] {
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0px -1px 14px 11px rgba(0,0,0,0.12);
+    box-shadow: 0px -1px 14px 11px rgba(0, 0, 0, 0.12);
 }

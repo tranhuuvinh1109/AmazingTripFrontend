@@ -18,34 +18,36 @@ function FriendList({ activedList }) {
             {activedList && (
                 <ul className={cx('list-users')}>
                     <span className={cx('line-span')}></span>
-                    {context.friendList?.map((each) => (
-                        <li
-                            key={each.id_user}
-                            className={cx('each-user')}
-                        >
-                            <Tippy
-                                theme={'custom'}
-                                interactive={true}
-                                placement={'right'}
-                                animation={'fade'}
-                                arrow={false}
-                                allowHTML={true}
-                                content={(<UserMenu userInf={each} />)}
-                                className={cx('tippy-box')}
+                    <div className={cx('list-content')}>
+                        {context.friendList?.map((each) => (
+                            <li
+                                key={each.id_user}
+                                className={cx('each-user')}
                             >
-                                <button className={cx('btn-user')}>
-                                    <div className={cx('d-flex align-items-center ps-4')}>
-                                        <img
-                                            id="User-avatar"
-                                            className={cx('rounded-circle')}
-                                            src={each.avatar}
-                                        />
-                                        <span className={cx('ms-2')} style={{ color: '#094067' }}>{each.nickname}</span>
-                                    </div>
-                                </button>
-                            </Tippy>
-                        </li>
-                    ))}
+                                <Tippy
+                                    theme={'custom'}
+                                    interactive={true}
+                                    placement={'right'}
+                                    animation={'fade'}
+                                    arrow={false}
+                                    allowHTML={true}
+                                    content={(<UserMenu userInf={each} />)}
+                                    className={cx('tippy-box')}
+                                >
+                                    <button className={cx('btn-user')}>
+                                        <div className={cx('d-flex align-items-center ps-4')}>
+                                            <img
+                                                id="User-avatar"
+                                                className={cx('rounded-circle')}
+                                                src={each.avatar}
+                                            />
+                                            <span className={cx('ms-2')} style={{ color: '#094067' }}>{each.nickname}</span>
+                                        </div>
+                                    </button>
+                                </Tippy>
+                            </li>
+                        ))}
+                    </div>
                 </ul>
             )}
         </>

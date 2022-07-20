@@ -12,10 +12,6 @@
         object-fit: cover;
     }
 
-    li {
-        padding-top: 10px;
-    }
-
     .line-span {
         display: inline-block;
         position: absolute;
@@ -31,6 +27,36 @@
         transition: ease-out;
     }
 
+    .list-content {
+        max-height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin-top: 10px;
+
+        &:hover{
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+    
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: var(--btn-orange);
+                border-radius: 10px;
+            }
+    
+            /* Handle on hover */
+            &::-webkit-scrollbar-thumb:hover {
+                background: #f66a0d;
+            }
+        }
+
+    }
+
+    .each-user {
+        z-index: 999;
+        margin-bottom: 15px;
+    }
+
 
     .btn-user {
         background-color: var(--background-light-blue);
@@ -42,10 +68,6 @@
         &:hover {
             filter: brightness(0.9);
         }
-    }
-
-    .each-user {
-        position: relative;
     }
 }
 
