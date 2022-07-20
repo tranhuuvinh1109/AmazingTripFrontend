@@ -4,26 +4,51 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import getCookie from '../../../../hooks/getCookie';
-
+import { db } from '../../../../firebase';
+import firebase from '../../../../firebase';
 import Menu from './MenuDropDown';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+import { useContext } from 'react';
+import { MessageContext } from '../../../../context/MessageContext';
 
 const cx = classNames.bind(styles);
 
+
 function Header() {
+    const {
+        rooms,
+        setRooms,
+        messages,
+        setMessages,
+        selectedRoomId,
+        setSelectedRoomId,
+        notSeenCount,
+        setNotSeenCount,
+        notification,
+        setNotification,
+        notiCount,
+        setNotiCount
+    } = useContext(MessageContext);
     const history = useNavigate();
     //const userData = JSON.parse(getCookie('userin'));
 
-    const [showMenu, setShowMenu] = useState(false);
     const [userData, setUserData] = useState(''); 
+    const [showMenu, setShowMenu] = useState(false); 
 
     const closeRef = useRef();
-    
-    useEffect(() => {
+    //console.log(notification);
+    //console.log(rooms)
+    //console.log(messages);
+    useEffect(()=>{
+        let resJSON ;
         const res = getCookie('userin');
         if(res)
-            setUserData(JSON.parse(res));
-    }, [])
-
+            resJSON = JSON.parse(res)
+        console.log(resJSON);
+        if(resJSON)
+            setUserData(resJSON);
+    }, []);
     useEffect(() => {
         const handler = (e) => {
             if(!closeRef?.current?.contains(e.target))
@@ -36,7 +61,7 @@ function Header() {
             document.removeEventListener('mousedown', handler);
         }
     })
-
+    
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
@@ -60,10 +85,25 @@ function Header() {
                 </div>
                 {
                     userData !== '' ? (
-                    <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
-                        <li className={cx('message')}><i className={cx('fa-brands fa-facebook-messenger')}></i></li>
-                        <li className={cx('notification')}><i className={cx('fa-regular fa-bell ms-sm-2')}></i></li>
-                        <li ref={closeRef} className={cx('user-avatar')}>
+                    
+                    <div className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
+                        <div className={cx('message')}>
+                            <div className='dropdown'>
+                                <i className={cx('fa-brands fa-facebook-messenger dropdown-toggle')} id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                    {notification.map((item)=>(<a className='dropdown-item'>{item.content}</a>))}
+                                </ul>
+                            </div>
+                        </div>
+                        <div className={cx('notification')}>
+                            <div className='dropdown'>
+                                <i className={cx('fa-regular fa-bell ms-sm-2 dropdown-toggle')} id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    {notification.map((item)=>(<a className='dropdown-item'>{item.content}</a>))}
+                                </ul>
+                            </div>
+                        </div>
+                        <div ref={closeRef} className={cx('user-avatar')}>
                             <button 
                                 className={cx('btn-avatar')}
                                 onClick={() => setShowMenu(!showMenu)}
@@ -71,8 +111,8 @@ function Header() {
                                 <img src={userData.avatar ? userData.avatar : images.defaultAvatar} alt="User-avatar" className={cx('rounded-circle')}/>
                             </button>
                             {showMenu && <Menu userData={userData}/>}
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                     ) : (
                         <Link to='/login'>
                             <button className={cx('btn-login')}>
