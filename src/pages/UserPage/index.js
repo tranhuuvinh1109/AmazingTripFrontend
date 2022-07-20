@@ -18,7 +18,7 @@ function UserPage() {
         const fetchUserData = async () => {
             try {
                 const res = await userApi.getAll(id, userData.id);
-                if(res.data?.follow_status == '1')
+                if(res.data.follow_status == '1')
                     context.setFollowCheck(true);
                 else
                     context.setFollowCheck(false);
