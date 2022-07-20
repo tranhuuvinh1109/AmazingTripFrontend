@@ -21,7 +21,7 @@ function UserMenu({ userInf, size })  {
                         style={{ width: size, height: size }}
                     />
                     <div className={cx('follow-inf')}>
-                        <Link to={`/user/${userInf.id_user}`} >
+                        <Link to={`/user/${userInf.id}`} >
                             <h6 className={cx('m-0')}>{userInf.nickname}</h6>
                         </Link>
                         <i className={cx('fa-solid fa-users')}></i>
@@ -29,7 +29,7 @@ function UserMenu({ userInf, size })  {
                     </div>
                 </div>
                 <div className={cx('user-page-link')}>
-                    <Link to={`/user/${userInf.id_user}`} >
+                    <Link to={`/user/${userInf.id}`} >
                         Trang cá nhân
                     </Link>
                 </div>

@@ -14,7 +14,7 @@ function Left() {
     const avatarData = {
         avatar: context.addressData?.avatar,
         nickname: context.addressData.nickname,
-        id_user: context.addressData.id_host
+        id: context.addressData.id
     };
     const colors = {
         orange: "#FFBA5A",

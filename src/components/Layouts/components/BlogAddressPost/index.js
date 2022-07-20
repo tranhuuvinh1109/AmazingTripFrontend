@@ -32,7 +32,7 @@ function BlogAddressPost({ postData, slideShow }) {
     const avatarData = {
         avatar: ava,
         nickname: postData.nickname,
-        id_user: postData.id_user
+        id: postData.id
     };
 
     const colors = {
@@ -49,6 +49,17 @@ function BlogAddressPost({ postData, slideShow }) {
             });
         } catch (error) {
             console.log('Toang meo chay roi loi cc:', error)
+        }
+    }
+
+    const handleReport = () => {
+        try {
+            
+            toast.warning('Bài viết đã bị báo cáo !!!', {
+                toastId: 1,
+            });
+        } catch (error) {
+            
         }
     }
 
@@ -92,7 +103,11 @@ function BlogAddressPost({ postData, slideShow }) {
                         <Avatar
                             src={ava || images.defaultava}
                             size={'50px'}
-                            userData={avatarData}
+                            userData={{
+                                id: postData.id,
+                                nickname: postData.nickname,
+                                avatar: ava
+                            }}
                             placement={'right'}
                         />
                         <h4 className={cx('m-0')}>
@@ -113,7 +128,9 @@ function BlogAddressPost({ postData, slideShow }) {
                         trigger={'click'}
                         content={(
                             <div className={cx('delete-area')}>
-                                {/* Report here */}
+                                <button onClick={() => handleReport()}>
+                                    Báo cáo bài viết
+                                </button>
                                 <button onClick={() => handleDelete()}>
                                     Xóa bài viết
                                 </button>
