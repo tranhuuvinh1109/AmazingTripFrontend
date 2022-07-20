@@ -1,0 +1,47 @@
+.menu-list {
+    border-radius: 10px;
+    padding: 0 10px;
+    text-align: center;
+    
+    .user-inf 
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--background-dark-blue);
+        }
+    }
+
+    img {
+        height: var(--avatar-size);
+        width: var(--avatar-size);
+        object-fit: cover;
+    }
+
+    li {
+        padding: 5px 0;
+    }
+    
+    .user-page-link, .signout-link {
+        border-top: 1px solid rgba(95, 108, 123, 0.2);
+        
+        a h5 {
+            margin: 0;
+            padding: 3px;
+            font-size: 16px;
+        }
+    }
+
+    button {
+        background-color: transparent;
+        color: var(--background-dark-blue);
+        font-size: 16px;
+
+        &:hover {
+            color: var(--text-orange);
+        }
+    }
+}

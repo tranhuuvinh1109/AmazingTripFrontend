@@ -3,6 +3,7 @@ import { FaStar } from "react-icons/fa";
 import classNames from 'classnames/bind';
 import styles from './Left.module.scss';
 import { BlogAddressContext } from '../BlogAddressContext';
+import Avatar from '../../../components/Layouts/components/Avatar';
 
 const cx = classNames.bind(styles);
 
@@ -10,6 +11,11 @@ function Left() {
     const context = useContext(BlogAddressContext);
     const currentValue = parseInt(context.addressData.vote);
     const stars = Array(5).fill(0);
+    const avatarData = {
+        avatar: context.addressData?.avatar,
+        nickname: context.addressData.nickname,
+        id_user: context.addressData.id_host
+    };
     const colors = {
         orange: "#FFBA5A",
         grey: "#a9a9a9"
@@ -21,7 +27,12 @@ function Left() {
                 <h2 className={cx('name')}>{context.addressData.address_name}</h2>
                 <i className={cx('fa-solid fa-location-dot')}></i>
                 <span className={cx('avatar')}>
-                    <img src={context.addressData?.avatar} className={cx('avt')} />
+                    <Avatar
+                        src={context.addressData?.avatar}
+                        size={'40px'}
+                        userData={avatarData}
+                        placement={'right-end'}
+                    />
                 </span>
             </div>
 

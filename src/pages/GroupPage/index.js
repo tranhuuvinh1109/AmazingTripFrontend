@@ -8,9 +8,11 @@ import { GroupPageContext } from './GroupPageContext';
 import CreatePost from './CreatePost';
 import groupApi from '../../api/groupApi';
 import getImage from '../../hooks/getImage';
+import getCookie from '../../hooks/getCookie';
 
 function UserPage() {
-    const context = useContext(GroupPageContext)
+    const context = useContext(GroupPageContext);
+    const userData = JSON.parse(getCookie('userin'));
 
     const { id } = useParams();
 
@@ -18,18 +20,29 @@ function UserPage() {
         const fetchGroupData = async () => {
             try {
                 const res = await groupApi.get(id);
+                const check = res.members?.filter(obj => obj.id === userData.id);
+                if(res.data?.group_admin === userData.id || check.length !== 0)
+                    context.setMemberCheck(true);
+                if(res.data?.group_image != null)
+                {
+                    const image = await getImage(res.data.group_image);
+                    res.data.group_image = image;
+                }
+                if(res.data?.avatar != null)
+                {
+                    const image = await getImage(res.data.avatar);
+                    res.data.avatar = image;
+                }
                 context.setGroupData(res.data);
-                const image = await getImage(res.data.group_image);
-                context.setImageUrl(image);
-                const leadAva = await getImage(res.data.admin_image);
-                context.setLeadAva(leadAva);
+                if(res.members?.length !== 0)
+                    context.setMemberData(res.members);
             } catch (error) {
                 console.log('Toang meo chay r loi cc ', error)
             }
         };
 
         fetchGroupData();
-    }, [])
+    }, [id])
 
     return (  
         <Fragment>

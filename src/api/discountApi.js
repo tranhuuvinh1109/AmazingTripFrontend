@@ -8,6 +8,10 @@ const discountApi = {
     postSaleRegister: (data) => {
         const url = `/createForm`;
         return axiosClient.post(url, data);
+    },
+    cancelSaleRegister: (discount_id, id_user) => {
+        const url = `/deleteForm/${discount_id}/${id_user}`;
+        return axiosClient.delete(url);
     }
 }
 export default discountApi;

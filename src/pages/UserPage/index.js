@@ -7,27 +7,35 @@ import CoverImage from './CoverImage';
 import { UserPageContext } from './UserPageContext';
 import userApi from '../../api/userApi';
 import getImage from '../../hooks/getImage';
+import getCookie from '../../hooks/getCookie';
 
 function UserPage() {
     const { id } = useParams();
     const context = useContext(UserPageContext);
-
+    const userData = JSON.parse(getCookie('userin'));
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await userApi.getAll(id);
+                const res = await userApi.getAll(id, userData.id);
+                if(res.data?.follow_status == '1')
+                    context.setFollowCheck(true);
+                else
+                    context.setFollowCheck(false);
                 context.setUserData(res.data);
                 context.setPostData(res.blog);
-                const imageUrl = await getImage(res.data.avatar);
-                context.setUserAva(imageUrl);
+                if(res.data.avatar !== null)
+                {
+                    const imageUrl = await getImage(res.data.avatar);
+                    context.setUserAva(imageUrl);
+                }
             } catch (error) {
                 console.log('Toang meo chay r loi cc ', error);
             }
         };
 
         fetchUserData();
-    }, [])
+    }, [id])
 
     return (  
         <Fragment>

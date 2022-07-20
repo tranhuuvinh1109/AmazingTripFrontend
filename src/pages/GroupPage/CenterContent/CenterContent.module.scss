@@ -20,6 +20,27 @@
     }
 }
 
+.join-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-light-blue);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+
+    button {
+        background-color: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--text-dark-blue);
+        
+        span {
+            margin-left: 10px;
+        }
+    }
+}
+
 .empty-area {
     background-color: var(--background-light-blue);
     padding: 20px;

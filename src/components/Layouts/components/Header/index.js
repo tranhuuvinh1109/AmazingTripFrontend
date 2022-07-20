@@ -1,16 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import getCookie from '../../../../hooks/getCookie';
 import { db } from '../../../../firebase';
 import firebase from '../../../../firebase';
-import Menu from './MenuDropDown';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useContext } from 'react';
 import { MessageContext } from '../../../../context/MessageContext';
+import MenuUser from './MenuUser';
+import MenuNotification from './MenuNotification';
 
 const cx = classNames.bind(styles);
 
@@ -85,34 +86,45 @@ function Header() {
                 </div>
                 {
                     userData !== '' ? (
-                    
-                    <div className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
-                        <div className={cx('message')}>
-                            <div className='dropdown'>
-                                <i className={cx('fa-brands fa-facebook-messenger dropdown-toggle')} id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                    {notification.map((item)=>(<a className='dropdown-item'>{item.content}</a>))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className={cx('notification')}>
-                            <div className='dropdown'>
-                                <i className={cx('fa-regular fa-bell ms-sm-2 dropdown-toggle')} id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    {notification.map((item)=>(<a className='dropdown-item'>{item.content}</a>))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div ref={closeRef} className={cx('user-avatar')}>
-                            <button 
-                                className={cx('btn-avatar')}
-                                onClick={() => setShowMenu(!showMenu)}
+                    <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>
+                        <li className={cx('message')}>
+                            <i className={cx('fa-brands fa-facebook-messenger')}></i>
+                        </li>
+                        <li className={cx('notification')}>
+                            <Tippy
+                                theme={'light'}
+                                interactive={true}
+                                offset={[60, 16]}
+                                placement={'bottom-end'}
+                                animation={'fade'}
+                                arrow={true}
+                                trigger={'click'}
+                                allowHTML={true}
+                                content={(<MenuNotification userData={userData} />)}
+                                className={cx('tippy-box')}
                             >
-                                <img src={userData.avatar ? userData.avatar : images.defaultAvatar} alt="User-avatar" className={cx('rounded-circle')}/>
-                            </button>
-                            {showMenu && <Menu userData={userData}/>}
-                        </div>
-                    </div>
+                                <button className={cx('btn-noti')} >
+                                    <i className={cx('fa-regular fa-bell')}></i>
+                                </button>
+                            </Tippy>
+                        </li>
+                        <li ref={closeRef} className={cx('user-avatar')}>
+                            <Tippy
+                                theme={'light'}
+                                interactive={true}
+                                placement={'bottom-end'}
+                                animation={'fade'}
+                                arrow={false}
+                                trigger={'click'}
+                                allowHTML={true}
+                                content={(<MenuUser userData={userData} />)}
+                            >
+                                <button className={cx('btn-avatar')} >
+                                    <img src={userData.avatar ? userData.avatar : images.defaultAvatar} className={cx('rounded-circle')}/>
+                                </button>
+                            </Tippy>
+                        </li>
+                    </ul>
                     ) : (
                         <Link to='/login'>
                             <button className={cx('btn-login')}>

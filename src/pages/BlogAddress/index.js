@@ -21,19 +21,20 @@ function BlogAddress() {
     const { id } = useParams();
 
     useEffect(() => {
+        setLoading(true);
         const fetchAddressList = async () => {
             try {
                 const res = await addressApi.get(id, userData.id);
-                if(res.data.avatar !== null)
+                if(res.address?.avatar !== null)
                 {
-                    const image = await getImage(res.data.avatar);
-                    res.data.avatar = image;
+                    const image = await getImage(res.address.avatar);
+                    res.address.avatar = image;
                 }
                 res.friendList?.map( async (friend) => {
                     const image = await getImage(friend.avatar);
                     friend.avatar = image;
                 })
-                context.setAddressData(res.data);
+                context.setAddressData(res.address);
                 context.setGroupList(res.group);
                 context.setDiscountData(res.discount);
                 context.setFriendList(res.friendList);
@@ -49,7 +50,7 @@ function BlogAddress() {
             }
         };
         fetchAddressList();
-    }, [])
+    }, [id])
 
     const createNewGroup = useContext(FormCreateNewGroupContext)
     

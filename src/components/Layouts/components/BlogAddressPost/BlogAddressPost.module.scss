@@ -29,7 +29,7 @@
         width: 100%;
         flex-grow: 1;
 
-        div:first-child {
+        .inf {
             display: flex;
             align-items: center;
         }
@@ -82,33 +82,18 @@
 
 
 .delete-area {
-    position: absolute;
-    top: 65%;
-    left: 83%;
     width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
-    
-    &::before {
-        content: '';
-        min-width: 25px;
-        min-height: 25px;
-        transform: rotate(45deg);
-        background-color: rgb(235, 233, 233);
-        z-index: 999;
-        position: absolute;
-        top: -10%;
-        left: 75%;
-    }
-    
+
     button {
-        border-radius: 4px;
+        background-color: transparent;
         width: 100%;
         padding: 10px 0;
-        background-color: rgb(235, 233, 233);
         font-weight: 600;
+        font-size: 18px;
         color: var(--background-dark-blue);
     }
 }

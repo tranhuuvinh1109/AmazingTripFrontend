@@ -57,6 +57,10 @@
             width: 120px;
             padding: 5px 10px;
             font-weight: 600;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
         }
     }
 }

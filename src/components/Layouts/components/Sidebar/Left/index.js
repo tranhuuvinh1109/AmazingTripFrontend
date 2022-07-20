@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Left.module.scss';
 import GroupList from './GroupList';
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function Left() {
     
     // Đặt trạng thái mặc định của toggle
-    const [actived, setActived] = useState(['1', '2']);
+    const [actived, setActived] = useState(['2']);
     
     // Đặt trạng thái đóng bật của toggle    
     const handleActived = (id) => {
@@ -26,7 +26,7 @@ function Left() {
 
     
     return (
-        <Fragment>
+        <>
             <ul className={cx('sticky-side-bar')}>
                 <li
                     className={cx('mb-2')} 
@@ -56,7 +56,7 @@ function Left() {
                     <GroupList activedList={actived.includes('2')} />
                 </li>
             </ul>
-        </Fragment>
+        </>
     );
 }
 
