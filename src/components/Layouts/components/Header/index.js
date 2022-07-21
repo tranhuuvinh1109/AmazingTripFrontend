@@ -33,14 +33,25 @@ function Header() {
         setNotiCount
     } = useContext(MessageContext);
     const history = useNavigate();
-    const userData = JSON.parse(getCookie('userin'));
+    //const userData = JSON.parse(getCookie('userin'));
 
     const [showMenu, setShowMenu] = useState(false);
+    const [userData, setUserData] = useState('');
 
     const closeRef = useRef();
     //console.log(notification);
     //console.log(rooms)
     //console.log(messages);
+    
+    useEffect(()=>{
+        let resJSON ;
+        const res = getCookie('userin');
+        if(res)
+            resJSON = JSON.parse(res)
+        console.log(resJSON);
+        if(resJSON)
+            setUserData(resJSON);
+    }, []);
 
     useEffect(() => {
         const handler = (e) => {
