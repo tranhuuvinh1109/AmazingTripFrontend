@@ -18,7 +18,6 @@ const MessageProvider=({children})=>{
         const res = getCookie('userin');
         if(res)
             resJSON = JSON.parse(res)
-        console.log(resJSON);
         if(resJSON){
             let data = db.collection('notifications').where('user2', 'array-contains', resJSON.id);
             if(data) {

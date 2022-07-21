@@ -1,0 +1,32 @@
+.sender p, .receiver p {
+    padding: 5px;
+    border-radius: 10px;
+    max-width: 70%;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.sender {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+
+    p {
+        text-align: left;
+        background-color: white;
+    }
+}
+
+.receiver {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+    p {
+        text-align: right;
+        background-color: greenyellow;
+    }
+}
