@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import getCookie from "../../../../../hooks/getCookie";
 import discountApi from '../../../../../api/discountApi';
-
+import { db } from '../../../../../firebase';
+import firebase from '../../../../../firebase';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,21 @@ function CreateAddress() {
 		e.preventDefault();
         try {
 			const res = await discountApi.post(inputData);
+			let resJSON ;
+            const rest = getCookie('userin');
+            if(rest)
+                resJSON = JSON.parse(rest)
+			console.log(resJSON);
+            const query = db.collection('notifications');
+            query.add({
+                user1: resJSON.id,
+                user2: [2,3,4,5,6,7,15],
+                user2name: 'dick head',
+                content: 'Địa điểm bạn quan tâm đang có ưu đãi, đến xem ngay!',
+                address: inputData.address_id,
+                seen: 0,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
 			toast.success('Thêm giảm giá thành công !!!', {
 				toastId: 1,
 			});

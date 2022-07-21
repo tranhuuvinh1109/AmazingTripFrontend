@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './MenuNotification.module.scss';
 import classNames from 'classnames/bind';
+import { MessageContext } from '../../../../../context/MessageContext';
+import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
+
 
 
 const data = [
@@ -53,6 +56,8 @@ const data = [
 function MenuNotification() {
     const navigate = useNavigate();
 
+    const {notification} = useContext(MessageContext);
+    console.log(notification);
     return (
         <div className={cx('noti-container')}>
             <h3 className={cx('title')}>Thông báo</h3>

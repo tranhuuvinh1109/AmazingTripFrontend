@@ -38,7 +38,7 @@ function Header() {
     const [showMenu, setShowMenu] = useState(false); 
 
     const closeRef = useRef();
-    //console.log(notification);
+    console.log(notification);
     //console.log(rooms)
     //console.log(messages);
     useEffect(()=>{
@@ -63,6 +63,25 @@ function Header() {
         }
     })
     
+    function updateSeen() {
+        let resJSON ;
+        const res = getCookie('userin');
+        if(res)
+            resJSON = JSON.parse(res)
+        let batch = db.batch();
+        let query = db.collection('notifications').where('user2', 'array-contains', resJSON.id).where('seen', '==', 0).get().
+        then((data)=>{
+            console.log(data.docs.length)
+            if(data.docs.length!=0){
+            data.docs.forEach(element => {
+                batch.update(element.ref, 'seen', 1);
+            }
+        ); 
+        batch.commit();
+        }
+        });
+    }
+
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
@@ -90,7 +109,7 @@ function Header() {
                         <li className={cx('message')}>
                             <i className={cx('fa-brands fa-facebook-messenger')}></i>
                         </li>
-                        <li className={cx('notification')}>
+                        <li className={cx('notification')} onClick={()=>updateSeen()}>
                             <Tippy
                                 theme={'light'}
                                 interactive={true}

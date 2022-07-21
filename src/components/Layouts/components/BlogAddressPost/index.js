@@ -14,6 +14,10 @@ import getImage from '../../../../hooks/getImage';
 import images from '../../../../assets/images';
 import ReactComment from './ReactComment';
 import Avatar from '../Avatar';
+import { MessageContext } from '../../../../context/MessageContext';
+import { db } from '../../../../firebase';
+import firebase from '../../../../firebase';
+import getCookie from '../../../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
@@ -54,7 +58,20 @@ function BlogAddressPost({ postData, slideShow }) {
 
     const handleReport = () => {
         try {
-            
+            let resJSON ;
+            const res = getCookie('userin');
+            if(res)
+                resJSON = JSON.parse(res)
+            console.log(postData);
+            const query = db.collection('notifications');
+            query.add({
+                user1: resJSON.id,
+                user2: [2],
+                user2name: 'dick head',
+                content: 'Bài viết bị báo cáo',
+                seen: 0,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
             toast.warning('Bài viết đã bị báo cáo !!!', {
                 toastId: 1,
             });
