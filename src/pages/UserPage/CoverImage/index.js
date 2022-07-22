@@ -38,6 +38,7 @@ function CoverImage() {
             });
         }
         try {
+            console.log(data);
             const res = await followApi.post(data);
             context.setUserData({...context.userData, follow_status: res.data.follow_status});
             if(res.data.follow_status == 1)

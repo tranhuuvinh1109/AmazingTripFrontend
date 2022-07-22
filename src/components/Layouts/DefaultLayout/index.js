@@ -1,14 +1,15 @@
 import { Fragment } from "react";
 import { Header, Footer } from '../components';
-import getCookie from "../../../hooks/getCookie";
+import ChatBox from "../components/ChatBox";
 
 function DefaultLayout({ children }) {
     return ( 
         <Fragment>
             <Header />
-            <div>
-                { children }
-            </div>
+                <div style={{ display: 'relative' }}>
+                    { children }
+                    <ChatBox />
+                </div>
             <Footer />
         </Fragment>
     );

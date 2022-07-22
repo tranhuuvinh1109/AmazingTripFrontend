@@ -57,13 +57,13 @@ function MenuNotification() {
     const navigate = useNavigate();
 
     const {notification} = useContext(MessageContext);
-    console.log(notification);
+    //console.log(notification);
     return (
         <div className={cx('noti-container')}>
             <h3 className={cx('title')}>Thông báo</h3>
             <ul className={cx('noti-content')}>
-                {data.length !== 0 ? (
-                    data.map((each) => (
+                {notification.length !== 0 ? (
+                    notification.map((each) => (
                         <li
                             key={each.id}
                             className={cx('each-noti')}

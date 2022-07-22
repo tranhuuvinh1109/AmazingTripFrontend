@@ -8,6 +8,8 @@ function GlobalProvider({ children }) {
     const [followData, setFollowData] = useState([]);
     const [groupData, setGroupData] = useState([]);
 
+    const [showChatBox, setShowChatBox] = useState(false);
+
     //reset address Bookmark Data
     const handleResetBookmarkData = (id) => {
         const obj = bookmarkData.filter(obj => obj.address_id != id);
@@ -17,7 +19,7 @@ function GlobalProvider({ children }) {
     //reset user follow Data
     const handleResetFollowData = (id) => {
         const obj = followData.filter(obj => obj.id != id);
-        console.log(obj);
+        //console.log(obj);
         setFollowData([...obj])
     }
 
@@ -34,6 +36,8 @@ function GlobalProvider({ children }) {
         setFollowData,
         groupData,
         setGroupData,
+        showChatBox,
+        setShowChatBox,
         handleResetBookmarkData,
         handleResetFollowData,
         handleResetGroupData

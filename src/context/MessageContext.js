@@ -7,7 +7,7 @@ const MessageContext = createContext();
 
 const MessageProvider=({children})=>{
     const [rooms, setRooms] = useState([]);
-    const [selectedRoomId, setSelectedRoomId] = useState(0);
+    const [selectedRoom, setSelectedRoom] = useState(0);
     const [messages, setMessages] = useState([]);
     const [notSeenCount, setNotSeenCount] = useState(0);
     const [notification, setNotification] = useState([]);
@@ -18,7 +18,7 @@ const MessageProvider=({children})=>{
         const res = getCookie('userin');
         if(res)
             resJSON = JSON.parse(res)
-        console.log(resJSON);
+            //console.log(resJSON);
         if(resJSON){
             let data = db.collection('notifications').where('user2', 'array-contains', resJSON.id);
             if(data) {
@@ -31,7 +31,7 @@ const MessageProvider=({children})=>{
                     setNotiCount(snapshot.size)
                 })
             }          
-            let data1 = db.collection('rooms').where('members', 'array-contains', 1);
+            let data1 = db.collection('rooms').where('members', 'array-contains', resJSON.id);
             data1.onSnapshot((snapshot)=>{
                 const Doc = snapshot.docs.map((doc)=>({...doc.data(), id:doc.id}))
                 setRooms(Doc)
@@ -39,7 +39,8 @@ const MessageProvider=({children})=>{
         }
     }, []);
     useEffect(()=>{
-        let data = db.collection('messages').where('roomId', '==', selectedRoomId);
+        if(selectedRoom){
+        let data = db.collection('messages').where('roomId', '==', selectedRoom.id).orderBy('createdAt')//selectedRoom.id);
         let countdata = data.where('seen', '==', 0);
         data.onSnapshot((snapshot)=>{
             const Doc = snapshot.docs.map((doc)=>({...doc.data(), id:doc.id}))
@@ -48,15 +49,16 @@ const MessageProvider=({children})=>{
         countdata.onSnapshot((snapshot=>{
           setNotSeenCount(snapshot.size)
         }))
-      },[selectedRoomId, notSeenCount])
+        }
+      },[selectedRoom, notSeenCount])
     return (
         <MessageContext.Provider value={{
             rooms,
             setRooms,
             messages,
             setMessages,
-            selectedRoomId,
-            setSelectedRoomId,
+            selectedRoom,
+            setSelectedRoom,
             notSeenCount,
             setNotSeenCount,
             notiCount,

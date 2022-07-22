@@ -20,7 +20,7 @@ function FriendList({ activedList }) {
                     <span className={cx('line-span')}></span>
                     <div className={cx('list-content')}>
                         {
-                            context.friendList.length !== 0 ? (
+                            context.friendList?.length !== 0 ? (
                                 context.friendList?.map((each) => (
                                     <li
                                         key={each.id_user}
