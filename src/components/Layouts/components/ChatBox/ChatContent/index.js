@@ -4,19 +4,19 @@ import getCookie from '../../../../../hooks/getCookie';
 
 const cx = classNames.bind(styles);
 
-function ChatContent({ message }) {
-    const userData = JSON.parse(getCookie('userin'));
+function ChatContent({ message, userData }) {
+    
 
     return (
         <>
-            {message.id === userData.id ? (
+            {message.user1 !== userData.id ? (
                 <div className={cx('sender')}>
-                    <p>{message.message}</p>
+                    <p>{message.content}</p>
                 </div>
 
             ) : (
                 <div className={cx('receiver')}>
-                    <p>{message.message}</p>
+                    <p>{message.content}</p>
                 </div>
             )}
         </>

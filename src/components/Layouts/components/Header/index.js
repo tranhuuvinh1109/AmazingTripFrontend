@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
@@ -23,8 +23,8 @@ function Header() {
         setRooms,
         messages,
         setMessages,
-        selectedRoomId,
-        setSelectedRoomId,
+        selectedRoom,
+        setSelectedRoom,
         notSeenCount,
         setNotSeenCount,
         notification,
@@ -43,7 +43,7 @@ function Header() {
     //console.log(rooms)
     //console.log(messages);
     
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         let resJSON ;
         const res = getCookie('userin');
         if(res)
@@ -64,7 +64,26 @@ function Header() {
             document.removeEventListener('mousedown', handler);
         }
     })
-
+    
+    function updateSeen() {
+        let resJSON ;
+        const res = getCookie('userin');
+        if(res)
+            resJSON = JSON.parse(res)
+        let batch = db.batch();
+        db.collection('notifications').where('user2', 'array-contains', resJSON.id).where('seen', '==', 0).get().
+        then((data)=>{
+            //console.log(data.docs.length)
+            if(data.docs.length!=0){
+            data.docs.forEach(element => {
+                batch.update(element.ref, 'seen', 1);
+            }
+        ); 
+        batch.commit();
+        }
+        });
+    }
+    
     return (
         <header className={cx('sticky-top pt-2 pb-2')}>
             <div className={cx('container-fluid d-sm-flex justify-content-between align-items-center')}>
@@ -107,7 +126,7 @@ function Header() {
                                     </button>
                                 </Tippy>
                             </li>
-                            <li className={cx('notification')}>
+                            <li className={cx('notification')}  onClick={()=>updateSeen()}>
                                 <Tippy
                                     theme={'light'}
                                     interactive={true}

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import styles from './MenuNotification.module.scss';
 import classNames from 'classnames/bind';
 import { GlobalContext } from '../../../../../context/GlobalContext';
-
+import { MessageContext } from '../../../../../context/MessageContext';
 const cx = classNames.bind(styles);
 
 
@@ -22,27 +22,26 @@ const data = [
 
 function MenuMessgae() {
     const globalContext = useContext(GlobalContext);
-
+    const {rooms, selectedRoom, setSelectedRoom} = useContext(MessageContext);
     // set roomData to globalContext
-    const handleOpenChatbox = (id) => {
-
-        globalContext.setRoomData([...data.filter(obj => obj.id === id)]);
+    const handleOpenChatbox = (room) => {
+        setSelectedRoom(room);
         globalContext.setShowChatBox(true);
     };
-
+    //console.log(selectedRoom);
     return (
         <div className={cx('noti-container')}>
             <h3 className={cx('title')}>Tin nhắn</h3>
             <ul className={cx('noti-content')}>
-                {data.length !== 0 ? (
-                    data.map((each) => (
+                {rooms.length !== 0 ? (
+                    rooms.map((each) => (
                         <li
                             key={each.id}
                             className={cx('each-noti')}
                         >
                             <button
                                 className={cx('btn-noti')}
-                                onClick={(id) => handleOpenChatbox(each.id)}
+                                onClick={(room) => handleOpenChatbox(each)}
                             >
                                 <div className={cx('btn-content')}>
                                     <img className={cx('avatar')} src={each.avatar}/>
