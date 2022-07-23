@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Header, Left, Right, Footer } from '../components';
+import ChatBox from "../components/ChatBox";
 
 function TwoSide({ children }) {
     return (  
@@ -10,8 +11,9 @@ function TwoSide({ children }) {
                     <Left />
                 </div>
                 
-                <div className="col-sm-8 mb-4" id="body-content">
+                <div className="col-sm-8 mb-4" id="body-content" style={{ display: 'relative' }}>
                     { children }
+                    <ChatBox />
                 </div>
                 
                 <div className="col-sm-2 ps-0 pe-1">

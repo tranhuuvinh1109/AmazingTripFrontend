@@ -13,9 +13,19 @@
         font-size: 20px;
         font-weight: bold;
         color: var(--text-dark-blue);
+        i {
+            margin-right: 10px;
+        }
         
         span {
             margin-left: 10px;
+        }
+
+        &:hover{
+            color: var(--text-orange);
+            i {
+                color: var(--text-orange);
+            }
         }
     }
 }
