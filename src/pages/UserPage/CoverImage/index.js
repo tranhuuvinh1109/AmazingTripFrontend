@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from "react";
-import { toast} from 'react-toastify';
+import { useContext } from "react";
+import { toast } from 'react-toastify';
 import { Link, useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from './CoverImage.module.scss';
@@ -38,7 +38,6 @@ function CoverImage() {
             });
         }
         try {
-            console.log(data);
             const res = await followApi.post(data);
             context.setUserData({...context.userData, follow_status: res.data.follow_status});
             if(res.data.follow_status == 1)
@@ -49,6 +48,11 @@ function CoverImage() {
                     res.data.avatar = image;
                 }
                 globalContext.setFollowData([...globalContext.followData, res.data]);
+                const total = parseInt(context.userData.number_follow) + 1;
+                context.setUserData({...context.userData, number_follow: total });
+            } else {
+                const total = parseInt(context.userData.number_follow) - 1;
+                context.setUserData({...context.userData, number_follow: total });
             }
         } catch (error) {
             console.log('Toang meo chay r loi cc: ', error);
@@ -84,7 +88,7 @@ function CoverImage() {
 
                     </h2>
                     <i className="fa-solid fa-users"></i>
-                    <span className={cx('ms-2')}>5.6k</span>
+                    <span className={cx('ms-2')}>{context.userData?.number_follow}</span>
                 </div>
             </div>
         </div>

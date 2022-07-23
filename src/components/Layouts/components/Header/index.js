@@ -48,7 +48,6 @@ function Header() {
         const res = getCookie('userin');
         if(res)
             resJSON = JSON.parse(res)
-        //a.log(resJSON);
         if(resJSON)
             setUserData(resJSON);
     }, []);
