@@ -8,6 +8,7 @@ import { CreateNewGroupProvider } from './pages/BlogAddress/CreateNewGroupContex
 import { AuthFireBaseContextProvider } from './context/AuthFireBaseContext';
 import { GlobalProvider } from './context/GlobalContext';
 import { MessageProvider } from './context/MessageContext';
+import { UserPageProvider } from './pages/UserPage/UserPageContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,9 +18,11 @@ root.render(
         <AuthProvider>
           <GlobalProvider>
             <MessageProvider>
+              <UserPageProvider>
               <GlobalStyles>
                 <App />
               </GlobalStyles>
+              </UserPageProvider>
             </MessageProvider>
           </GlobalProvider>
         </AuthProvider>
