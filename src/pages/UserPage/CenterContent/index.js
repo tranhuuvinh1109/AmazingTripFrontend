@@ -6,6 +6,9 @@ import UserPagePost from '../../../components/Layouts/components/UserPagePost';
 import { CommentProvider } from '../../../components/Layouts/components/UserPagePost/ReactComment/CommentContext';
 import getCookie from '../../../hooks/getCookie';
 import { GlobalContext } from '../../../context/GlobalContext';
+import { db } from '../../../firebase';
+import { MessageContext } from '../../../context/MessageContext';
+import { setLogLevel } from 'firebase/app';
 
 const cx = classNames.bind(styles);
 
@@ -13,11 +16,19 @@ function CenterContent() {
     const globalContext = useContext(GlobalContext);
     const context = useContext(UserPageContext);
     const userData = JSON.parse(getCookie('userin'));
-
+    const {rooms , selectedRoom, setSelectedRoom, messages} = useContext(MessageContext);
     const handleChating = () => {
+        console.log(context.userData);
+        let room =  rooms.find(each => each.members.includes(userData.id) && each.members.includes(context.userData.id))
+        if(room) {
+            setSelectedRoom(room);
+        } else {
+            context.setOld(false);
+        }
         globalContext.setShowChatBox(true);
+        console.log(room);
     }
-
+    console.log(context.old);
     const handleReport = () => {
 
     }

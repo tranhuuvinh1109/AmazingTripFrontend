@@ -3,6 +3,8 @@ import styles from './MenuNotification.module.scss';
 import classNames from 'classnames/bind';
 import { GlobalContext } from '../../../../../context/GlobalContext';
 import { MessageContext } from '../../../../../context/MessageContext';
+import getCookie from '../../../../../hooks/getCookie';
+import { UserPageContext } from '../../../../../pages/UserPage/UserPageContext';
 const cx = classNames.bind(styles);
 
 
@@ -22,12 +24,18 @@ const data = [
 
 function MenuMessgae() {
     const globalContext = useContext(GlobalContext);
-    const {rooms, selectedRoom, setSelectedRoom} = useContext(MessageContext);
+    const {rooms, selectedRoom, setSelectedRoom, old} = useContext(MessageContext);
+    const userContext= useContext(UserPageContext);
     // set roomData to globalContext
     const handleOpenChatbox = (room) => {
         setSelectedRoom(room);
         globalContext.setShowChatBox(true);
+        userContext.setOld(true);
     };
+    let userData ;
+    const res = getCookie('userin');
+    if(res)
+        userData = JSON.parse(res);
     //console.log(selectedRoom);
     return (
         <div className={cx('noti-container')}>
@@ -44,8 +52,8 @@ function MenuMessgae() {
                                 onClick={(room) => handleOpenChatbox(each)}
                             >
                                 <div className={cx('btn-content')}>
-                                    <img className={cx('avatar')} src={each.avatar}/>
-                                    <h4>{each.nickname}</h4>
+                                    <img className={cx('avatar')} src={userData.avatar == each.user1ava ? each.user2ava : each.user1ava}/>
+                                    <h4>{userData.nickname == each.user1nn ? each.user2nn : each.user1nn}</h4>
                                 </div>
                             </button>
                         </li>

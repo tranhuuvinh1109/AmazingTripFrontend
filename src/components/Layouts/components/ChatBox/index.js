@@ -7,6 +7,7 @@ import { MessageContext } from '../../../../context/MessageContext';
 import { db } from '../../../../firebase';
 import getCookie from '../../../../hooks/getCookie';
 import firebase from '../../../../firebase';
+import { UserPageContext } from '../../../../pages/UserPage/UserPageContext';
 
 const cx = classNames.bind(styles);
 
@@ -58,30 +59,43 @@ function ChatBox() {
         userData = JSON.parse(res);
     //console.log(userData);
     const {messages, selectedRoom, rooms, setSelectedRoom} = useContext(MessageContext);
+    const context = useContext(UserPageContext);
     const globalContext = useContext(GlobalContext);
     const messageRef = useRef();
     const [input, setInput] = useState('');
     //console.log(messages);
+    //console.log(userData);
     async function sendMessage(e) {
         e.preventDefault();
         if(input.length!=0){
             const query = db.collection('messages');
             let roomId = selectedRoom.id;
-            if(!(rooms.find((room)=> room.id === selectedRoom.id))) {
-              const newRoom = await db.collection('rooms').add({
-                members: [userData.id, 1],
-              })
-              roomId = newRoom.id;
-              setSelectedRoom(newRoom);
+            if(!context.old) {
+              let {id} = await db.collection('rooms').add({
+                members: [userData.id, context.userData.id],
+                user1ava: userData.avatar,
+                user2ava: context.userData.avatar,
+                user1nn: userData.nickname,
+                user2nn: context.userData.nickname,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              });
+              roomId = id;
+              let data = await db.collection('rooms').where(firebase.firestore.FieldPath.documentId(), '==', id).get();
+              setSelectedRoom({...data.docs[0].data(), id});
             }
             query.add({
                 user1: userData.id,
+                user1name: userData.nickname,
+                user1ava: userData.avatar,
                 content: input,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 seen:0,
                 roomId: roomId
             });
             setInput('')
+            if(!context.old){
+            context.setOld(true);
+            }
         }
       }
     // Get room data here
@@ -100,19 +114,19 @@ function ChatBox() {
                         <div className={cx('user-inf')}>
                             <img
                                 className={cx('avatar')}
-                                src={"https://www.google.com.vn/imgres?imgurl=https%3A%2F%2Fblogger.googleusercontent.com%2Fimg%2Fb%2FR29vZ2xl%2FAVvXsEjDu8-o3TDXtQXTRx3qS06wY0lneXSgfFRJgguGBvrk7BSG3iDPvzLyBRAzTFo_syvRT48H1mgzJGAWCdafyIBlpaWn8THm-lr9x5NigKCbCuKL-SWLcQOXKSS8NEsd1aYglOmsJcfRYkkoWp1gAem1Mn61ZiFre-jNvV0oSOuHNHLKkHwN39tYKY5j%2Fs800%2FKonan%2520Koyoi.webp&imgrefurl=https%3A%2F%2Fwww.bookflas.com%2F2022%2F04%2Fcan-canh-nhan-sac-konan-koyoi-sieu-mau.html&tbnid=px7dk_JfQ7XKZM&vet=12ahUKEwiimL2gmIr5AhWaTPUHHY50CP4QMygCegUIARCNAQ..i&docid=SlW16In1lZXi3M&w=640&h=800&q=konan%20koyoi&ved=2ahUKEwiimL2gmIr5AhWaTPUHHY50CP4QMygCegUIARCNAQ"}
+                                src={!context.old ? context.userData.avatar : selectedRoom.user1ava == userData.avatar ? selectedRoom.user2ava : selectedRoom.user1ava}
                             />
-                            <h2 className={cx('nickname')}>{}</h2>
+                            <h2 className={cx('nickname')}>{!context.old ? context.userData.nickname : selectedRoom.user1nn == userData.nickname ? selectedRoom.user2nn : selectedRoom.user1nn}</h2>
                         </div>
                         <button
                             className={cx('btn-close')}
-                            onClick={() => globalContext.setShowChatBox(false)}
+                            onClick={() => {globalContext.setShowChatBox(false); context.setOld(true)}}
                         >
                             <i className="fa-solid fa-x"></i>
                         </button>
                     </div>
                     <div className={cx('content')}>
-                        {messages?.length === 0 ? (
+                        {!context.old ? (
                             <h6>Chưa có tin nhắn nào !!!</h6>
                         ) : (
                             messages?.map((each, index) => (

@@ -18,6 +18,7 @@ import { MessageContext } from '../../../../context/MessageContext';
 import { db } from '../../../../firebase';
 import firebase from '../../../../firebase';
 import getCookie from '../../../../hooks/getCookie';
+import { UserPageContext } from '../../../../pages/UserPage/UserPageContext';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,8 @@ function BlogAddressPost({ postData, slideShow }) {
     const [ava, setAva] = useState('');
     const [blogImg, setBlogImg] = useState('');
     const stars = Array(5).fill(0);
+
+    const userContext = useContext(UserPageContext);
 
     const avatarData = {
         avatar: ava,
@@ -64,10 +67,14 @@ function BlogAddressPost({ postData, slideShow }) {
                 resJSON = JSON.parse(res)
             console.log(postData);
             const query = db.collection('notifications');
+            console.log(userContext.userData)
             query.add({
                 user1: resJSON.id,
                 user2: [2],
-                user2name: 'dick head',
+                user1name: resJSON.nickname,
+                user2name: userContext.userData.nickname,
+                user1ava: resJSON.avatar,
+                user2ava: userContext.avatar,
                 content: 'Bài viết bị báo cáo',
                 seen: 0,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
