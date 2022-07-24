@@ -1,0 +1,40 @@
+.left {
+    .name {
+        font-weight: bold;
+    }
+
+    h2, span, i {
+        color: var(--background-dark-blue);
+    }
+    .address {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        h2 {
+            margin: 0;
+        }
+
+        i {
+            font-size: 24px;
+            margin: 0 10px;
+        }
+    }
+    
+    .avt {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .star {
+        display: flex;
+        .vote {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--btn-orange);
+        }
+
+    }
+}

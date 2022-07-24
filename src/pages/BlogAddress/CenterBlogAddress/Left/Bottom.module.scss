@@ -1,0 +1,66 @@
+.center-left-bottom {
+    border: 1px solid var(--background-dark-blue);
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h4, h5,  p{
+        margin: 0;
+        color: var(--background-dark-blue);
+    }
+
+    h4 {
+        text-align: left;
+        font-size: 20px;
+
+        .day-start, .day-end {
+            font-weight: bold;
+            margin-left: 5px;
+        }
+    }
+
+    p {
+        font-size: 16px;
+        .discount {
+            color: var(--text-orange);
+            font-size: 24px;
+            margin-left: 5px;
+        }
+
+        .quantity {
+            color: var(--text-orange);
+            font-size: 32px;
+        }
+    }
+
+    .sub {
+        display: flex;
+        justify-content: space-between;
+
+        .submit {
+            font-weight: bold;
+            font-size: 18px;
+            .sb {
+                color: var(--text-orange);
+                font-size: 32px;
+                margin-left: 5px;
+            }
+        }
+
+        button {
+            background-color: var(--text-orange);
+            color: var(--white);
+            border-radius: 50px;
+            width: 120px;
+            padding: 5px 10px;
+            font-weight: 600;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
+    }
+}

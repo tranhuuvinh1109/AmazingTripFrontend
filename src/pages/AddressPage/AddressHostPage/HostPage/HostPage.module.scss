@@ -1,0 +1,81 @@
+.left-content {
+    padding: 0 50px;
+
+    h2, h3 {
+        font-weight: bold;
+    }
+
+    .address-detail {
+        max-height: 900px;
+        p {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: scroll;
+        }
+    }
+
+
+    .title {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        .address {
+            font-size: 64px;
+            flex-grow: 1;
+            font-weight: bold;
+            margin: 0;
+            color: var(--text-headline-dark-blue);
+        }
+
+        .update {
+            background-color: var(--btn-orange);
+            color: #fff;
+            font-size: 24px;
+            padding: 8px 20px;
+            border-radius: 10px;
+        }
+    }
+    
+    .banner {
+        margin-top: 16px;
+        img {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    }
+
+    .description {
+        border: 2px var(--border-color) solid;
+        border-radius: 10px;
+        padding: 12px 30px;
+        margin-top: 30px;
+        font-size: 20px;
+    }
+    
+    .list {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+    
+    .list button {
+        width: 40%;
+        background-color: var(--background-light-blue);
+        padding: 12px 20px;
+        color: var(--text-headline-dark-blue);
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+    }
+    .list .registers{
+        margin-left: 5%;
+    }
+    
+    .list .posts{
+        margin-left: 10%;
+    }
+}

@@ -1,0 +1,113 @@
+header {
+    background-color: var(--nav-light-blue);
+    padding: 5px 10px;
+    z-index: 100;
+}
+
+.nav-logo {
+    width: 142px;
+    height: 40px;
+}
+
+.input-group div {
+    border-radius: 20px;
+    background-color: var(--white);
+    padding: 0 15px;
+    color: var(--text-light-gray);
+    height: 35px;
+    width: 420px;
+}
+
+.search-icon {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.delete-icon {
+    font-size: 18px;
+    visibility: hidden;
+}
+
+
+.search-bar{
+    input {
+        font-size: 14px;
+        color: var(--background-dark-blue);
+        outline: none;
+    }
+
+    input::placeholder {
+        color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.search-bar div:focus-within {
+    border: 2px solid var(--background-dark-blue);
+    
+    i {
+        color: var(--background-dark-blue);
+    }
+
+    .delete-icon {
+        visibility: visible;
+    }
+}
+
+.btn-noti {
+    background-color: transparent;
+    margin-left: 5px;
+}
+
+.btn-avatar { 
+    background-color: var(--nav-light-blue);
+    margin-left: 10px;
+    border-radius: 50px !important;
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &:focus {
+        padding: 2px;
+        border: 2px solid var(--text-orange);
+    }
+
+}
+.message i, .notification i {
+    font-size: 25px;
+    color: var(--text-light-gray);
+}
+
+.message i:hover, .notification i:hover {
+    color: var(--background-dark-blue);
+}
+
+.btn-go-back {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 20px;
+    background-color: transparent;
+    padding-top: 5px;
+    color: var(--text-light-gray);
+    width: 80px;
+
+    &:hover {
+        color: var(--text-orange);
+        i {
+            margin-right: 10px !important;
+        }
+    }
+}
+
+.btn-login {
+    background-color: var(--btn-orange);
+    border-radius: 50px;
+    color: var(--white);
+    font-weight: 600;
+    padding: 5px 20px;
+}

@@ -1,0 +1,40 @@
+.body-content {
+    display: flex;
+    padding: 20px 10px;
+    height: 1200px;
+}
+
+.left-content {
+    width: 50vw;
+    height: 100%;
+    padding: 0 10px;
+    flex-basis: 50%;
+}
+
+.right-content {
+    max-width: 50vw;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .slide-show{
+        height: 350px;
+    }
+
+    .comment {
+        margin-top: 20px;
+        flex-basis: 75%;
+        display: flex;
+        align-items: flex-end;
+
+        & > div > div {
+            margin: 0;
+        }
+        h2 {
+            text-align: center;
+            font-weight: 600;
+            color: var(--background-dark-blue);
+            margin-bottom: 40px;
+        }
+    }
+}

@@ -1,0 +1,110 @@
+.noti-container {
+
+    button,
+    h4 {
+        color: var(--background-dark-blue);
+    }
+
+    p {
+        cursor: context-menu;
+    }
+
+    .title {
+        font-weight: bold;
+        border-bottom: 1px solid var(--background-dark-blue);
+        padding: 10px 0;
+    }
+
+    .noti-content {
+
+        max-height: 350px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin-top: 10px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: var(--btn-orange);
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #f66a0d;
+        }
+
+        li {
+            border-bottom: 1px dotted var(--background-dark-blue);
+        }
+
+        li:last-child {
+            border: 0 !important;
+        }
+
+        .each-noti {
+            padding: 5px 0;
+
+            .btn-noti {
+                padding: 5px;
+                border-radius: 10px;
+                background-color: white;
+                text-align: left;
+                font-size: 16px;
+
+                .btn-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    h4 {
+                        width: 100%;
+                        display: inline-block;
+                        flex-grow: 1;
+                    }
+                }
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+
+                .address {
+                    margin: 0 4px;
+                    color: var(--text-orange);
+                }
+
+                .time {
+                    font-size: 16px;
+                    color: gray;
+                }
+
+                .report {
+                    color: rgba(255, 0, 0, 0.87);
+                    margin: 0 4px;
+                }
+
+                .sale {
+                    color: rgb(8, 175, 8);
+                    margin: 0 4px;
+                }
+            }
+
+        }
+    }
+
+    .empty-noti {
+        color: var(--background-dark-blue);
+        opacity: 0.5;
+    }
+
+}

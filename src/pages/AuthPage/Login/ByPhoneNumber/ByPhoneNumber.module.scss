@@ -1,0 +1,61 @@
+.title {
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    font-size: 18px;
+    font-family: 600;
+    margin-bottom: 5px;
+  }
+
+  input {
+    min-width: 100%;
+    font-size: 16px;
+    background-color: transparent;
+    border: 1px solid var(--white);
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: white;
+  }
+}
+
+.login {
+  background-color: var(--btn-orange);
+  color: var(--white);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 40px;
+}
+
+.errmsg {
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.show-pwd {
+  cursor: pointer;
+
+  i {
+    position: absolute;
+    font-size: 18px;
+    top: 60%;
+    left: 85%;
+    opacity: 0.6;
+  }
+}

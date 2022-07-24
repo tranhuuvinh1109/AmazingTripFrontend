@@ -1,0 +1,29 @@
+.center-left-top {
+    border: 1px solid var(--background-dark-blue);
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .description {
+        max-height: 130px;
+
+        p {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: scroll;
+        }
+    }
+
+
+    h3, p {
+        color: var(--background-dark-blue);
+    }
+
+    h3 {
+        font-weight: bold;
+    }
+}

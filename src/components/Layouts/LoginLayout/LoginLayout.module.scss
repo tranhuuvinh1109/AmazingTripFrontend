@@ -1,0 +1,30 @@
+.wrapper{
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),url('../../../assets/images/body-background.jpg');
+        height: 100vh;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.container {
+        height: 600px;
+        width: 560px;
+        background-color: var(--background-dark-blue);
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+        padding: 40px 100px;
+        position: relative;
+
+        .nav-logo {
+                width: 200px;
+                height: 60px;
+                margin-bottom: 30px;
+        }
+}
