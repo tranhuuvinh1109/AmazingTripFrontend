@@ -1,0 +1,41 @@
+.userListAddresses {
+    width: 90%;
+    margin: 0 auto;
+    img {
+        height: 180px;
+        border-radius: 14px;
+    }
+    
+    .lists {
+        margin-bottom: 50px;
+        margin-top: 50px;
+        .category{
+            margin-left: 20px;
+            position: relative;
+            
+            .title{
+                font-weight: 700;
+                font-size: 30px;
+            }
+            .more{
+                position: absolute;
+                right: 10px;
+                top: 14px;
+                color: var(--text-orange);
+            }
+            .more:hover{
+                cursor: pointer;
+                color: rgb(245, 127, 10);
+                font-size: 17px;
+
+            }
+        }
+    }
+    .title {
+        display: inline-block;
+    }
+    hr{
+        background-color: var(--line-light-blue);
+        margin-top: -4px;
+    }
+}
