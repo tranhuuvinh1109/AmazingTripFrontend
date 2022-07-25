@@ -88,31 +88,30 @@ function Addresses() {
                     <span className={cx("title")}>Địa điểm của bạn</span>
                     <hr />
                 </div>
-                {addresses.length === 0 ? (
-                    <>
-                        <Link to={"/createAddress/" + userData.id}>
-                            <h3
-                                style={{
-                                    marginLeft: "50px",
-                                    color: "#FF751A",
-                                    float: "left",
-                                    marginRight: "6px",
-                                    textDecoration: "underline",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                Tạo{" "}
-                            </h3>
-                        </Link>
-                        <h3> địa điểm đầu tiên của bạn</h3>
-                    </>
-                ) : (
-                    <div className={cx('address-list')}>
-                        {addresses?.map((address, index) => (
-                            <Address key={index} address={address} type="1" role="1" />
-                        ))}
-                    </div>
-                )}
+                <h3
+                    style={{
+                        textAlign: 'right',
+                    }}
+                >
+                    <Link to={"/createAddress/" + userData.id}>
+                        <span
+                            style={{
+                                marginLeft: "50px",
+                                color: "#FF751A",
+                                marginRight: "6px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            Tạo{" "}
+                        </span>
+                    </Link>
+                    địa điểm của bạn
+                </h3>
+                <div className={cx('address-list')}>
+                    {addresses?.map((address, index) => (
+                        <Address key={index} address={address} type="1" role="1" />
+                    ))}
+                </div>
             </div>
             <div className={cx("lists")}>
                 <div className={cx("category")}>

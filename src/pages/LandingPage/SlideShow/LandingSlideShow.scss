@@ -1,10 +1,26 @@
 .landingss-container {
-    position: relative;
     width: 100%;
+    height: 100%;
+    position: relative;
+
+    .landingss-title {
+        width: 700px;
+        height: 145px;
+        position: absolute;
+        top: calc(50% - 77px);
+        left: calc(50% - 350px);
+        font-size: 60px;
+        font-weight: bold;
+        color: white;
+        opacity: 0.8;
+        span {
+            color: var(--text-orange);
+            margin: 0 10px;
+        }
+    }
 
     .slick-slider {
         height: 100% !important;
-        position: relative;
 
         .slick-arrow {
             display: none !important;
@@ -25,17 +41,7 @@
 
     .landingss-img {
         width: 100%;
-        height: 600px;
+        height: 690px;
         object-fit: cover;
-    }
-
-    .landingss-slide2 {
-        width: 150px;
-        //position: absolute;
-        top: 20px;
-
-        .landingss-title {
-            background-color: red;
-        }
     }
 }

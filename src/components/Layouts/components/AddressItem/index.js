@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 function AddressItem({ data }) {
     return (
         <Link to={`/address/${data.address_id}`} className={cx('wrapper')}>
-            {data.address_image && <img className={cx('avatar')} src={data.address_image} />}
             <div className={cx('info')}>
                 <p className={cx('name')}>
                     <span>

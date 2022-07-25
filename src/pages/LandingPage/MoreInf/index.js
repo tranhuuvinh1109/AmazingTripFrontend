@@ -4,19 +4,29 @@ import { Animator, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, 
 
 const data = [
     {
-        imgPath: 'https://digialai.com/dlg_media/2021/08/01-top-10-diem-den-du-lich-chup-anh-dep-nhat-viet-nam-hoi-an-1024x678.jpg',
+        address_name: 'Đà Nẵng',
+        imgPath: 'https://images.pexels.com/photos/3355788/pexels-photo-3355788.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        address_discount: '70',
     },
     {
-        imgPath: 'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
+        address_name: 'Quảng Ninh',
+        imgPath: 'https://images.pexels.com/photos/9578724/pexels-photo-9578724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        address_discount: '60',
     },
     {
-        imgPath: 'https://media-cdn-v2.laodong.vn/storage/newsportal/2017/8/28/551691/Du-Lich_1.jpg',
+        address_name: 'Hội An',
+        imgPath: 'https://images.pexels.com/photos/9839859/pexels-photo-9839859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        address_discount: '50',
     },
     {
-        imgPath: 'https://linhhungtourist.com.vn/wp-content/uploads/2019/03/1551111810-291-2-1551079327-width650height433.jpg',
+        address_name: 'Huế',
+        imgPath: 'https://images.pexels.com/photos/3889928/pexels-photo-3889928.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        address_discount: '30',
     },
     {
-        imgPath: 'https://media.vov.vn/uploaded/ja7idye43pa/2017_07_23/hoi_an_lot_top_anh_dep_du_lich_the_gioi_1_jvin.jpg',
+        address_name: 'Nha Trang',  
+        imgPath: 'https://images.pexels.com/photos/2303781/pexels-photo-2303781.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        address_discount: '10',
     },
 ]
 
@@ -94,7 +104,15 @@ function MoreInf() {
                         {data?.map((each, index) => (
                             <div className='moreinf-each-slide' key={index}>
                                 <img src={each.imgPath} />
+                                <div className='moreinf-card-des'>
+                                    <h5>{each?.address_name}</h5>
+                                    <span className='moreinf-discount'>
+                                        {each.address_discount}
+                                        <i className="fa-duotone fa-percent"></i>
+                                    </span>
+                                </div>
                             </div>
+
                         ))}
                     </Slider>
                 </div>

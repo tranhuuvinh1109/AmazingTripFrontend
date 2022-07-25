@@ -15,7 +15,7 @@ function LandingPage() {
         <div className={cx('main-content')}>
             <ScrollContainer>
                 <ScrollPage page={0}>
-                    <Animator animation={batch(Fade())}>
+                    <Animator animation={batch(MoveOut(0, 500))}>
                         <SlideShow />
                     </Animator>
                 </ScrollPage>

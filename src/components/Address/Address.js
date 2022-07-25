@@ -32,7 +32,6 @@ function Address({ address, type, role }) {
                 </Link>
             ) : (
                 <Link to={"/address/" + address.address_id}>
-                    {console.log(image)}
                     <img src={image} alt="Image" />
                 </Link>
             )}
