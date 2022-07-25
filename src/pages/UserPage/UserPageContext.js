@@ -8,7 +8,7 @@ function UserPageProvider({ children }) {
     const [userData, setUserData] = useState([]);
     const [postData, setPostData] = useState([]);
     const [followCheck, setFollowCheck] = useState(false);
-
+    const [old, setOld] = useState(true);
     const [commentsBlog, setCommentsBlog] = useState([]);
 
     // Reset post Data after
@@ -55,6 +55,8 @@ function UserPageProvider({ children }) {
 
 
     const value = {
+        old,
+        setOld,
         userData,
         setUserData,
         userAva,

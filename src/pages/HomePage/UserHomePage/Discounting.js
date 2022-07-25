@@ -5,9 +5,6 @@ import removeCookie from "../../../hooks/removeCookie";
 import Slider from "react-slick";
 import getCookie from "../../../hooks/getCookie";
 import http from "../../../http";
-import Following from "./Following";
-import Discounting from "./Discounting";
-import MostFollower from "./MostFollower";
 
 const userData = JSON.parse(getCookie("userin"));
 
@@ -45,21 +42,12 @@ const settings = {
     prevArrow: <PrevArrow />,
 };
 
-function UserHomePage() {
-    const navigate = useNavigate();
-    const handlerLogout = () => {
-        removeCookie("userin");
-        toast.info("Đăng xuất thành công !!!", {
-            toastId: 1,
-        });
-        navigate("/landing");
-    };
-
+function Discounting() {
     const [followings, setFollowings] = useState([]);
 
     useEffect(() => {
         let fetch = async () => {
-            let addresses = await http.get(`/bookmark/${userData.id}`);
+            let addresses = await http.get(`/listaddressbydiscount`);
             setFollowings(addresses.data.data);
         };
         fetch();
@@ -67,20 +55,21 @@ function UserHomePage() {
 
     return (
         <>
-            {/* <div style={{ height: "1000px" }}>
-                <h1>
-                    <Link to >User Home Page</Link>
-                    <br />
-                    <Link to="/listAddresses">Danh sách địa điểm</Link>
-                    <br />
-                    <button onClick={() => handlerLogout()}>Đăng xuất</button>
-                    <br />
-                </h1>
-            </div> */}
+            <div>
+                <div>
+                    <h1>Đang theo dõi</h1>
 
-            <Following />
+                    <Slider {...settings}>
+                        {followings.map((address, index) => (
+                            <div className="moreinf-each-slide" key={index}>
+                                <img src={address.address_name} />
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
+            </div>
         </>
     );
 }
 
-export default UserHomePage;
+export default Discounting;

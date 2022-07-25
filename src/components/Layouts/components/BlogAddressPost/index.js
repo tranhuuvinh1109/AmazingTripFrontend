@@ -18,6 +18,7 @@ import { MessageContext } from '../../../../context/MessageContext';
 import { db } from '../../../../firebase';
 import firebase from '../../../../firebase';
 import getCookie from '../../../../hooks/getCookie';
+import { UserPageContext } from '../../../../pages/UserPage/UserPageContext';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,8 @@ function BlogAddressPost({ postData, slideShow }) {
     const [ava, setAva] = useState('');
     const [blogImg, setBlogImg] = useState('');
     const stars = Array(5).fill(0);
+
+    const userContext = useContext(UserPageContext);
 
     const avatarData = {
         avatar: ava,
@@ -56,7 +59,8 @@ function BlogAddressPost({ postData, slideShow }) {
         }
     }
 
-    const handleReport = () => {
+    //console.log(postData);
+    const handleReport = async () => {
         try {
             let resJSON ;
             const res = getCookie('userin');
@@ -64,15 +68,21 @@ function BlogAddressPost({ postData, slideShow }) {
                 resJSON = JSON.parse(res)
             console.log(postData);
             const query = db.collection('notifications');
+            //console.log(userContext.userData)
             query.add({
                 user1: resJSON.id,
-                user2: [2],
-                user2name: 'dick head',
+                user2: [postData.id],
+                user1name: resJSON.nickname,
+                user2name: postData.nickname,
+                user1ava: resJSON.avatar,
+                user2ava: postData.avatar,
+                blog_address_id: postData.blog_address_id, 
                 content: 'Bài viết bị báo cáo',
+                type: -1,
                 seen: 0,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             });
-            toast.warning('Bài viết đã bị báo cáo !!!', {
+            toast.warning('Bài viết về địa điểm đã bị báo cáo !!!', {
                 toastId: 1,
             });
         } catch (error) {

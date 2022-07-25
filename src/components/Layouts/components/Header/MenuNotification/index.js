@@ -41,7 +41,7 @@ function MenuNotification() {
                                             {each.time}
                                         </span>
                                     </>
-                                ) : (
+                                ) : each.type===-1 ? (
                                     <>
                                         Bài viết của bạn ở
                                         <span className={cx('address')}>
@@ -56,7 +56,20 @@ function MenuNotification() {
                                             {each.time}
                                         </span>
                                     </>
-                                )}
+                                ): (<>
+                                    Bạn
+                                    <span className={cx('address')}>
+                                        {each.address_name}
+                                    </span>
+                                    đã bị báo cáo 
+                                    <span className={cx('report')}>
+                                        do có hành vi không phù hợp !!!
+                                    </span>
+                                    <br />
+                                    <span className={cx('time')}>
+                                        {each.time}
+                                    </span>
+                                </>) }
                             </button>
                         </li>
                     ))

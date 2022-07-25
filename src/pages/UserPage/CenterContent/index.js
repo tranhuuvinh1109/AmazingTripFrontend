@@ -6,6 +6,11 @@ import UserPagePost from '../../../components/Layouts/components/UserPagePost';
 import { CommentProvider } from '../../../components/Layouts/components/UserPagePost/ReactComment/CommentContext';
 import getCookie from '../../../hooks/getCookie';
 import { GlobalContext } from '../../../context/GlobalContext';
+import { db } from '../../../firebase';
+import { MessageContext } from '../../../context/MessageContext';
+import { setLogLevel } from 'firebase/app';
+import firebase from '../../../firebase';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -13,14 +18,43 @@ function CenterContent() {
     const globalContext = useContext(GlobalContext);
     const context = useContext(UserPageContext);
     const userData = JSON.parse(getCookie('userin'));
-
+    const {rooms , selectedRoom, setSelectedRoom, messages} = useContext(MessageContext);
     const handleChating = () => {
-        globalContext.setShowChatBox(true);
         console.log(context.userData);
+        let room =  rooms.find(each => each.members.includes(userData.id) && each.members.includes(context.userData.id))
+        if(room) {
+            setSelectedRoom(room);
+        } else {
+            context.setOld(false);
+        }
+        globalContext.setShowChatBox(true);
     }
-
-    const handleReport = () => {
-
+    console.log(context.old);
+    const handleReport = async () => {
+        try {
+            let resJSON ;
+            const res = getCookie('userin');
+            if(res)
+                resJSON = JSON.parse(res)
+            const query = db.collection('notifications');
+            //console.log(userContext.userData)
+            query.add({
+                user1: resJSON.id,
+                user2: [context.userData.id],
+                user1name: userData.nickname,
+                user2name: context.userData.nickname,
+                user1ava: userData.avatar,
+                user2ava: context.userData.avatar,
+                type: 0,
+                seen: 0,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            toast.warning('Người dùng đã bị báo cáo !!!', {
+                toastId: 1,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

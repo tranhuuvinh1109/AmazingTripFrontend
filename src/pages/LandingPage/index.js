@@ -10,9 +10,7 @@ import { ScrollContainer, ScrollPage, Animator, batch, Fade, FadeIn, FadeOut, Mo
 
 const cx = classNames.bind(styles);
 
-
 function LandingPage() {
-
     return (
         <div className={cx('main-content')}>
             <ScrollContainer>
@@ -86,7 +84,7 @@ function LandingPage() {
                 </ScrollPage>
             </ScrollContainer>
         </div>
-    )
+    );
 }
 
 export default LandingPage;

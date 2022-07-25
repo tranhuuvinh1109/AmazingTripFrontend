@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const addressApi = {
     getAll: () => {
-        const url = `/address`;
+        const url = `/addresses`;
         return axiosClient.get(url);
     },
     get: (address_id, user_id) => {
@@ -19,6 +19,10 @@ const addressApi = {
     },
     getHost: (address_id, user_id) => {
         const url = `/address_by_host/${address_id}/${user_id}`;
+        return axiosClient.get(url);
+    },
+    getBookmarked: (user_id) => {
+        const url = `/bookmark/${user_id}`;
         return axiosClient.get(url);
     }
 }
