@@ -9,8 +9,7 @@ const cx = classNames.bind(styles);
 
 function HostPage() {
 	const context = useContext(AddressHostPageContext);
-
-
+	console.log(context.addressData);
 	return (
 		<>
 			<div className={cx('left-content')}>

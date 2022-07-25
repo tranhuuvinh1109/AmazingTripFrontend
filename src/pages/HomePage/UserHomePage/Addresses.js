@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./UserListAddresses.module.scss";
 import { useState } from "react";
 import { useEffect } from "react";
-import { GlobalContext } from '../../../context/GlobalContext';
+import { GlobalContext } from "../../../context/GlobalContext";
 import http from "../../../http";
 import Slider from "react-slick";
 import Address from "../../../components/Address/Address";
@@ -55,46 +55,36 @@ const settings = {
     prevArrow: <SamplePrevArrow />,
 };
 
-function Following() {
-    const globalContext = useContext(GlobalContext);
+function Addresses() {
     const [mostFollows, setmostFollows] = useState([]);
+    const globalContext = useContext(GlobalContext);
     const [discounts, setDiscounts] = useState([]);
     useEffect(() => {
         let fetch = async () => {
-            let addresses = await http.get(`/listaddressbybookmark`);
-            setmostFollows(addresses.data.data);
+            let addressesBm = await http.get(`/listaddressbybookmark`);
+            setmostFollows(addressesBm.data.data);
+            let addressesDc = await http.get(`/listaddressbydiscount`);
+            setDiscounts(addressesDc.data.data);
         };
         fetch();
     }, []);
 
-
-
-    
-
-  
     return (
         <div className={cx("userListAddresses")}>
             <div className={cx("lists")}>
                 <div className={cx("category")}>
                     <span className={cx("title")}>Đang theo dõi</span>
-                    {/* <Link to={"/followingAddresses/" + userData.id}>
-                        <span className={cx("more")}>Xem thêm</span>
-                    </Link> */}
                     <hr />
                 </div>
-
                 <Slider {...settings}>
                     {globalContext.bookmarkData?.map((following, index) => (
-                        <Address key={index} address={following} />
+                        <Address key={index} address={following} type="1" />
                     ))}
                 </Slider>
             </div>
             <div className={cx("lists")}>
                 <div className={cx("category")}>
                     <span className={cx("title")}>Theo dõi nhiều nhất</span>
-                    <Link to={"/mostFollowAddresses" }>
-                        {/* <span className={cx("more")}>Xem thêm</span> */}
-                    </Link>
                     <hr />
                 </div>
                 <Slider {...settings}>
@@ -107,22 +97,22 @@ function Following() {
             <div className={cx("lists")}>
                 <div className={cx("category")}>
                     <span className={cx("title")}>Đang khuyến mãi</span>
-                    <Link to={"/discountAddresses"}>
-                        {/* <span className={cx("more")}>Xem thêm</span> */}
-                    </Link>
+                    <Link to={"/discountAddresses"}></Link>
                     <hr />
                 </div>
 
-                {discounts.length === 0 ? <h3>Chưa có địa điểm giảm giá</h3> :  <Slider {...settings}>
-                    {discounts?.map((following, index) => (
-                        <Address key={index} address={following} />
-                    ))}
-                </Slider> }
-
-               
+                {discounts.length === 0 ? (
+                    <h3>Chưa có địa điểm giảm giá</h3>
+                ) : (
+                    <Slider {...settings}>
+                        {discounts?.map((following, index) => (
+                            <Address key={index} address={following} type="3" />
+                        ))}
+                    </Slider>
+                )}
             </div>
         </div>
     );
 }
 
-export default Following;
+export default Addresses;
