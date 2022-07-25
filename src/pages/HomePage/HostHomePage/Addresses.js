@@ -7,8 +7,6 @@ import Slider from "react-slick";
 import Address from "../../../components/Address/Address";
 import { Link } from "react-router-dom";
 import getCookie from "../../../hooks/getCookie";
-import { AddressHostPageContext } from "../../AddressPage/AddressHostPage/AddressHostPageContext";
-import { useContext } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -92,7 +90,7 @@ function Addresses() {
                 </div>
                 {addresses.length === 0 ? (
                     <>
-                        <Link to={"/createAddress/" + userid}>
+                        <Link to={"/createAddress/" + userData.id}>
                             <h3
                                 style={{
                                     marginLeft: "50px",
@@ -109,11 +107,11 @@ function Addresses() {
                         <h3> địa điểm đầu tiên của bạn</h3>
                     </>
                 ) : (
-                    <>
+                    <div className={cx('address-list')}>
                         {addresses?.map((address, index) => (
                             <Address key={index} address={address} type="1" role="1" />
                         ))}
-                    </>
+                    </div>
                 )}
             </div>
             <div className={cx("lists")}>
