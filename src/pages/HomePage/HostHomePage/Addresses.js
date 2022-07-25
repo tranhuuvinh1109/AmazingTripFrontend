@@ -7,6 +7,8 @@ import Slider from "react-slick";
 import Address from "../../../components/Address/Address";
 import { Link } from "react-router-dom";
 import getCookie from "../../../hooks/getCookie";
+import { AddressHostPageContext } from "../../AddressPage/AddressHostPage/AddressHostPageContext";
+import { useContext } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +61,6 @@ function Addresses() {
     const [discounts, setDiscounts] = useState([]);
     const [addresses, setAddresses] = useState([]);
     const [mostFollows, setmostFollows] = useState([]);
-    console.log("ko ok");
     useEffect(() => {
         let fetch = async () => {
             let addressesBm = await http.get(`/listaddressbybookmark`);
@@ -77,7 +78,6 @@ function Addresses() {
     useEffect(() => {
         let fetch = async () => {
             let addressesHost = await http.get(`/addressHost/${userData.id}`);
-            console.log(addressesHost.data.data);
             setAddresses(addressesHost.data.data);
         };
         fetch();
@@ -90,7 +90,7 @@ function Addresses() {
                     <span className={cx("title")}>Địa điểm của bạn</span>
                     <hr />
                 </div>
-                {/* {addresses.length === 0 ? (
+                {addresses.length === 0 ? (
                     <>
                         <Link to={"/createAddress/" + userid}>
                             <h3
@@ -108,11 +108,13 @@ function Addresses() {
                         </Link>
                         <h3> địa điểm đầu tiên của bạn</h3>
                     </>
-                ) : ( */}
-
-                {addresses?.map((address, index) => (
-                    <Address key={index} address={address} type="1" role='1'/>
-                ))}
+                ) : (
+                    <>
+                        {addresses?.map((address, index) => (
+                            <Address key={index} address={address} type="1" role="1" />
+                        ))}
+                    </>
+                )}
             </div>
             <div className={cx("lists")}>
                 <div className={cx("category")}>

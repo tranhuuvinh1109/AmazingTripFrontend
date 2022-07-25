@@ -35,16 +35,7 @@ function LandingPage() {
                 </div>
                 <div className={cx("content")}>
                     <div className={cx("each-content")}>
-                        {/* <div>
-                            <div>
-                                <img src="" alt="" />
-                                <span></span>
-                            </div>
-                            <div>
-                                <h6></h6>
-                                <p></p>
-                            </div>
-                        </div> */}
+                        
                     </div>
                 </div>
             </div>

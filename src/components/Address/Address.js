@@ -27,8 +27,7 @@ function Address({ address, type, role }) {
     return (
         <div className={cx("address")}>
             {role == 1 ? (
-                <Link to={"/host/address/" + address.address_id}>
-                    {console.log(image)}
+                <Link to={"/address/" + address.address_id}>
                     <img src={image} alt="Image" />
                 </Link>
             ) : (
@@ -37,6 +36,8 @@ function Address({ address, type, role }) {
                     <img src={image} alt="Image" />
                 </Link>
             )}
+
+            
 
             <h3>{name}</h3>
             {type == "1" ? (
