@@ -8,7 +8,7 @@ function HomePage() {
     return ( 
         <>
             {userData.role == '1' ? 
-                <HostHomePage />
+                <HostHomePage  />
                 :
                 <UserHomePage />
             }

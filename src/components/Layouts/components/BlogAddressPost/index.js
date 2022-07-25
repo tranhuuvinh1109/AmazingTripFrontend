@@ -59,7 +59,6 @@ function BlogAddressPost({ postData, slideShow }) {
         }
     }
 
-    //console.log(postData);
     const handleReport = async () => {
         try {
             let resJSON ;
@@ -76,6 +75,8 @@ function BlogAddressPost({ postData, slideShow }) {
                 user2name: postData.nickname,
                 user1ava: resJSON.avatar,
                 user2ava: postData.avatar,
+                address_id: context.addressData?.address_id,
+                address_name: context.addressData?.address_name,
                 blog_address_id: postData.blog_address_id, 
                 content: 'Bài viết bị báo cáo',
                 type: -1,

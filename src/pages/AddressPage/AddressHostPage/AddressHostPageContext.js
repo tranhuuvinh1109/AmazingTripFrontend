@@ -7,7 +7,6 @@ function AddressHostPageProvider({ children }) {
     const [addressData, setAddressData] = useState({});
     const [discountData, setDiscountData] = useState({});
 
-
     const value = {
         addressData,
         setAddressData,

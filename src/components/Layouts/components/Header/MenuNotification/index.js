@@ -41,7 +41,7 @@ function MenuNotification() {
                                             {each.time}
                                         </span>
                                     </>
-                                ) : each.type===-1 ? (
+                                ) : each.type === -1 ? (
                                     <>
                                         Bài viết của bạn ở
                                         <span className={cx('address')}>

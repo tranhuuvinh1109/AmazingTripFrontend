@@ -18,6 +18,8 @@ import Register from '../pages/AuthPage/Register';
 import ListAddresses from '../pages/ListAddresses';
 import HomePage from '../pages/HomePage';
 import AddressPage from '../pages/AddressPage';
+import HostPage from '../pages/AddressPage/AddressHostPage/HostPage';
+import AddressHostPage from '../pages/AddressPage/AddressHostPage';
 
 // Provider
 import { UserPageProvider } from '../pages/UserPage/UserPageContext';
@@ -51,6 +53,7 @@ const privateRoutes = [
     { path: '/createAddress/:id', component: CreateAddress, layout: DefaultLayout, provider: BlogAddressProvider },
     { path: '/updateAddress', component: UpdateAdress, layout: DefaultLayout },
     { path: '/addSale/:id', component: Sale, layout: DefaultLayout },
+    // { path: '/addresshost/:id', component: AddressHostPage, layout: DefaultLayout },
 
     { path: '/listAddresses', component: ListAddresses, layout: DefaultLayout },
     { path: '/address/:id', component: AddressPage, layout: DefaultLayout, provider: BlogAddressProvider},
