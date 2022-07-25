@@ -1,7 +1,8 @@
 import Slider from "react-slick";
 import './MoreInf.scss';
+import { Animator, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 
-const img = [
+const data = [
     {
         imgPath: 'https://digialai.com/dlg_media/2021/08/01-top-10-diem-den-du-lich-chup-anh-dep-nhat-viet-nam-hoi-an-1024x678.jpg',
     },
@@ -57,10 +58,11 @@ function MoreInf() {
 
     const settings = {
         infinite: true,
+        lazyLoad: true,
         pauseOnHover: false,
         autoplay: true,
         speed: 500,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 2000,
         slidesToShow: 4,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
@@ -70,25 +72,33 @@ function MoreInf() {
     return (
         <div className='moreinf-container'>
             <div className='moreinf-heading'>
-                <h2 className='moreinf-title'>
-                    Đang giảm giá
-                </h2>
-                <span className='moreinf-line'></span>
-                <h5 className='moreinf-subtitle'>
-                    Những khuyến mãi cực khủng
-                    <br />
-                    đang chờ đón bạn, còn ngại ngần gì mà không đăng ký ngay !
-                </h5>
+                <Animator animation={batch(Fade(), MoveIn(-500, 0))}>
+                    <h2 className='moreinf-title'>
+                        Đang giảm giá
+                    </h2>
+                </Animator>
+                <Animator animation={batch(Fade())}>
+                    <span className='moreinf-line'></span>
+                </Animator>
+                <Animator animation={batch(Fade(), MoveIn(500, 0))}>
+                    <h5 className='moreinf-subtitle'>
+                        Những khuyến mãi cực khủng
+                        <br />
+                        đang chờ đón bạn, còn ngại ngần gì mà không đăng ký ngay !
+                    </h5>
+                </Animator>
             </div>
-            <div className='moreinf-content'>
-                <Slider {...settings}>
-                    {img?.map((each, index) => (
-                        <div className='moreinf-each-slide' key={index}>
-                            <img src={each.imgPath} />
-                        </div>
-                    ))}
-                </Slider>
-            </div>
+            <Animator animation={batch(Fade(), MoveIn(0, 1000), MoveOut(0, -500))}>
+                <div className='moreinf-content'>
+                    <Slider {...settings}>
+                        {data?.map((each, index) => (
+                            <div className='moreinf-each-slide' key={index}>
+                                <img src={each.imgPath} />
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
+            </Animator>
         </div>
     );
 }

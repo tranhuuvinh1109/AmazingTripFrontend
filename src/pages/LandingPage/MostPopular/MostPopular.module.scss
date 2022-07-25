@@ -1,5 +1,8 @@
 .container {
-    h2, h5 {
+    margin-top: 80px;
+
+    h2,
+    h5 {
         text-align: center;
         color: var(--background-dark-blue);
         margin: 0;
@@ -17,7 +20,7 @@
             min-height: 3px;
             background-color: #3DA9FC;
             border-radius: 50px;
-            margin: 5px 0;
+            margin-bottom: 10px;
         }
 
         .title {
@@ -28,7 +31,7 @@
         .subtitle {
             font-size: 18px;
             color: #5F6C7B !important;
-            margin-top: 15px;
+            margin-bottom: 15px;
         }
     }
 
@@ -38,9 +41,9 @@
         padding: 20px 120px;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-areas: 
-        "card-1 card-2 card-3 card-3"
-        "card-1 card-4 card-4 card-5";
+        grid-template-areas:
+            "card-1 card-2 card-3 card-3"
+            "card-1 card-4 card-4 card-5";
         gap: 15px;
 
         div {
@@ -55,24 +58,76 @@
         }
 
         .card-1 {
+            position: relative;
             max-height: 515px;
             grid-area: card-1;
         }
+
         .card-2 {
+            position: relative;
             max-height: 250px;
             grid-area: card-2;
         }
+
         .card-3 {
+            position: relative;
             max-height: 250px;
             grid-area: card-3;
         }
+
         .card-4 {
+            position: relative;
             max-height: 250px;
             grid-area: card-4;
         }
+
         .card-5 {
+            position: relative;
             max-height: 250px;
             grid-area: card-5;
+        }
+
+        .card-des {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba($color: #000000, $alpha: 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            h5 {
+                font-weight: bold;
+                font-size: 24px;
+                color: white;
+                text-align: left;
+            }
+
+            .card-line {
+                display: inline-block;
+                min-width: 100%;
+                min-height: 2px;
+                background-color: white;
+                border-radius: 50px;
+                margin: 10px 0;
+            }
+
+
+            .card-vote {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                span {
+                    color: white;
+                    font-size: 18px;
+                    margin-right: 5px;
+                    margin-top: 5px;
+                }
+            }
         }
     }
 }

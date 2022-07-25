@@ -13,5 +13,9 @@ const bookmarkApi = {
         const url = `/bookmark/${user_id}`;
         return axiosClient.get(url);
     },
+    getUser: (id) => {
+        const url = `/userBookmark/${id}`;
+        return axiosClient.get(url);
+    }
 }
 export default bookmarkApi;

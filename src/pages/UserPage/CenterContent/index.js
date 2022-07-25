@@ -16,6 +16,7 @@ function CenterContent() {
 
     const handleChating = () => {
         globalContext.setShowChatBox(true);
+        console.log(context.userData);
     }
 
     const handleReport = () => {

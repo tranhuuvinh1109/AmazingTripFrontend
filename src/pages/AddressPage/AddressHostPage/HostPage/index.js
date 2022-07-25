@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './HostPage.module.scss';
 import { AddressHostPageContext } from '../AddressHostPageContext';

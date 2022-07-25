@@ -1,13 +1,14 @@
 .main-content {
 
-    .most-popular,
-    .more-inf {
-        margin-top: 100px;
-    }
+    // .most-popular,
+    // .more-inf {
+    //     //margin-top: 100px;
+    // }
 }
 
 
 .what-find {
+    margin-top: 100px;
 
     h2,
     h5 {
@@ -45,6 +46,53 @@
             font-size: 18px;
             color: #5F6C7B !important;
             margin-top: 15px;
+        }
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 100px 200px;
+
+
+        .each-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            height: 260px;
+            box-shadow: 5px 5px 16px 0px rgba(0,0,0,0.09);
+
+            .heading {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    object-fit: contain;
+                }
+
+                h1 {
+                    margin-right: 20px;
+                    font-weight: bold;
+                    font-size: 60px;
+                    margin-bottom: 0;
+                    color: rgba($color: #CCCCCC, $alpha: 0.4);
+                }
+            }
+
+            h3 {
+                font-weight: bold;
+            }
+
+            p {
+                width: 220px;
+                color: rgba($color: #000000, $alpha: 0.52);
+            }
         }
     }
 }

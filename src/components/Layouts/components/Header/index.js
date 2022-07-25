@@ -13,6 +13,7 @@ import { MessageContext } from '../../../../context/MessageContext';
 import MenuUser from './MenuUser';
 import MenuNotification from './MenuNotification';
 import MenuMessgae from './MenuMessage';
+import Search from '../Search';
 
 const cx = classNames.bind(styles);
 
@@ -96,15 +97,7 @@ function Header() {
                         <span>Quay lại</span>
                     </button>
                 </div>
-                <div className={cx('search-bar')}>
-                    <form action="#" className={cx('input-group')}>
-                        <div className={cx('d-sm-flex align-items-center')}>
-                            <span className={cx('search-icon')}><i className={cx('fa-solid fa-magnifying-glass me-sm-2')}></i></span>
-                            <input className={cx('flex-grow-1')} type="text" placeholder="Nơi bạn muốn tới..." />
-                            <span className={cx('delete-icon')}><i className={cx('fa-solid fa-xmark ps-2')}></i></span>
-                        </div>
-                    </form>
-                </div>
+                <Search />
                 {
                     userData !== '' ? (
                         <ul className={cx('list-unstyled d-sm-flex align-items-center m-0 nav-left-group')}>

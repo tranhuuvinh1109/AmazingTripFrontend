@@ -2,43 +2,61 @@
 import { Wrapper as PopperWrapper } from '../../Popper';
 import { useEffect, useState, useRef } from 'react';
 import AccountItem from '../AccountItem';
+import AddressItem from '../AddressItem';
 import Tippy from '@tippyjs/react/headless';
 
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
+import getImage from '../../../../hooks/getImage';
+import useDebounce from '../../../../hooks/useDebounce';
 
 const cx = classNames.bind(styles)
 function Search() {
 
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const [searchAddressResult, setSearchAddressResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
-
+    const debounced = useDebounce(searchValue, 500)
 
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([])
+            setSearchAddressResult([])
             return;
         }
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`http://localhost:8000/api/search=${encodeURIComponent(debounced)}`)
             .then((res) => res.json())
             .then((res) => {
-                setSearchResult(res.data);
+                // res.user?.map( async (each) => {
+                //     if (each.avatar !== null) {
+                //         const image = await getImage(each.avatar);
+                //         each.avatar = image;
+                //     }
+                // })
+                // if (res.address_image !== null) {
+                //     const image = await getImage(res.address_image);
+                //     res.address_image = image;
+                // }
+                setSearchResult(res.user);
+                setSearchAddressResult(res.address)
                 setLoading(false);
             })
-            .catch(() => {
+            .catch((error) => {
                 setLoading(false);
+                console.log(error);
             });
-    }, [searchValue])
+    }, [debounced])
     const handleClear = () => {
         setSearchValue('');
         setSearchResult([]);
+        setSearchAddressResult([]);
         inputRef.current.focus();
     };
 
@@ -48,16 +66,38 @@ function Search() {
     return (
         <Tippy
             interactive
-            visible={showResult && searchResult.length > 0}
+            visible={showResult && searchResult?.length > 0 || searchAddressResult?.length > 0}
             render={attrs => (
                 <PopperWrapper>
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <div className={cx('search-title')}>
-                            Accounts
-                        </div>
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
-                        ))}
+                        {
+                            searchResult &&
+                            <>
+                                <div className={cx('search-title')}>
+                                    Accounts
+                                </div>
+
+                                {searchResult.map((result) => (
+                                    // console.log(result)
+                                    < AccountItem key={result.id} data={result} />
+                                ))}
+                            </>
+                        }
+
+
+                        {
+                            searchAddressResult && 
+                            <>
+                                <div className={cx('search-title')}>
+                                    Address
+                                </div>
+                                
+                                {searchAddressResult.map((result) => (
+                                    // console.log(result)
+                                    < AddressItem key={result.address_id} data={result} />
+                                ))}
+                            </>
+                        }
                     </div>
                 </PopperWrapper>
             )}

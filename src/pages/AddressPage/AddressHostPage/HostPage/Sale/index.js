@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Form.module.scss';
@@ -8,6 +8,7 @@ import getCookie from "../../../../../hooks/getCookie";
 import discountApi from '../../../../../api/discountApi';
 import { db } from '../../../../../firebase';
 import firebase from '../../../../../firebase';
+import bookmarkApi from '../../../../../api/bookmarkApi';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,7 @@ const cx = classNames.bind(styles);
 function CreateAddress() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [userBookmark, setUserBookmark] = useState([]);
 
 	const [inputData, setInputData] = useState({
 		address_id: id,
@@ -33,22 +35,22 @@ function CreateAddress() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
         try {
-			const res = await discountApi.post(inputData);
-			let resJSON ;
-            const rest = getCookie('userin');
-            if(rest)
-                resJSON = JSON.parse(rest)
-			console.log(resJSON);
-            const query = db.collection('notifications');
-            query.add({
-                user1: resJSON.id,
-                user2: [2,3,4,5,6,7,15],
-                user2name: 'dick head',
-                content: 'Địa điểm bạn quan tâm đang có ưu đãi, đến xem ngay!',
-                address: inputData.address_id,
-                seen: 0,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            });
+			await discountApi.post(inputData);
+			if(userBookmark?.length!=0){
+                const userData = JSON.parse(getCookie('userin'));
+				let registers1 = userBookmark?.map(register=>register.id_user)
+                const query = db.collection('notifications');
+                query.add({
+                    user1: userData.id,
+                    user2: registers1,
+                    content: 'Địa điểm bạn quan tâm đang có ưu đãi, đến xem ngay!',
+                    address_id: inputData.address_id,
+					address_name: userBookmark[0].address_name,
+					type: 1,
+                    seen: 0,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                });
+			}
 			toast.success('Thêm giảm giá thành công !!!', {
 				toastId: 1,
 			});
@@ -57,6 +59,18 @@ function CreateAddress() {
 			console.log('Toang meo chay r loi cc: ', error);
 		}
     }
+
+	useEffect(() => {
+		const fetchAddressData = async () => {
+			try {
+				const res = await bookmarkApi.getUser(id);
+				setUserBookmark(res.data);
+			} catch (error) {
+			}
+		};
+
+		fetchAddressData();
+	}, []);
 
 
 	return (

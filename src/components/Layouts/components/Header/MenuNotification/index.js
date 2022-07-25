@@ -7,52 +7,6 @@ import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 
-
-const data = [
-    {
-        id: 1,
-        address_name: 'Hội An',
-        address_id: 1,
-        type: 1,
-        time: 'vài phút trước'
-    },
-    {
-        id: 2,
-        address_name: 'Đà nẵng',
-        address_id: 2,
-        type: 2,
-        time: 'vài phút trước'
-    },
-    {
-        id: 3,
-        address_name: 'Quảng Ninh',
-        address_id: 3,
-        type: 2,
-        time: 'vài phút trước'
-    },
-    {
-        id: 4,
-        address_name: 'Nghệ An',
-        address_id: 4,
-        type: 1,
-        time: 'vài phút trước'
-    },
-    {
-        id: 5,
-        address_name: 'Hải Phòng',
-        address_id: 4,
-        type: 2,
-        time: 'vài phút trước'
-    },
-    {
-        id: 6,
-        address_name: 'Hà Nội',
-        address_id: 4,
-        type: 2,
-        time: 'vài phút trước'
-    },
-]
-
 function MenuNotification() {
     const navigate = useNavigate();
 
