@@ -1,3 +1,6 @@
+If you want to travel but have limited funds, you want to go on a tour, want to go with strangers. Come to our website. We will suggest you famous, affordable tourist destinations, with the opportunity to make many friends. Welcome to AmazingTrip. A product of the team 成長
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
